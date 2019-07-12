@@ -17,7 +17,7 @@ Namespace Controllers
         End Function
 
         ' POST: api/PedidoProduto
-        Public Function PostValue(<FromBody()> ByVal value As Object) As String
+        Public Function PostValue(<FromBody()> ByVal value As Object) As List(Of ControleCodigo)
 
             Dim dados As New OleDbConnection
             Dim comando As New OleDbCommand
@@ -38,10 +38,12 @@ Namespace Controllers
             Try
                 listaPedido = JsonConvert.DeserializeObject(Of List(Of PedidoProduto))(json)
                 For i = 0 To listaPedido.Count - 1
+                    Dim controleCodigo = New ControleCodigo
                     dados.Open()
                     pedidoproduto = New PedidoProduto
 
                     pedidoproduto = listaPedido(i)
+                    pedidoproduto.Eminota = True
                     insert = RetornaInsert(fieldList, pedidoproduto, "[Pedido Produto]")
                     insert = insert.Replace("Codproduto", "[Cód Produto]")
                     insert = insert.Replace("Codpedido", "[Cód Pedido]")
@@ -57,17 +59,24 @@ Namespace Controllers
                     'da = New OleDbDataAdapter(comando)
                     'da.Fill(ds, "Pedido")
                     'comando.Dispose()
-                    'controleCodigo.CodigoAndroid = pedido.Pedido
-                    'controleCodigo.CodigoBanco = ds.Tables(0).Rows(0)("Pedido")
+                    controleCodigo.CodigoAndroid = pedidoproduto.Pedido
+                    controleCodigo.CodigoBanco = ds.Tables(0).Rows(0)("Pedido")
                     'ds.Dispose()
                     'ds = Nothing
                     'da.Dispose()
                     'da = Nothing
                     'dados.Close()
+                    listcontrolecodigo.Add(controleCodigo)
                 Next
 
-                Return "nada"
+                Return listcontrolecodigo
             Catch ex As Exception
+                Dim controleCodigo = New ControleCodigo
+                controleCodigo.CodigoAndroid = 0
+                controleCodigo.CodigoBanco = 0
+                controleCodigo.Mensagem = ex.Message
+                listcontrolecodigo.Add(controleCodigo)
+                Return listcontrolecodigo
                 Console.WriteLine(ex.Message)
             End Try
         End Function

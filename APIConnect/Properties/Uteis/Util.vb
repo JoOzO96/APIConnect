@@ -89,7 +89,6 @@ Module Util
         insert = "INSERT INTO " & tabela & "("
 
         If tabela = "Pedido" Then
-
             For i = 0 To field.Count - 1
                 If field(i).Name = "Pedido" Then
                     field.RemoveAt(i)
@@ -100,7 +99,6 @@ Module Util
         End If
 
         If tabela = "Cliente" Then
-
             For i = 0 To field.Count - 1
                 If field(i).Name = "codigo" Then
                     field.RemoveAt(i)
@@ -111,7 +109,6 @@ Module Util
         End If
 
         If tabela = "[Pedido Produto]" Then
-
             For i = 0 To field.Count - 1
                 If field(i).Name = "Conta" Then
                     field.RemoveAt(i)
@@ -120,6 +117,16 @@ Module Util
             Next
 
         End If
+        If tabela = "[Nota Produto]" Then
+            For i = 0 To field.Count - 1
+                If field(i).Name = "Auto" Then
+                    field.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+
+        End If
+
 
 
 

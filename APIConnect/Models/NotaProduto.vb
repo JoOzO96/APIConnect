@@ -4,7 +4,7 @@
     Private _codigo As String
     Private _auto As Long
     Private _quantidade As Double
-    Private _valorunitário As Double
+    Private _valorunitario As Double
     Private _valortotal As Double
     Private _valornota As Double
     Private _valoripi As Double
@@ -23,7 +23,7 @@
     Private _descri As String
     Private _vfrete As Double
     Private _codtipo As Byte
-    Private _códpis As String
+    Private _codpis As String
     Private _porpis As Single
     Private _codcofins As String
     Private _porcofins As Single
@@ -43,7 +43,7 @@
     Private _comple As String
     Private _ncmproduto As String
 
-    Public Property Codnota As String
+    Public Property codnota As String
         Get
             Return _codnota
         End Get
@@ -52,7 +52,7 @@
         End Set
     End Property
 
-    Public Property Codemitente As Long
+    Public Property codemitente As Long
         Get
             Return _codemitente
         End Get
@@ -61,7 +61,7 @@
         End Set
     End Property
 
-    Public Property Codigo As String
+    Public Property codigo As String
         Get
             Return _codigo
         End Get
@@ -79,7 +79,7 @@
         End Set
     End Property
 
-    Public Property Quantidade As Double
+    Public Property quantidade As Double
         Get
             Return _quantidade
         End Get
@@ -88,16 +88,16 @@
         End Set
     End Property
 
-    Public Property Valorunitário As Double
+    Public Property valorunitario As Double
         Get
-            Return _valorunitário
+            Return _valorunitario
         End Get
         Set(value As Double)
-            _valorunitário = value
+            _valorunitario = value
         End Set
     End Property
 
-    Public Property Valortotal As Double
+    Public Property valortotal As Double
         Get
             Return _valortotal
         End Get
@@ -106,7 +106,7 @@
         End Set
     End Property
 
-    Public Property Valornota As Double
+    Public Property valornota As Double
         Get
             Return _valornota
         End Get
@@ -115,7 +115,7 @@
         End Set
     End Property
 
-    Public Property Valoripi As Double
+    Public Property valoripi As Double
         Get
             Return _valoripi
         End Get
@@ -124,7 +124,7 @@
         End Set
     End Property
 
-    Public Property Aliqicms As Double
+    Public Property aliqicms As Double
         Get
             Return _aliqicms
         End Get
@@ -133,7 +133,7 @@
         End Set
     End Property
 
-    Public Property Aliqipi As Double
+    Public Property aliqipi As Double
         Get
             Return _aliqipi
         End Get
@@ -142,7 +142,7 @@
         End Set
     End Property
 
-    Public Property Codicms As String
+    Public Property codicms As String
         Get
             Return _codicms
         End Get
@@ -151,7 +151,7 @@
         End Set
     End Property
 
-    Public Property Peso As Single
+    Public Property peso As Single
         Get
             Return _peso
         End Get
@@ -160,7 +160,7 @@
         End Set
     End Property
 
-    Public Property Cfop As String
+    Public Property cfop As String
         Get
             Return _cfop
         End Get
@@ -169,7 +169,7 @@
         End Set
     End Property
 
-    Public Property Bicms As Double
+    Public Property bicms As Double
         Get
             Return _bicms
         End Get
@@ -178,7 +178,7 @@
         End Set
     End Property
 
-    Public Property Vicms As Double
+    Public Property vicms As Double
         Get
             Return _vicms
         End Get
@@ -187,7 +187,7 @@
         End Set
     End Property
 
-    Public Property Descopro As Double
+    Public Property descopro As Double
         Get
             Return _descopro
         End Get
@@ -196,7 +196,7 @@
         End Set
     End Property
 
-    Public Property Mvap As Single
+    Public Property mvap As Single
         Get
             Return _mvap
         End Get
@@ -205,7 +205,7 @@
         End Set
     End Property
 
-    Public Property Vbcst As Double
+    Public Property vbcst As Double
         Get
             Return _vbcst
         End Get
@@ -214,7 +214,7 @@
         End Set
     End Property
 
-    Public Property Vsst As Double
+    Public Property vsst As Double
         Get
             Return _vsst
         End Get
@@ -223,7 +223,7 @@
         End Set
     End Property
 
-    Public Property Vseguro As Double
+    Public Property vseguro As Double
         Get
             Return _vseguro
         End Get
@@ -232,7 +232,7 @@
         End Set
     End Property
 
-    Public Property Descri As String
+    Public Property descri As String
         Get
             Return _descri
         End Get
@@ -241,7 +241,7 @@
         End Set
     End Property
 
-    Public Property Vfrete As Double
+    Public Property vfrete As Double
         Get
             Return _vfrete
         End Get
@@ -250,7 +250,7 @@
         End Set
     End Property
 
-    Public Property Codtipo As Byte
+    Public Property codtipo As Byte
         Get
             Return _codtipo
         End Get
@@ -259,16 +259,16 @@
         End Set
     End Property
 
-    Public Property Códpis As String
+    Public Property codpis As String
         Get
-            Return _códpis
+            Return _codpis
         End Get
         Set(value As String)
-            _códpis = value
+            _codpis = value
         End Set
     End Property
 
-    Public Property Porpis As Single
+    Public Property porpis As Single
         Get
             Return _porpis
         End Get
@@ -277,7 +277,7 @@
         End Set
     End Property
 
-    Public Property Codcofins As String
+    Public Property codcofins As String
         Get
             Return _codcofins
         End Get
@@ -286,7 +286,7 @@
         End Set
     End Property
 
-    Public Property Porcofins As Single
+    Public Property porcofins As Single
         Get
             Return _porcofins
         End Get
@@ -295,7 +295,7 @@
         End Set
     End Property
 
-    Public Property Codipi As String
+    Public Property codipi As String
         Get
             Return _codipi
         End Get
@@ -304,7 +304,7 @@
         End Set
     End Property
 
-    Public Property Sst As String
+    Public Property sst As String
         Get
             Return _sst
         End Get
@@ -313,7 +313,7 @@
         End Set
     End Property
 
-    Public Property Voutros As Double
+    Public Property voutros As Double
         Get
             Return _voutros
         End Get
@@ -322,7 +322,7 @@
         End Set
     End Property
 
-    Public Property Totaltribpro As Double
+    Public Property totaltribpro As Double
         Get
             Return _totaltribpro
         End Get
@@ -331,7 +331,7 @@
         End Set
     End Property
 
-    Public Property Porimposto As Single
+    Public Property porimposto As Single
         Get
             Return _porimposto
         End Get
@@ -340,7 +340,7 @@
         End Set
     End Property
 
-    Public Property Pesoliq As Single
+    Public Property pesoliq As Single
         Get
             Return _pesoliq
         End Get
@@ -349,7 +349,7 @@
         End Set
     End Property
 
-    Public Property Datas As Date
+    Public Property datas As Date
         Get
             Return _datas
         End Get
@@ -358,7 +358,7 @@
         End Set
     End Property
 
-    Public Property Cstpis As Single
+    Public Property cstpis As Single
         Get
             Return _cstpis
         End Get
@@ -367,7 +367,7 @@
         End Set
     End Property
 
-    Public Property Vpis As Double
+    Public Property vpis As Double
         Get
             Return _vpis
         End Get
@@ -376,7 +376,7 @@
         End Set
     End Property
 
-    Public Property Cstcofins As Single
+    Public Property cstcofins As Single
         Get
             Return _cstcofins
         End Get
@@ -385,7 +385,7 @@
         End Set
     End Property
 
-    Public Property Vcofins As Double
+    Public Property vcofins As Double
         Get
             Return _vcofins
         End Get
@@ -394,7 +394,7 @@
         End Set
     End Property
 
-    Public Property Vcusto As Double
+    Public Property vcusto As Double
         Get
             Return _vcusto
         End Get
@@ -403,7 +403,7 @@
         End Set
     End Property
 
-    Public Property Totaltribest As Double
+    Public Property totaltribest As Double
         Get
             Return _totaltribest
         End Get
@@ -412,7 +412,7 @@
         End Set
     End Property
 
-    Public Property Comple As String
+    Public Property comple As String
         Get
             Return _comple
         End Get
@@ -421,7 +421,7 @@
         End Set
     End Property
 
-    Public Property Ncmproduto As String
+    Public Property ncmproduto As String
         Get
             Return _ncmproduto
         End Get
