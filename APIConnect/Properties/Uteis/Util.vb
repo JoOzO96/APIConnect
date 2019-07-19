@@ -264,7 +264,29 @@ Module Util
             valores = valores & camposTabela & " = " & dadosTabela
             dadosTabela = ""
         Next
-        update = update & " " & valores & " WHERE " & campo & " = " & valor
+
+        If (campo.Contains("|")) Then
+            Dim campos() As String
+            Dim valorUpdate() As String
+            Dim filtro As String
+            campos = Split(campo, "|")
+            valorUpdate = Split(valor, "|")
+            filtro = ""
+            For i = 0 To UBound(campos)
+                filtro += campos(i) + " = " + valorUpdate(i)
+
+                If (i <> UBound(campos)) Then
+                    filtro += " and "
+                End If
+            Next
+
+
+            update = update & " " & valores & " WHERE " & filtro
+        Else
+            update = update & " " & valores & " WHERE " & campo & " = " & valor
+        End If
+
+
         Return update
     End Function
 

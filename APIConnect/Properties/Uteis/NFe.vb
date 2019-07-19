@@ -60,9 +60,7 @@ Module NFe
 
     End Function
 
-    Public Function GeraXmlNfe() As String
-        Dim codnota As String
-        codnota = "000008478"
+    Public Function GeraXmlNfe(codnota As String, codemitente As String) As String
         Dim nfe As New NFe_Util_2G.Util
         Dim conexao As New OleDbConnection
         Dim comando As New OleDbCommand
@@ -72,7 +70,6 @@ Module NFe
         Dim dsIcms As New DataSet
         Dim dsCest As New DataSet
         Dim dsTabelaIcms As New DataSet
-        Dim codemitente As Long
         Dim imposto As String
         Dim Detalhes As String
         Dim TotISSQN As String
@@ -614,7 +611,7 @@ Module NFe
         End If
         dest_xFant = dsDesti.Tables(0).Rows(0)("Fantasia")        ' Nome fantasia
         dest_xLgr = dsDesti.Tables(0).Rows(0)("Endereço")        ' logradouro
-        If IsDBNull(dsDesti.Tables(0).Rows(0)("Nume")) Or dsDesti.Tables(0).Rows(0)("Nume") = "" Then
+        If IsDBNull(dsDesti.Tables(0).Rows(0)("Nume")) Then
             dest_nro = "S/N"        'dsDesti.Tables(0).Rows(0)("Complemento")           ' complemento do endereço, o conteúdo pode ser omitido
         Else
             dest_nro = dsDesti.Tables(0).Rows(0)("Nume")        ' número, informar S/N quano inexistente para erro de Schema XML
@@ -708,20 +705,26 @@ Module NFe
         For i = 0 To dsIcms.Tables(0).Rows.Count - 1
 
             Prod_cProd = dsIcms.Tables(0).Rows(0)("Cód Produto")        ' código do produto
-            If IsDBNull(dsIcms.Tables(0).Rows(0)("EAN")) Or dsIcms.Tables(0).Rows(0)("EAN") = "" Or Left(dsIcms.Tables(0).Rows(0)("EAN"), 2) = "10" Then
+            If IsDBNull(dsIcms.Tables(0).Rows(0)("EAN")) Then
                 Prod_cEAN = "SEM GTIN"
             Else
-                Prod_cEAN = dsIcms.Tables(0).Rows(0)("EAN")        ' código EAN (0, 8,12, 13 ou 14 caracteres), o conteúdo pode ser omitido se não tiver EAN
+                If Left(dsIcms.Tables(0).Rows(0)("EAN"), 2) <> "10" Then
+                    Prod_cEAN = dsIcms.Tables(0).Rows(0)("EAN")        ' código EAN (0, 8,12, 13 ou 14 caracteres), o conteúdo pode ser omitido se não tiver EAN
+                Else
+                    Prod_cEAN = "SEM GTIN"
+                End If
             End If
-            Prod_xProd = Left(dsIcms.Tables(0).Rows(0)("Descricao"), 110)       ' código do produto, espaços em branco consecutivos ou no início ou fim do campo podem gerar erro de Schema XML, além de caracteres reservados do XML <>&"'
+                Prod_xProd = Left(dsIcms.Tables(0).Rows(0)("Descricao"), 110)       ' código do produto, espaços em branco consecutivos ou no início ou fim do campo podem gerar erro de Schema XML, além de caracteres reservados do XML <>&"'
 
             If IsDBNull(dsIcms.Tables(0).Rows(0)("NCM")) Or dsIcms.Tables(0).Rows(0)("NCM") = "00000000" Then
                 Prod_NCM = "00000000"
             Else
                 Prod_NCM = dsIcms.Tables(0).Rows(0)("NCM")        ' código NCM, pode ser omitido se não sujeito ao IPI
             End If
+            If Not IsDBNull(dsIcms.Tables(0).Rows(0)("CodCEST")) Then
+                CodCEST = dsIcms.Tables(0).Rows(0)("CodCEST")
+            End If
 
-            CodCEST = dsIcms.Tables(0).Rows(0)("CodCEST")
 
             If IsDBNull(CodCEST) Or CodCEST = "" Then
                 Dim NCMa As String
@@ -736,9 +739,9 @@ Module NFe
                     End If
                 Next
             End If
-            If dsIcms.Tables(0).Rows(0)("OcultaCEST") = -1 Then
-                CodCEST = ""
-            End If
+            'If dsIcms.Tables(0).Rows(0)("OcultaCEST") = -1 Then
+            '    CodCEST = ""
+            'End If
             If IsDBNull(dsIcms.Tables(0).Rows(0)("gene")) Then
                 Prod_genero = "00"
             Else
@@ -761,10 +764,14 @@ Module NFe
                 Prod_vProd = Format((Prod_qCom * Prod_vUnCom), "0.00")        ' valor do total do item
             End If
 
-            If IsDBNull(dsIcms.Tables(0).Rows(0)("EAN")) Or dsIcms.Tables(0).Rows(0)("EAN") = "" Or Left(dsIcms.Tables(0).Rows(0)("EAN"), 2) = "10" Then
+            If IsDBNull(dsIcms.Tables(0).Rows(0)("EAN")) Then
                 Prod_cEANTrib = "SEM GTIN"
             Else
-                Prod_cEANTrib = dsIcms.Tables(0).Rows(0)("EAN")        ' código EAN (0, 8,12, 13 ou 14 caracteres), o conteúdo pode ser omitido se não tiver EAN, em geral é o mesmo código do EAN de comercialização
+                If dsIcms.Tables(0).Rows(0)("EAN") = "" Or Left(dsIcms.Tables(0).Rows(0)("EAN"), 2) = "10" Then
+                    Prod_cEANTrib = "SEM GTIN"
+                Else
+                    Prod_cEANTrib = dsIcms.Tables(0).Rows(0)("EAN")        ' código EAN (0, 8,12, 13 ou 14 caracteres), o conteúdo pode ser omitido se não tiver EAN, em geral é o mesmo código do EAN de comercialização
+                End If
             End If
             If IsDBNull(dsIcms.Tables(0).Rows(0)("UniTributacao")) Then
                 If IsDBNull(dsIcms.Tables(0).Rows(0)("Unid")) Or dsIcms.Tables(0).Rows(0)("Unid") = "" Then
@@ -780,7 +787,7 @@ Module NFe
             Prod_qTrib = Format(dsIcms.Tables(0).Rows(0)("Quantidade"), "0.000")
             Prod_vUnTrib = Format(dsIcms.Tables(0).Rows(0)("Valor Unitário"), "0.0000")
 
-            If IsDBNull(dsIcms.Tables(0).Rows(0)("Vfrete")) Or dsIcms.Tables(0).Rows(0)("Vfrete") = "" Then
+            If IsDBNull(dsIcms.Tables(0).Rows(0)("Vfrete")) Then
                 Prod_vFrete = 0
             Else
                 Prod_vFrete = Format(dsIcms.Tables(0).Rows(0)("Vfrete"), "0.0000")        ' valor do frete, se cobrado do cliente deve ser rateado entre os itens de produto
@@ -846,10 +853,14 @@ Module NFe
                 If IsDBNull(dsIcms.Tables(0).Rows(0)("SST")) Then
                     ICMS_CST = "60"
                 Else
-                    If dsIcms.Tables(0).Rows(0)("GlP") > 0 Then
-                        ICMS_CST = "S60"
+                    If IsDBNull(dsIcms.Tables(0).Rows(0)("GlP")) Then
+                        ICMS_CST = Right(dsIcms.Tables(0).Rows(0)("SST"), 2)
                     Else
-                        ICMS_CST = Right(dsIcms.Tables(0).Rows(0)("SST"), 2)        ' Tabela B - CST=00-tributação normal
+                        If dsIcms.Tables(0).Rows(0)("GlP") > 0 Then
+                            ICMS_CST = "S60"
+                        Else
+                            ICMS_CST = Right(dsIcms.Tables(0).Rows(0)("SST"), 2)        ' Tabela B - CST=00-tributação normal
+                        End If
                     End If
                 End If
             End If
@@ -1239,12 +1250,12 @@ Module NFe
         Next
 
 
-        totICMS_vIPI = ds.Tables(0).Rows(0)("VIPI")
-        totICMS_vSeg = ds.Tables(0).Rows(0)("vseg")
-        totICMS_vDesc = totICMS_vDesc
-        totICMS_vOutro = ds.Tables(0).Rows(0)("Vdesp")
-        totICMS_vFrete = ds.Tables(0).Rows(0)("Vfrete")
-        totICMS_vProd = totICMS_vProd - totICMS_vISSQNBC
+        'totICMS_vIPI = dsIcms.Tables(0).Rows(0)("VIPI")
+        'totICMS_vSeg = dsIcms.Tables(0).Rows(0)("vseg")
+        'totICMS_vDesc = totICMS_vDesc
+        'totICMS_vOutro = dsIcms.Tables(0).Rows(0)("Vdesp")
+        'totICMS_vFrete = dsIcms.Tables(0).Rows(0)("Vfrete")
+        'totICMS_vProd = totICMS_vProd - totICMS_vISSQNBC
 
         totICMS_vNF = totICMS_vProd + totICMS_vISSQNBC + totICMS_vFrete + totICMS_vST + totICMS_vIPI + totICMS_vSeg + totICMS_vOutro - totICMS_vDesc        '- Desti![Valorfun]
 

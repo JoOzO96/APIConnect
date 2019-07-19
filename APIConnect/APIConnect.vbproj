@@ -195,6 +195,7 @@
     <Compile Include="Controllers\CidadeController.vb" />
     <Compile Include="Controllers\ClienteController.vb" />
     <Compile Include="Controllers\ClienteSefazController.vb" />
+    <Compile Include="Controllers\EnviaNfeController.vb" />
     <Compile Include="Controllers\FormaPagamentoController.vb" />
     <Compile Include="Controllers\Icms.vb" />
     <Compile Include="Controllers\IcmsController.vb" />
@@ -203,6 +204,7 @@
     <Compile Include="Controllers\NotaFiscalController.vb" />
     <Compile Include="Controllers\NotaProdutoController.vb" />
     <Compile Include="Controllers\ParcelasController.vb" />
+    <Compile Include="Controllers\ParcelasNFEController.vb" />
     <Compile Include="Controllers\PedidoController.vb" />
     <Compile Include="Controllers\PedidoProdutoController.vb" />
     <Compile Include="Controllers\ProdutoController.vb" />
@@ -219,6 +221,7 @@
     <Compile Include="Models\NotaFiscal.vb" />
     <Compile Include="Models\NotaProduto.vb" />
     <Compile Include="Models\Parcelas.vb" />
+    <Compile Include="Models\ParcelasNFE.vb" />
     <Compile Include="Models\Pedido.vb" />
     <Compile Include="Models\PedidoProduto.vb" />
     <Compile Include="Models\Produto.vb" />

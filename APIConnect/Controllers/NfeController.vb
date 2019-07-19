@@ -7,7 +7,7 @@ Namespace Controllers
 
         ' GET: api/Nfe
         Public Function GetValues() As String
-            Return GeraXmlNfe()
+            'Return GeraXmlNfe()
         End Function
 
         ' GET: api/Nfe/5

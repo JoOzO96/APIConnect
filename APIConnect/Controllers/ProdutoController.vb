@@ -15,7 +15,7 @@ Namespace Controllers
 
             dados.ConnectionString = RetornaConexao()
             dados.Open()
-            comando = New OleDbCommand("SELECT * from Produto", dados)
+            comando = New OleDbCommand("SELECT * from Produto WHERE inativo = false", dados)
             Dim da As New OleDbDataAdapter(comando)
             da.Fill(ds, "Produto")
 

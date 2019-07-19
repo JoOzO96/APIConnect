@@ -38,6 +38,11 @@ Namespace Controllers
             dados.Close()
             Try
                 listaNotaProduto = JsonConvert.DeserializeObject(Of List(Of NotaProduto))(json)
+                dados.Open()
+                comando = New OleDbCommand("DELETE * FROM [NOTA PRODUTO] WHERE [CÓD NOTA] = '" & listaNotaProduto(0).codnota & "'", dados)
+                comando.ExecuteNonQuery()
+                dados.Close()
+
                 For i = 0 To listaNotaProduto.Count - 1
                     Dim controleCodigo = New ControleCodigo
                     dados.Open()
@@ -45,8 +50,13 @@ Namespace Controllers
                     notaProduto = listaNotaProduto(i)
                     notaProduto.codemitente = 1
                     If (notaProduto.Auto > 0) Then
-
                         insert = RetornaUpdate(fieldList, notaProduto, "[Nota Produto]", "auto", notaProduto.Auto)
+                        comando = New OleDbCommand("SELECT TOP 1 * from [Nota Produto] where auto = " & notaProduto.Auto & " order by [Cód Nota] desc", dados)
+                        da = Nothing
+                        ds = Nothing
+                        ds = New DataSet
+                        da = New OleDbDataAdapter(comando)
+                        da.Fill(ds, "Nota Produto")
                     Else
 
                         insert = RetornaInsert(fieldList, notaProduto, "[Nota Produto]")
@@ -66,7 +76,7 @@ Namespace Controllers
                     insert = insert.Replace("codigo", "[código]")
                     comando = New OleDbCommand(insert, dados)
                     Dim numerodelinhas = comando.ExecuteNonQuery()
-                    controleCodigo.CodigoAndroid = notaProduto.codnota
+                    controleCodigo.CodigoAndroid = notaProduto.Auto
                     controleCodigo.CodigoBanco = ds.Tables(0).Rows(0)("Auto")
                     listcontrolecodigo.Add(controleCodigo)
                 Next

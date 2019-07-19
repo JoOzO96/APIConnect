@@ -19,6 +19,7 @@
     Private _cmun As String
     Private _xmun As String
     Private _cep As String
+    Private _erro As String
 
     Public Property ie As String
         Get
@@ -188,6 +189,15 @@
         End Get
         Set(value As String)
             _cep = value
+        End Set
+    End Property
+
+    Public Property erro As String
+        Get
+            Return _erro
+        End Get
+        Set(value As String)
+            _erro = value
         End Set
     End Property
 End Class
