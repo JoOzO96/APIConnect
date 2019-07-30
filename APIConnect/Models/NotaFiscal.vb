@@ -8,7 +8,7 @@
     Private _marc As Boolean
     Private _cnpj As String
     Private _cpf As String
-    Private _endereço As String
+    Private _endereco As String
     Private _cep As String
     Private _codcidade As Long
     Private _bairro As String
@@ -90,7 +90,7 @@
     Private _operacaosefaz As Boolean
     Private _estonodenfe As Boolean
 
-    Public Property Codnota As String
+    Public Property codnota As String
         Get
             Return _codnota
         End Get
@@ -99,7 +99,7 @@
         End Set
     End Property
 
-    Public Property Codemitente As Long
+    Public Property codemitente As Long
         Get
             Return _codemitente
         End Get
@@ -108,7 +108,7 @@
         End Set
     End Property
 
-    Public Property Codtipo As Byte
+    Public Property codtipo As Byte
         Get
             Return _codtipo
         End Get
@@ -117,7 +117,7 @@
         End Set
     End Property
 
-    Public Property Codcliente As Long
+    Public Property codcliente As Long
         Get
             Return _codcliente
         End Get
@@ -126,7 +126,7 @@
         End Set
     End Property
 
-    Public Property Nomecliente As String
+    Public Property nomecliente As String
         Get
             Return _nomecliente
         End Get
@@ -135,7 +135,7 @@
         End Set
     End Property
 
-    Public Property Cgccpf As String
+    Public Property cgccpf As String
         Get
             Return _cgccpf
         End Get
@@ -144,7 +144,7 @@
         End Set
     End Property
 
-    Public Property Marc As Boolean
+    Public Property marc As Boolean
         Get
             Return _marc
         End Get
@@ -153,7 +153,7 @@
         End Set
     End Property
 
-    Public Property Cnpj As String
+    Public Property cnpj As String
         Get
             Return _cnpj
         End Get
@@ -162,7 +162,7 @@
         End Set
     End Property
 
-    Public Property Cpf As String
+    Public Property cpf As String
         Get
             Return _cpf
         End Get
@@ -171,16 +171,16 @@
         End Set
     End Property
 
-    Public Property Endereço As String
+    Public Property endereco As String
         Get
-            Return _endereço
+            Return _endereco
         End Get
         Set(value As String)
-            _endereço = value
+            _endereco = value
         End Set
     End Property
 
-    Public Property Cep As String
+    Public Property cep As String
         Get
             Return _cep
         End Get
@@ -189,7 +189,7 @@
         End Set
     End Property
 
-    Public Property Codcidade As Long
+    Public Property codcidade As Long
         Get
             Return _codcidade
         End Get
@@ -198,7 +198,7 @@
         End Set
     End Property
 
-    Public Property Bairro As String
+    Public Property bairro As String
         Get
             Return _bairro
         End Get
@@ -207,7 +207,7 @@
         End Set
     End Property
 
-    Public Property Fonefax As String
+    Public Property fonefax As String
         Get
             Return _fonefax
         End Get
@@ -216,7 +216,7 @@
         End Set
     End Property
 
-    Public Property Inscesta As String
+    Public Property inscesta As String
         Get
             Return _inscesta
         End Get
@@ -225,7 +225,7 @@
         End Set
     End Property
 
-    Public Property Saida As String
+    Public Property saida As String
         Get
             Return _saida
         End Get
@@ -234,7 +234,7 @@
         End Set
     End Property
 
-    Public Property Venda As String
+    Public Property venda As String
         Get
             Return _venda
         End Get
@@ -243,7 +243,7 @@
         End Set
     End Property
 
-    Public Property Materia As String
+    Public Property materia As String
         Get
             Return _materia
         End Get
@@ -252,7 +252,7 @@
         End Set
     End Property
 
-    Public Property Dataemissao As Date
+    Public Property dataemissao As Date
         Get
             Return _dataemissao
         End Get
@@ -261,7 +261,7 @@
         End Set
     End Property
 
-    Public Property Datasaida As Date
+    Public Property datasaida As Date
         Get
             Return _datasaida
         End Get
@@ -270,7 +270,7 @@
         End Set
     End Property
 
-    Public Property Hora As Date
+    Public Property hora As Date
         Get
             Return _hora
         End Get
@@ -279,7 +279,7 @@
         End Set
     End Property
 
-    Public Property Codinstituicao As Byte
+    Public Property codinstituicao As Byte
         Get
             Return _codinstituicao
         End Get
@@ -288,7 +288,7 @@
         End Set
     End Property
 
-    Public Property Praca As String
+    Public Property praca As String
         Get
             Return _praca
         End Get
@@ -297,7 +297,7 @@
         End Set
     End Property
 
-    Public Property Fatura As String
+    Public Property fatura As String
         Get
             Return _fatura
         End Get
@@ -306,7 +306,7 @@
         End Set
     End Property
 
-    Public Property Vencimento As Date
+    Public Property vencimento As Date
         Get
             Return _vencimento
         End Get
@@ -315,7 +315,7 @@
         End Set
     End Property
 
-    Public Property Valor As Double
+    Public Property valor As Double
         Get
             Return _valor
         End Get
@@ -324,7 +324,7 @@
         End Set
     End Property
 
-    Public Property Baseicms As Double
+    Public Property baseicms As Double
         Get
             Return _baseicms
         End Get
@@ -333,7 +333,7 @@
         End Set
     End Property
 
-    Public Property Valoricms As Double
+    Public Property valoricms As Double
         Get
             Return _valoricms
         End Get
@@ -342,7 +342,7 @@
         End Set
     End Property
 
-    Public Property Icmssub As Double
+    Public Property icmssub As Double
         Get
             Return _icmssub
         End Get
@@ -351,7 +351,7 @@
         End Set
     End Property
 
-    Public Property Valoricmssub As Double
+    Public Property valoricmssub As Double
         Get
             Return _valoricmssub
         End Get
@@ -360,7 +360,7 @@
         End Set
     End Property
 
-    Public Property Valordosprodutos As Double
+    Public Property valordosprodutos As Double
         Get
             Return _valordosprodutos
         End Get
@@ -369,7 +369,7 @@
         End Set
     End Property
 
-    Public Property Valorseguro As Double
+    Public Property valorseguro As Double
         Get
             Return _valorseguro
         End Get
@@ -378,7 +378,7 @@
         End Set
     End Property
 
-    Public Property Despesas As Double
+    Public Property despesas As Double
         Get
             Return _despesas
         End Get
@@ -387,7 +387,7 @@
         End Set
     End Property
 
-    Public Property Valordoipi As Double
+    Public Property valordoipi As Double
         Get
             Return _valordoipi
         End Get
@@ -396,7 +396,7 @@
         End Set
     End Property
 
-    Public Property Codtransportador As Long
+    Public Property codtransportador As Long
         Get
             Return _codtransportador
         End Get
@@ -405,7 +405,7 @@
         End Set
     End Property
 
-    Public Property Valorfrete As Double
+    Public Property valorfrete As Double
         Get
             Return _valorfrete
         End Get
@@ -414,7 +414,7 @@
         End Set
     End Property
 
-    Public Property Valornota As Double
+    Public Property valornota As Double
         Get
             Return _valornota
         End Get
@@ -423,7 +423,7 @@
         End Set
     End Property
 
-    Public Property Observacao As String
+    Public Property observacao As String
         Get
             Return _observacao
         End Get
@@ -432,7 +432,7 @@
         End Set
     End Property
 
-    Public Property Pesobruto As Long
+    Public Property pesobruto As Long
         Get
             Return _pesobruto
         End Get
@@ -441,7 +441,7 @@
         End Set
     End Property
 
-    Public Property Pesoliquido As Long
+    Public Property pesoliquido As Long
         Get
             Return _pesoliquido
         End Get
@@ -450,7 +450,7 @@
         End Set
     End Property
 
-    Public Property Quantidade As Integer
+    Public Property quantidade As Integer
         Get
             Return _quantidade
         End Get
@@ -459,7 +459,7 @@
         End Set
     End Property
 
-    Public Property Especie As String
+    Public Property especie As String
         Get
             Return _especie
         End Get
@@ -468,7 +468,7 @@
         End Set
     End Property
 
-    Public Property Marca As String
+    Public Property marca As String
         Get
             Return _marca
         End Get
@@ -477,7 +477,7 @@
         End Set
     End Property
 
-    Public Property Numero As String
+    Public Property numero As String
         Get
             Return _numero
         End Get
@@ -486,7 +486,7 @@
         End Set
     End Property
 
-    Public Property Complemento As String
+    Public Property complemento As String
         Get
             Return _complemento
         End Get
@@ -495,7 +495,7 @@
         End Set
     End Property
 
-    Public Property Codvendedor As String
+    Public Property codvendedor As String
         Get
             Return _codvendedor
         End Get
@@ -504,7 +504,7 @@
         End Set
     End Property
 
-    Public Property Firma As String
+    Public Property firma As String
         Get
             Return _firma
         End Get
@@ -513,7 +513,7 @@
         End Set
     End Property
 
-    Public Property Desconto As Single
+    Public Property desconto As Single
         Get
             Return _desconto
         End Get
@@ -522,7 +522,7 @@
         End Set
     End Property
 
-    Public Property Cf As String
+    Public Property cf As String
         Get
             Return _cf
         End Get
@@ -531,7 +531,7 @@
         End Set
     End Property
 
-    Public Property Tran As String
+    Public Property tran As String
         Get
             Return _tran
         End Get
@@ -540,7 +540,7 @@
         End Set
     End Property
 
-    Public Property Cancela As Boolean
+    Public Property cancela As Boolean
         Get
             Return _cancela
         End Get
@@ -549,7 +549,7 @@
         End Set
     End Property
 
-    Public Property Simnao As Boolean
+    Public Property simnao As Boolean
         Get
             Return _simnao
         End Get
@@ -558,7 +558,7 @@
         End Set
     End Property
 
-    Public Property Nnota As String
+    Public Property nnota As String
         Get
             Return _nnota
         End Get
@@ -567,7 +567,7 @@
         End Set
     End Property
 
-    Public Property Dupli As Boolean
+    Public Property dupli As Boolean
         Get
             Return _dupli
         End Get
@@ -576,7 +576,7 @@
         End Set
     End Property
 
-    Public Property Norconti As String
+    Public Property norconti As String
         Get
             Return _norconti
         End Get
@@ -585,7 +585,7 @@
         End Set
     End Property
 
-    Public Property Chave As String
+    Public Property chave As String
         Get
             Return _chave
         End Get
@@ -594,7 +594,7 @@
         End Set
     End Property
 
-    Public Property Protocolo As String
+    Public Property protocolo As String
         Get
             Return _protocolo
         End Get
@@ -603,7 +603,7 @@
         End Set
     End Property
 
-    Public Property Recibo As String
+    Public Property recibo As String
         Get
             Return _recibo
         End Get
@@ -612,7 +612,7 @@
         End Set
     End Property
 
-    Public Property Emidesti As String
+    Public Property emidesti As String
         Get
             Return _emidesti
         End Get
@@ -621,7 +621,7 @@
         End Set
     End Property
 
-    Public Property Issqn As Double
+    Public Property issqn As Double
         Get
             Return _issqn
         End Get
@@ -630,7 +630,7 @@
         End Set
     End Property
 
-    Public Property Vissqn As Double
+    Public Property vissqn As Double
         Get
             Return _vissqn
         End Get
@@ -639,7 +639,7 @@
         End Set
     End Property
 
-    Public Property Pedido As Long
+    Public Property pedido As Long
         Get
             Return _pedido
         End Get
@@ -648,7 +648,7 @@
         End Set
     End Property
 
-    Public Property Protocoloc As String
+    Public Property protocoloc As String
         Get
             Return _protocoloc
         End Get
@@ -657,7 +657,7 @@
         End Set
     End Property
 
-    Public Property Envemail As Boolean
+    Public Property envemail As Boolean
         Get
             Return _envemail
         End Get
@@ -666,7 +666,7 @@
         End Set
     End Property
 
-    Public Property Notaref As String
+    Public Property notaref As String
         Get
             Return _notaref
         End Get
@@ -675,7 +675,7 @@
         End Set
     End Property
 
-    Public Property Chaveref As String
+    Public Property chaveref As String
         Get
             Return _chaveref
         End Get
@@ -684,7 +684,7 @@
         End Set
     End Property
 
-    Public Property Obsfisco As String
+    Public Property obsfisco As String
         Get
             Return _obsfisco
         End Get
@@ -693,7 +693,7 @@
         End Set
     End Property
 
-    Public Property Justicancelamento As String
+    Public Property justicancelamento As String
         Get
             Return _justicancelamento
         End Get
@@ -702,7 +702,7 @@
         End Set
     End Property
 
-    Public Property Funrural As Double
+    Public Property funrural As Double
         Get
             Return _funrural
         End Get
@@ -711,7 +711,7 @@
         End Set
     End Property
 
-    Public Property Reajustadas As Double
+    Public Property reajustadas As Double
         Get
             Return _reajustadas
         End Get
@@ -720,7 +720,7 @@
         End Set
     End Property
 
-    Public Property Valorfun As Double
+    Public Property valorfun As Double
         Get
             Return _valorfun
         End Get
@@ -729,7 +729,7 @@
         End Set
     End Property
 
-    Public Property Valortributos As Double
+    Public Property valortributos As Double
         Get
             Return _valortributos
         End Get
@@ -738,7 +738,7 @@
         End Set
     End Property
 
-    Public Property Totaltributos As Double
+    Public Property totaltributos As Double
         Get
             Return _totaltributos
         End Get
@@ -747,7 +747,7 @@
         End Set
     End Property
 
-    Public Property Agrupa As Boolean
+    Public Property agrupa As Boolean
         Get
             Return _agrupa
         End Get
@@ -756,7 +756,7 @@
         End Set
     End Property
 
-    Public Property Codpgto As Long
+    Public Property codpgto As Long
         Get
             Return _codpgto
         End Get
@@ -765,7 +765,7 @@
         End Set
     End Property
 
-    Public Property Baseimpo As Double
+    Public Property baseimpo As Double
         Get
             Return _baseimpo
         End Get
@@ -774,7 +774,7 @@
         End Set
     End Property
 
-    Public Property Desaduaneira As Double
+    Public Property desaduaneira As Double
         Get
             Return _desaduaneira
         End Get
@@ -783,7 +783,7 @@
         End Set
     End Property
 
-    Public Property Valoimpor As Double
+    Public Property valoimpor As Double
         Get
             Return _valoimpor
         End Get
@@ -792,7 +792,7 @@
         End Set
     End Property
 
-    Public Property Valoriof As Double
+    Public Property valoriof As Double
         Get
             Return _valoriof
         End Get
@@ -801,7 +801,7 @@
         End Set
     End Property
 
-    Public Property Gerabloqueto As Boolean
+    Public Property gerabloqueto As Boolean
         Get
             Return _gerabloqueto
         End Get
@@ -810,7 +810,7 @@
         End Set
     End Property
 
-    Public Property Finalidade As String
+    Public Property finalidade As String
         Get
             Return _finalidade
         End Get
@@ -819,7 +819,7 @@
         End Set
     End Property
 
-    Public Property Presencial As String
+    Public Property presencial As String
         Get
             Return _presencial
         End Get
@@ -828,7 +828,7 @@
         End Set
     End Property
 
-    Public Property Destioperacao As String
+    Public Property destioperacao As String
         Get
             Return _destioperacao
         End Get
@@ -837,7 +837,7 @@
         End Set
     End Property
 
-    Public Property Codplanocontas As Long
+    Public Property codplanocontas As Long
         Get
             Return _codplanocontas
         End Get
@@ -846,7 +846,7 @@
         End Set
     End Property
 
-    Public Property Codcentrocustos As String
+    Public Property codcentrocustos As String
         Get
             Return _codcentrocustos
         End Get
@@ -855,7 +855,7 @@
         End Set
     End Property
 
-    Public Property Emailnota As String
+    Public Property emailnota As String
         Get
             Return _emailnota
         End Get
@@ -864,7 +864,7 @@
         End Set
     End Property
 
-    Public Property Ccocupom As String
+    Public Property ccocupom As String
         Get
             Return _ccocupom
         End Get
@@ -873,7 +873,7 @@
         End Set
     End Property
 
-    Public Property Placavei As String
+    Public Property placavei As String
         Get
             Return _placavei
         End Get
@@ -882,7 +882,7 @@
         End Set
     End Property
 
-    Public Property Operacaosefaz As Boolean
+    Public Property operacaosefaz As Boolean
         Get
             Return _operacaosefaz
         End Get
@@ -891,7 +891,7 @@
         End Set
     End Property
 
-    Public Property Estonodenfe As Boolean
+    Public Property estonodenfe As Boolean
         Get
             Return _estonodenfe
         End Get

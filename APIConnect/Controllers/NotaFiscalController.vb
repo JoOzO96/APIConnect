@@ -70,87 +70,86 @@ Namespace Controllers
                     dtv.RowFilter = " [Cód Nota] = '" + nota.Codnota + "' and Codemitente = " & nota.Codemitente
                     If (dtv.Count > 0) Then
                         controleCodigo = New ControleCodigo
-                        If (ds.Tables(0).Rows(0)("Protocolo").Equals("")) Then
+                        If (ds.Tables(0).Rows(0)("Protocolo").Equals("") Or IsDBNull(ds.Tables(0).Rows(0)("Protocolo"))) Then
 
-                            nota.Codtransportador() = 1
-                            insert = RetornaUpdate(fieldList, nota, "[Nota Fiscal]", "[Cód Nota]", "'" & nota.Codnota & "'")
-                            insert = insert.Replace("Codnota", "[Cód Nota]")
-                            insert = insert.Replace("Codtipo", "[Cód Tipo]")
-                            insert = insert.Replace("Codcliente", "[Cód Cliente]")
-                            insert = insert.Replace("Nomecliente", "[Nome Cliente]")
-                            insert = insert.Replace("Endereco", "[Endereço]")
-                            insert = insert.Replace("Codcidade", "[Cód Cidade]")
-                            insert = insert.Replace("Fonefax", "[Fone/Fax]")
-                            insert = insert.Replace("Inscesta", "[Insc Esta]")
-                            insert = insert.Replace("Saida", "[Saída]")
-                            insert = insert.Replace("Dataemissao", "[Data emissão]")
-                            insert = insert.Replace("Datasaida", "[Data Saída]")
-                            insert = insert.Replace("Codinstituicao", "[Cód Instituição]")
-                            insert = insert.Replace("Praca", "[Praça]")
-                            insert = insert.Replace("Baseicms", "[Base ICMS]")
-                            insert = insert.Replace("Valoricms", "[Valor ICMS]")
-                            insert = insert.Replace("Icmssub", "[ICMS Sub]")
+                            nota.codtransportador() = 1
+                            insert = RetornaUpdate(fieldList, nota, "[Nota Fiscal]", "[Cód Nota]", "'" & nota.codnota & "'")
+                            insert = insert.Replace("codnota", "[Cód Nota]")
+                            insert = insert.Replace("codtipo", "[Cód Tipo]")
+                            insert = insert.Replace("codcliente", "[Cód Cliente]")
+                            insert = insert.Replace("nomecliente", "[Nome Cliente]")
+                            insert = insert.Replace("endereco", "[Endereço]")
+                            insert = insert.Replace("codcidade", "[Cód Cidade]")
+                            insert = insert.Replace("fonefax", "[Fone/Fax]")
+                            insert = insert.Replace("inscesta", "[Insc Esta]")
+                            insert = insert.Replace("saida", "[Saída]")
+                            insert = insert.Replace("dataemissao", "[Data emissão]")
+                            insert = insert.Replace("data[Saída]", "[Data Saída]")
+                            insert = insert.Replace("codinstituicao", "[Cód Instituição]")
+                            insert = insert.Replace("praca", "[Praça]")
+                            insert = insert.Replace("baseicms", "[Base ICMS]")
+                            insert = insert.Replace("valoricms", "[Valor ICMS]")
+                            insert = insert.Replace("icmssub", "[ICMS Sub]")
                             insert = insert.Replace("[Valor ICMS]sub", "[Valor ICMS Sub]")
-                            insert = insert.Replace("Valordosprodutos", "[Valor dos Produtos]")
-                            insert = insert.Replace("Valorseguro", "[Valor Seguro]")
-                            insert = insert.Replace("Valordoipi", "[Valor do IPI]")
-                            insert = insert.Replace("Codtransportador", "[Cód Transportador]")
-                            insert = insert.Replace("Valorfrete", "[Valor Frete]")
-                            insert = insert.Replace("Valornota", "[Valor Nota]")
-                            insert = insert.Replace("Observacao", "[Observação]")
-                            insert = insert.Replace("Pesobruto", "[Peso Bruto]")
-                            insert = insert.Replace("Pesoliquido", "[Peso Líquido]")
-                            insert = insert.Replace("Especie", "[Espécie]")
-                            insert = insert.Replace("Numero", "[Número]")
-                            insert = insert.Replace("Codvendedor", "[Cód Vendedor]")
-                            insert = insert.Replace("Simnao", "[Sim/Não]")
+                            insert = insert.Replace("valordosprodutos", "[Valor dos Produtos]")
+                            insert = insert.Replace("valorseguro", "[Valor Seguro]")
+                            insert = insert.Replace("valordoipi", "[Valor do IPI]")
+                            insert = insert.Replace("codtransportador", "[Cód Transportador]")
+                            insert = insert.Replace("valorfrete", "[Valor Frete]")
+                            insert = insert.Replace("valornota", "[Valor Nota]")
+                            insert = insert.Replace("observacao", "[Observação]")
+                            insert = insert.Replace("pesobruto", "[Peso Bruto]")
+                            insert = insert.Replace("pesoliquido", "[Peso Líquido]")
+                            insert = insert.Replace("especie", "[Espécie]")
+                            insert = insert.Replace("numero", "[Número]")
+                            insert = insert.Replace("codvendedor", "[Cód Vendedor]")
+                            insert = insert.Replace("simnao", "[Sim/Não]")
+
                             comando = New OleDbCommand(insert, dados)
                             Dim numerodelinhas = comando.ExecuteNonQuery()
-                            controleCodigo.CodigoAndroid = nota.Codnota
-                            controleCodigo.CodigoBanco = nota.Codnota
+                            controleCodigo.CodigoAndroid = nota.codnota
+                            controleCodigo.CodigoBanco = nota.codnota
                             controleCodigo.Mensagem = "NF-e atualizada, tentando novo envio."
                         Else
                             controleCodigo.CodigoAndroid = 0
                             controleCodigo.CodigoBanco = 0
-                            controleCodigo.Mensagem = "Nota já enviada, não e possível realizar alterações."
+                            controleCodigo.Mensagem = "Nota já enviada, não e possível realizar alterações. Protocolo : " & ds.Tables(0).Rows(0)("Protocolo")
                         End If
                     Else
                         controleCodigo = New ControleCodigo
                         'nota = New NotaFiscal
 
-                        nota.Codtipo = 1
-                        nota.Codtransportador() = 1
                         insert = RetornaInsert(fieldList, nota, "[Nota Fiscal]")
-                        insert = insert.Replace("Codnota", "[Cód Nota]")
-                        insert = insert.Replace("Codtipo", "[Cód Tipo]")
-                        insert = insert.Replace("Codcliente", "[Cód Cliente]")
-                        insert = insert.Replace("Nomecliente", "[Nome Cliente]")
-                        insert = insert.Replace("Endereco", "[Endereço]")
-                        insert = insert.Replace("Codcidade", "[Cód Cidade]")
-                        insert = insert.Replace("Fonefax", "[Fone/Fax]")
-                        insert = insert.Replace("Inscesta", "[Insc Esta]")
-                        insert = insert.Replace("Saida", "[Saída]")
-                        insert = insert.Replace("Dataemissao", "[Data emissão]")
-                        insert = insert.Replace("Datasaida", "[Data Saída]")
-                        insert = insert.Replace("Codinstituicao", "[Cód Instituição]")
-                        insert = insert.Replace("Praca", "[Praça]")
-                        insert = insert.Replace("Baseicms", "[Base ICMS]")
-                        insert = insert.Replace("Valoricms", "[Valor ICMS]")
-                        insert = insert.Replace("Icmssub", "[ICMS Sub]")
+                        insert = insert.Replace("codnota", "[Cód Nota]")
+                        insert = insert.Replace("codtipo", "[Cód Tipo]")
+                        insert = insert.Replace("codcliente", "[Cód Cliente]")
+                        insert = insert.Replace("nomecliente", "[Nome Cliente]")
+                        insert = insert.Replace("endereco", "[Endereço]")
+                        insert = insert.Replace("codcidade", "[Cód Cidade]")
+                        insert = insert.Replace("fonefax", "[Fone/Fax]")
+                        insert = insert.Replace("inscesta", "[Insc Esta]")
+                        insert = insert.Replace("saida", "[Saída]")
+                        insert = insert.Replace("dataemissao", "[Data emissão]")
+                        insert = insert.Replace("data[Saída]", "[Data Saída]")
+                        insert = insert.Replace("codinstituicao", "[Cód Instituição]")
+                        insert = insert.Replace("praca", "[Praça]")
+                        insert = insert.Replace("baseicms", "[Base ICMS]")
+                        insert = insert.Replace("valoricms", "[Valor ICMS]")
+                        insert = insert.Replace("icmssub", "[ICMS Sub]")
                         insert = insert.Replace("[Valor ICMS]sub", "[Valor ICMS Sub]")
-                        insert = insert.Replace("Valordosprodutos", "[Valor dos Produtos]")
-                        insert = insert.Replace("Valorseguro", "[Valor Seguro]")
-                        insert = insert.Replace("Valordoipi", "[Valor do IPI]")
-                        insert = insert.Replace("Codtransportador", "[Cód Transportador]")
-                        insert = insert.Replace("Valorfrete", "[Valor Frete]")
-                        insert = insert.Replace("Valornota", "[Valor Nota]")
-                        insert = insert.Replace("Observacao", "[Observação]")
-                        insert = insert.Replace("Pesobruto", "[Peso Bruto]")
-                        insert = insert.Replace("Pesoliquido", "[Peso Líquido]")
-                        insert = insert.Replace("Especie", "[Espécie]")
-                        insert = insert.Replace("Numero", "[Número]")
-                        insert = insert.Replace("Codvendedor", "[Cód Vendedor]")
-                        insert = insert.Replace("Simnao", "[Sim/Não]")
+                        insert = insert.Replace("valordosprodutos", "[Valor dos Produtos]")
+                        insert = insert.Replace("valorseguro", "[Valor Seguro]")
+                        insert = insert.Replace("valordoipi", "[Valor do IPI]")
+                        insert = insert.Replace("codtransportador", "[Cód Transportador]")
+                        insert = insert.Replace("valorfrete", "[Valor Frete]")
+                        insert = insert.Replace("valornota", "[Valor Nota]")
+                        insert = insert.Replace("observacao", "[Observação]")
+                        insert = insert.Replace("pesobruto", "[Peso Bruto]")
+                        insert = insert.Replace("pesoliquido", "[Peso Líquido]")
+                        insert = insert.Replace("especie", "[Espécie]")
+                        insert = insert.Replace("numero", "[Número]")
+                        insert = insert.Replace("codvendedor", "[Cód Vendedor]")
+                        insert = insert.Replace("simnao", "[Sim/Não]")
 
                         comando = New OleDbCommand(insert, dados)
                         Dim numerodelinhas = comando.ExecuteNonQuery()
@@ -161,7 +160,7 @@ Namespace Controllers
                         comando.Dispose()
                         controleCodigo.CodigoAndroid = nota.Codnota
                         controleCodigo.CodigoBanco = ds.Tables(0).Rows(0)("Cód Nota")
-
+                        controleCodigo.Mensagem = "NF-e atualizada, tentando novo envio."
                         ds.Dispose()
                         ds = Nothing
                         da.Dispose()
@@ -170,6 +169,7 @@ Namespace Controllers
                     listcontrolecodigo.Add(controleCodigo)
                 Next
                 dados.Close()
+                System.Threading.Thread.Sleep(1000)
                 Return listcontrolecodigo
             Catch ex As Exception
                 dados.Close()

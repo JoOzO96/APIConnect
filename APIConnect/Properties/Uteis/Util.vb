@@ -11,11 +11,11 @@ Module Util
             If nomePai = "" Then
                 xmlRecebido = "<connect>" & xmlRecebido & "</connect>"
             End If
-            xml.LoadXml(xmlRecebido)
+            xml.LoadXml(Replace(xmlRecebido, "xmlns=", "xmlns:c="))
         Catch ex As Exception
             If InStr(ex.Message, "Há vários elementos") Then
                 xmlRecebido = "<connect>" & xmlRecebido & "</connect>"
-                xml.LoadXml(xmlRecebido)
+                xml.LoadXml(Replace(xmlRecebido, "xmlns=", "xmlns:c="))
             End If
         End Try
         Try
@@ -43,6 +43,26 @@ Module Util
 
 
         Return retorno
+    End Function
+
+    Public Function RetornaValorAtributoXML(XMLRecebido As String, NomePai As String, NomeFilho As String, IDAtributo As String)
+
+        'On Error Resume Next
+        Dim xml As New XmlDocument
+        Dim ListNodos As XmlNodeList
+        Dim nodoPai As XmlNode
+        Dim nodofilho As XmlNode
+
+        xml.loadXML(XMLRecebido)
+        xml.LoadXml(Replace(XMLRecebido, "xmlns=", "xmlns:c="))
+
+        If NomeFilho <> "" Then
+            RetornaValorAtributoXML = xml.SelectSingleNode("//" & NomePai & "/" & NomeFilho).Attributes.GetNamedItem(IDAtributo).InnerText
+        Else
+            RetornaValorAtributoXML = xml.SelectSingleNode("//" & NomePai).Attributes.GetNamedItem(IDAtributo).InnerText
+        End If
+
+
     End Function
 
     Function GetInstallDirectory(ByVal usProgName As String) As String

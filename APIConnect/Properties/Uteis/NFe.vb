@@ -70,6 +70,7 @@ Module NFe
         Dim dsIcms As New DataSet
         Dim dsCest As New DataSet
         Dim dsTabelaIcms As New DataSet
+        Dim dsTransportador As New DataSet
         Dim imposto As String
         Dim Detalhes As String
         Dim TotISSQN As String
@@ -77,7 +78,7 @@ Module NFe
 
         Dim xmlnfe As String
         Dim versao As String
-        versao = "0.0.1b"
+        versao = "4.00"
         'dados do identificador
         Dim ide As String
         Dim ide_cUF As String
@@ -363,6 +364,17 @@ Module NFe
         Dim efet_vBCSTDest As Double
         Dim efet_vICMSSTDest As Double
 
+        'dados do transportador 
+        Dim transp As String
+        Dim transpModFrete As String
+        Dim tra_Cnpj As String
+        Dim tra_cpf As String
+        Dim tra_transportador As String
+        Dim tra_IE As String
+        Dim tra_ende As String
+        Dim tra_Cidade As String
+        Dim tra_UF As String
+
         ' dados do pagamento
         Dim cobr As String
         Dim pagto As String
@@ -417,12 +429,12 @@ Module NFe
         ide_mode = 55        ' modelo da nota fiscal eletronica
         ide_serie = CInt(ds.Tables(0).Rows(0)("Serie"))        ' série única = 0
         ide_nNF = codnota        ' número da NF-e
-        ide_dEmi = Format(ds.Tables(0).Rows(0)("Datae"), "yyyy-mm-dd") & "T" & Format(ds.Tables(0).Rows(0)("Hora"), "HH:MM:ss") & PegaTimeZone()        'Gide![dataE]         ' data de emissão
+        ide_dEmi = Format(ds.Tables(0).Rows(0)("Datae"), "yyyy-MM-dd") & "T" & Format(ds.Tables(0).Rows(0)("Hora"), "HH:mm:ss") & PegaTimeZone()        'Gide![dataE]         ' data de emissão
 
         If IsDBNull(ds.Tables(0).Rows(0)("Datas")) Then
             ide_dSaiEnt = ""        'Dat2  'Gide![dataE]         ' data de emissão
         Else
-            ide_dSaiEnt = Format(ds.Tables(0).Rows(0)("Datas"), "yyyy-mm-dd") & "T" & Format(ds.Tables(0).Rows(0)("Hora"), "HH:MM:ss") & PegaTimeZone()    'Gide![dataE]         ' data de emissão
+            ide_dSaiEnt = Format(ds.Tables(0).Rows(0)("Datas"), "yyyy-MM-dd") & "T" & Format(ds.Tables(0).Rows(0)("Hora"), "HH:mm:ss") & PegaTimeZone()    'Gide![dataE]         ' data de emissão
         End If
 
         ide_tpNF = ds.Tables(0).Rows(0)("saída")        ' 0= entrada, 1 = saída
@@ -568,12 +580,12 @@ Module NFe
         da.Fill(dsDesti, "Cliente")
 
 
-        If 1 = 2 Then
+        If ide_tpAmb = 2 Then
             dest_xNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"        ' Razão social do destinatario, evitar caracteres acentuados e &
             dest_CNPJ = "99999999000191"
             dest_IE = ""
             dest_CPF = ""
-            indIEDest = "9"
+            indIEDest = "2"
         Else
             If dsDesti.Tables(0).Rows(0)("Uf") = "EX" Then
                 dest_CPF = ""
@@ -702,7 +714,7 @@ Module NFe
         dsIcms = New DataSet
         da.Fill(dsIcms, "ICMS")
 
-        For i = 0 To dsIcms.Tables(0).Rows.Count - 1
+        For i = 1 To dsIcms.Tables(0).Rows.Count
 
             Prod_cProd = dsIcms.Tables(0).Rows(0)("Cód Produto")        ' código do produto
             If IsDBNull(dsIcms.Tables(0).Rows(0)("EAN")) Then
@@ -714,7 +726,7 @@ Module NFe
                     Prod_cEAN = "SEM GTIN"
                 End If
             End If
-                Prod_xProd = Left(dsIcms.Tables(0).Rows(0)("Descricao"), 110)       ' código do produto, espaços em branco consecutivos ou no início ou fim do campo podem gerar erro de Schema XML, além de caracteres reservados do XML <>&"'
+            Prod_xProd = Left(dsIcms.Tables(0).Rows(0)("Descricao"), 110)       ' código do produto, espaços em branco consecutivos ou no início ou fim do campo podem gerar erro de Schema XML, além de caracteres reservados do XML <>&"'
 
             If IsDBNull(dsIcms.Tables(0).Rows(0)("NCM")) Or dsIcms.Tables(0).Rows(0)("NCM") = "00000000" Then
                 Prod_NCM = "00000000"
@@ -841,7 +853,7 @@ Module NFe
 
             If emi_CRT = 1 Then
                 ICMS_orig = dsIcms.Tables(0).Rows(0)("Origem")
-                If dsIcms.Tables(0).Rows(0)("GlP") > 0 Then
+                If Not IsDBNull(dsIcms.Tables(0).Rows(0)("GlP")) Then
                     ICMS_CST = "S60"
                 Else
                     ICMS_CST = dsIcms.Tables(0).Rows(0)("SST")
@@ -959,7 +971,11 @@ Module NFe
                     efet_orig = ICMS_orig
                     efet_cst = ICMS_CST
                     If indFinal = 0 Then
-                        efet_vBCSTRet = dsIcms.Tables(0).Rows(0)("vBCSTRet") * Prod_qTrib
+                        If IsDBNull(dsIcms.Tables(0).Rows(0)("vBCSTRet")) Then
+                            efet_vBCSTRet = 0
+                        Else
+                            efet_vBCSTRet = dsIcms.Tables(0).Rows(0)("vBCSTRet") * Prod_qTrib
+                        End If
                         efet_pST = 18
                         efet_vICMSSbustituto = (efet_vBCSTRet * efet_pST) / 100   'ver isso
                         efet_vICMSSTRet = efet_vBCSTRet * efet_pST / 100
@@ -1285,7 +1301,113 @@ Module NFe
         'totalICMS = objNFeUtil.totalICMSNT2015003(totalICMS_vBC, totalICMS_vICMS, totalICMS_vBCST, totalICMS_vST, totalICMS_vProd, totalICMS_vFrete, totalICMS_vSeg, totalICMS_vDesc, totalICMS_vII, totalICMS_vIPI, totalICMS_vPIS, totalICMS_vCOFINS, totalICMS_vOutro, totalICMS_vNF, totalICMS_vTotTrib, totalICMS_vICMSDeson, totalICMS_vICMSUFDest, totalICMS_vICMSUFRemet, totalICMS_vFCPUFDest)
 
         Total = nfe.total(totICMS, TotISSQN, "")        ' total da NF-e sem os valors de ISSQN e RetTributos
+        comando = New OleDbCommand("SELECT [Nota Fiscal].[Cód Nota], [Nota Fiscal].CodEmitente, Transportador.[Cód Transportador], Transportador.[Nome Transportador], [Nota Fiscal].EmiDesti, Transportador.Endereço, Transportador.[CGC Firma], Transportador.IE, Transportador.CEP, " &
+        "[Nota Fiscal].Placavei, Transportador.[UF Veiculo], Cidade.[Nome Cidade] AS NomeCidade, Cidade.Uf, Transportador.RNTC, [Nota Fiscal].Complemento, [Nota Fiscal].Observação, Transportador.CPF, " &
+        "[Nota Fiscal].OBSfisco, Emitente.perApro AS taxa, [valor Nota]*[perapro]/100 AS Vimpo, [Nota Fiscal].[Peso Bruto], [Nota Fiscal].[Peso Líquido], [Nota Fiscal].Quantidade, [Nota Fiscal].Espécie, [Nota Fiscal].Marca, [Nota Fiscal].Número" &
+        " FROM Emitente INNER JOIN ((Cidade RIGHT JOIN Transportador ON Cidade.[Cód Cidade] = Transportador.[Cód Cidade]) INNER JOIN [Nota Fiscal] ON Transportador.[Cód Transportador] = [Nota Fiscal].[Cód Transportador]) ON Emitente.CodigoEmitente = [Nota Fiscal].CodEmitente where [Cód nota] = " & "'" & codnota & "'" & " AND [CodEmitente] = " & codemitente, conexao)
+        da = New OleDbDataAdapter(comando)
+        dsTransportador = New DataSet
+        da.Fill(dsTransportador, "Emitente")
+        Dim Tran As String, Vei As String
+        transpModFrete = dsTransportador.Tables(0).Rows(0)("EmiDesti")        ' responsabilidade do frete 0-emitente, 1-destinatário
 
+        ' If transpModFrete <> 9 And dest_UF = "RS" Then
+
+        If transpModFrete <> "9" And idDest = "1" Then
+            If dsTransportador.Tables(0).Rows(0)("Cód Transportador") = 1 Then
+
+                If (dest_CNPJ = "") Then
+                    tra_cpf = dest_CPF
+                Else
+                    tra_Cnpj = dest_CNPJ
+                End If
+                tra_transportador = dest_xNome
+                tra_IE = dest_IE
+                tra_ende = dest_xLgr
+                tra_Cidade = dest_xMun
+                tra_UF = dest_UF
+
+            Else
+                tra_transportador = dsTransportador.Tables(0).Rows(0)("Nome Transportador")
+                If IsDBNull(dsTransportador.Tables(0).Rows(0)("CGC Firma")) Then
+                    tra_Cnpj = ""
+                Else
+                    tra_Cnpj = dsTransportador.Tables(0).Rows(0)("CGC Firma")
+                End If
+                If IsDBNull(dsTransportador.Tables(0).Rows(0)("CPF")) Then
+                    tra_cpf = ""
+                Else
+                    tra_cpf = dsTransportador.Tables(0).Rows(0)("CPF")
+                End If
+
+                If IsDBNull(dsTransportador.Tables(0).Rows(0)("ie")) Then
+                    tra_IE = ""
+                Else
+                    tra_IE = dsTransportador.Tables(0).Rows(0)("ie")
+                End If
+                If IsDBNull(dsTransportador.Tables(0).Rows(0)("Endereço")) Then
+                    tra_ende = ""
+                Else
+                    tra_ende = dsTransportador.Tables(0).Rows(0)("Endereço")
+                End If
+                If IsDBNull(dsTransportador.Tables(0).Rows(0)("NomeCidade")) Then
+                    tra_Cidade = ""        'dest_xMun
+                Else
+                    tra_Cidade = dsTransportador.Tables(0).Rows(0)("NomeCidade")
+                End If
+                If IsDBNull(dsTransportador.Tables(0).Rows(0)("Uf")) Then
+                    tra_UF = ""        'dest_UF
+                Else
+                    tra_UF = dsTransportador.Tables(0).Rows(0)("UF Veiculo")
+                End If
+
+            End If
+            Tran = nfe.transporta(tra_Cnpj, tra_cpf, tra_transportador, tra_IE, tra_ende, tra_Cidade, tra_UF)
+
+            '============dados do Veículo
+
+            Dim Vei_Placa As String, Vei_Rntc As String, Vei_UF As String
+
+            If IsDBNull(dsTransportador.Tables(0).Rows(0)("RNTC")) Then
+                Vei_Rntc = ""
+            Else
+                Vei_Rntc = dsTransportador.Tables(0).Rows(0)("RNTC")
+            End If
+            If IsDBNull(dsTransportador.Tables(0).Rows(0)("UF Veiculo")) Then
+                Vei_UF = tra_UF
+            Else
+                Vei_UF = dsTransportador.Tables(0).Rows(0)("UF Veiculo")
+            End If
+            If IsDBNull(dsTransportador.Tables(0).Rows(0)("PlacaVei")) Then
+                Vei = ""
+            Else
+                If (dsTransportador.Tables(0).Rows(0)("PlacaVei") = "") Then
+                    Vei = ""
+                Else
+                    Vei_Placa = dsTransportador.Tables(0).Rows(0)("PlacaVei")
+                    Vei = nfe.veicTransp(Vei_Placa, Vei_UF, Vei_Rntc)
+                End If
+            End If
+
+        End If
+
+        Dim Volu As String, qVol As Double, esp As String, Marca As String, nVol As String, pesoL As Double, pesoB As Double, lacres As String
+        qVol = dsTransportador.Tables(0).Rows(0)("Quantidade")
+        esp = dsTransportador.Tables(0).Rows(0)("Espécie")
+        Marca = dsTransportador.Tables(0).Rows(0)("Marca")
+        nVol = dsTransportador.Tables(0).Rows(0)("Número")
+        pesoL = dsTransportador.Tables(0).Rows(0)("Peso Líquido")
+        pesoB = dsTransportador.Tables(0).Rows(0)("Peso Bruto")
+        lacres = ""
+
+        Volu = ""
+        Volu = nfe.vol(qVol, esp, Marca, nVol, pesoL, pesoB, "")
+
+        If transpModFrete = "" Then
+            transpModFrete = vbNull
+        End If
+
+        transp = nfe.transportador2G(transpModFrete, Tran, "", Vei, "", "", "", Volu)
 
         resp_cnpj = "09602527000160"
         resp_xContato = "ELDER PANISSON FONTANA"
@@ -1361,7 +1483,7 @@ Module NFe
             If ide_finNFe = 3 Or ide_finNFe = 4 Then
                 pagto_tPag = 90
             Else
-                pagto_tPag = MeioPag
+                pagto_tPag = "15"
             End If
             pagto_vPag = totICMS_vNF
             tpIntegra_Opc = ""
@@ -1385,9 +1507,243 @@ Module NFe
 
 
         'nfe = nfe.NFe201805(versao, chaveNfe, ide, emi, "", dest, Retirada, Entrega, Detalhes, Total, transp, cobr, pagto, infAdic, exporta, Compr, "", "", responsavelTecnico)
-        xmlnfe = nfe.NFe201805(versao, chaveNfe, ide, emi, "", dest, "", "", "", "", "", cobr, pagto, "", "", "", "", "", responsavelTecnico)
+        xmlnfe = nfe.NFe201805(versao, chaveNfe, ide, emi, "", dest, "", "", Detalhes, Total, transp, cobr, pagto, "", "", "", "", "", responsavelTecnico)
 
         Return xmlnfe
+
+    End Function
+
+    Public Function ValidaNFE(xmlNfe As String) As String
+        'Open CommonDialog1.FileName For Input As #1
+        Dim resultado As Long
+        Dim msgResultado As String
+        Dim erroXML As String
+        Dim tipoXML As Long
+        Dim qtdeErros As Long
+        Dim nfe As New Object
+        Dim objAssembly As Reflection.Assembly
+        Dim mensagemRetorno As String
+
+        objAssembly = objAssembly.LoadFrom(GetInstallDirectory("NFe_Util_2G.dll"))
+        nfe = objAssembly.CreateInstance("NFe_Util_2G.Util", True)
+
+
+        tipoXML = 68  '52     ' validar NF-e (opção fixa neste exemplo)
+        qtdeErros = 0   ' quantidade de erros, se o XML não estiver assinado vai ocorrer um erro
+        erroXML = ""
+        msgResultado = ""
+
+        resultado = nfe.ValidaXML(xmlNfe, tipoXML, msgResultado, qtdeErros, erroXML)
+
+        If (resultado = 0) Then
+
+            mensagemRetorno = ""
+            'MsgBox msgResultado, vbInformation, "Informação"
+
+        Else
+            If ((resultado = 5506) And (qtdeErros = 1)) Then
+                mensagemRetorno = qtdeErros
+                'MsgBox "Nota gerada Com Sucesso, Agora o Sistema ira Transmitir para o SEFAZ!!!", vbInformation, "Informação"
+            Else
+                mensagemRetorno = "Quantidade de Erros: " + Str(qtdeErros) & vbCrLf & erroXML
+            End If
+        End If
+
+        Return mensagemRetorno
+
+    End Function
+
+
+    Public Function EnviaNFE(xml As String) As String
+
+        Dim conexao As New OleDbConnection
+        Dim comando As New OleDbCommand
+        Dim retorno As String
+        Dim ds As New DataSet
+        Dim dsEmitente As New DataSet
+        Dim nfe As New Object
+        Dim objAssembly As Reflection.Assembly
+
+
+        conexao.ConnectionString = RetornaConexao()
+        conexao.Open()
+        comando = New OleDbCommand("SELECT * FROM EMITENTE", conexao)
+        Dim da As New OleDbDataAdapter(comando)
+        da.Fill(ds, "Emitente")
+        objAssembly = objAssembly.LoadFrom(GetInstallDirectory("NFe_Util_2G.dll"))
+        nfe = objAssembly.CreateInstance("NFe_Util_2G.Util", True)
+        Dim msgDados As String     ' informar a string com o lote da NF-e neste parâmetro, retorna a mensagem XML enviada para o WS
+        Dim msgRetWS As String     ' retorna a mensagem XML de resposta do WS
+        Dim msgResultado As String    ' retorna a literal do resultado da chamada do WS
+        Dim Cstat As Long          ' retorna o resultado da chamada do WS
+        Dim nroRecibo As String             ' retorna o número do recibo do lote atribuído ao lote pela SEFAZ, este será utilizado para consultar o resultado do processamento do lote
+        Dim dhRecbto As String         ' retorna a data e hora de recebimento do lote pela SEFAZ
+        Dim tMed As String             ' retorna o tempo médio de resposta do serviço em segundos dos últimos 5 minutos
+        Dim siglaWS As String      ' informar a sigla do WS de envio, informar SVAN - SEFAZ Virtual do Ambiente Nacional (CE, ES, MA, PA, PI e RN) ou SVRS - SEFAZ Virtual do Rio Grande do Sul (AC, AL, AM, AP, DF, MS, PB, RJ, RO, RR, SC, SE e TO), caso a UF seja usuário da SEFAZ Virtual, em caso contrário informar a sigla da UF (AM, BA, CE, GO, MS, MT, MG, PE, PR, RS e SP). Em caso de contingência SCAN, informar a sigla SCAN
+        Dim nomeCertificado1 As String  ' informar o Nome do titular (campo Assunto) do certificado digital a ser utlizado na conexão SSL. Ex.: "CN=NFe - Associacao NF-e:99999090910270, C=BR, L=PORTO ALEGRE, O=Teste Projeto NFe RS, OU=Teste Projeto NFe RS, S=RS"
+        '
+        Dim proxy As String    ' informar 'http://proxyserver:port' quando existir uso de proxy no ambiente. verificar com o cliente qual é o endereço do servidor proxy e a porta https, a porta padrão do https é 443, assim teríamos algo do tipo 'http://192.168.15.1:443'
+        Dim Usuario As String    ' informar o usuário para autenticação no proxy se necessário
+        Dim Senha As String    ' informar a senha de autenticação no proxy se necessário
+        '
+        Dim Result As Long
+        Dim Licenca As String          ' informar a chave da licença de uso, esta funcionalidade pode ser utilizada sem quaquer restrição no ambiente de homologação. O uso em ambiente de produção requer o licenciamento ou registro, para maiores detalhes veja as condições de uso
+        '
+        'Dim NFE As String              ' informar a NF-e que deseja transmitir, a NF-e não deve estar assinada
+        Dim nfeAssinada As String      ' recebe o XML da NFe assinada
+        Dim versao As String       ' informar o versão da mensagem do WS - 1.10 (manual de integração versão 2.04 ou 3.00) ou 2.00 (manual de integração versão 4.0x)
+        '
+        ' Importante: todas as variáveis utilizadas como parâmetro da DLL devem ser inicialiadas
+        '
+        '
+        proxy = ""    ' informar 'http://proxyserver:port' quando existir uso de proxy no ambiente. verificar com o cliente qual é o endereço do servidor proxy e a porta https, a porta padrão do https é 443, assim teríamos algo do tipo 'http://192.168.15.1:443'
+        Usuario = ""    ' informar o usuário para autenticação no proxy se necessário
+        Senha = ""    ' informar a senha de autenticação no proxy se necessário
+        msgDados = ""    ' informar a string com o lote da NF-e neste parâmetro, retorna a mensagem XML enviada para o WS
+        msgRetWS = ""    ' retorna a mensagem XML de resposta do WS
+        nroRecibo = ""    ' retorna o número do recibo do lote atribuído ao lote pela SEFAZ, este será utilizado para consultar o resultado do processamento do lote
+        dhRecbto = ""    ' retorna a data e hora de recebimento do lote pela SEFAZ
+        tMed = ""    ' retorna o tempo médio de resposta do serviço em segundos dos últimos 5 minutos
+        Licenca = ""    ' informar a chave da licença de uso, esta funcionalidade pode ser utilizada sem quaquer restrição no ambiente de homologação. O uso em ambiente de produção requer o licenciamento ou registro, para maiores detalhes veja as condições de uso
+
+        nomeCertificado1 = ds.Tables(0).Rows(0)("CertiEmi")
+        Licenca = ds.Tables(0).Rows(0)("Licenca")
+        siglaWS = ds.Tables(0).Rows(0)("UF")
+
+        'ambiente = HAMBI        ' ambiente consultado: 1- produção e 2-homologação
+        versao = "4.00"     ' informar o versão da mensagem do WS - 1.10 (manual de integração versão 2.04 ou 3.00) ou 2.00 (manual de integração versão 4.0x)
+
+
+
+        '
+        'nfeAssinada = objNFeUtil.EnviaNFe2G(siglaWS, NFe, nomeCertificado1, Versao, msgDados, msgRetWS, cStat, msgResultado, nroRecibo, dhRecbto, tMed, proxy, Usuario, Senha, Licenca)
+        nfeAssinada = nfe.EnviaNFSincrono(siglaWS, xml, nomeCertificado1, versao, msgDados, msgRetWS, Cstat, msgResultado, nroRecibo, dhRecbto, tMed, proxy, Usuario, Senha, Licenca)   '
+
+        'MsgBox cStat
+
+
+
+        Select Case Cstat
+
+            Case 1 To 35
+
+
+
+        'X = Salva_Log(Result, msgResultado, msgCabec, msgDados, msgRetWS, NFe)
+
+
+        'Case 103
+
+        'MsgBox Str(cStat) & "-" & msgResultado & Chr(13) & Chr(13) + "A NF-e foi enviada para o Web Service desejado, busque o resultado processamento do lote, informando o número do recibo de entrega: " + nroRecibo, vbInformation, "Atenção: NF-e enviada!"
+
+
+            Case 108, 109
+
+                retorno = Str(Cstat) & "-" & msgResultado & Chr(13) & Chr(13) + "O Web Service com problemas de recepção, adote o processo de contingência se a emissão da NF-e for urgente." + nroRecibo
+
+            Case Is <> 103
+
+                If Cstat = 5307 Then
+                    retorno = "Cartão do certificado não reconhecido, Retire e insira o mesmo novamente na Leitora ou SEFAZ Esta Temporariamente Fora do Ar!!!, Tente enviar mais Tarde!!"
+                ElseIf Cstat = 5002 Then
+                    retorno = "Falha no Certificado Digital, Veifique e Tente enviar Novamente!!"
+                ElseIf Cstat = 204 Then
+                    'retorno = "NF-e ja enviada para o SEFAZ, consulte a Mesma através do botão 'Consulta'!!"
+                    Return Consulta_NFE(RetornaValorAtributoXML(xml, "NFe", "infNFe", "Id"))
+                ElseIf Cstat = 100 Then
+                    xml = nfeAssinada
+                    retorno = xml
+                Else
+                    retorno = msgResultado
+                End If
+
+
+        End Select
+        Return retorno
+        '
+        ' implementar o tratamento do retorno
+        '
+        ' cStat = 103 ==> NFe enviada, guardar a NFeAssinada, o número do recibo e fazer a busca do resultado do processamento (BuscaNFe)
+        '
+        ' cStat = 108/109 ==> WS de recepção com problemas, avaliar a possibilidade de emissão em contingência
+        '
+        ' cStat > 109 e menor que 1000 ==> WS consumido, contudo ocorreu algum problema, verifique o código e descrição do erro, recomendamos o exame do manual de integração para identificar a possível causa do erro
+        '
+        ' cStat > 999 ==> código de erro da DLL, o WS não chegou a ser consumido, verifique o código e descrição do erro e providencie a solução.
+        ' declaração das variáveis que serão utilizadas na passagem de parâmetros da DLL
+        '
+
+    End Function
+
+    Public Function Consulta_NFE(chaveNfe As String) As String
+        ' declaração das variáveis que serão utilizadas na passagem de parâmetros da DLL
+        '
+        Dim conexao As New OleDbConnection
+        Dim comando As New OleDbCommand
+        Dim retorno As String
+        Dim ds As New DataSet
+        conexao.ConnectionString = RetornaConexao()
+        conexao.Open()
+        comando = New OleDbCommand("SELECT * FROM EMITENTE", Conexao)
+        Dim da As New OleDbDataAdapter(comando)
+        da.Fill(ds, "Emitente")
+        Dim nfe As New Object
+        Dim objAssembly As Reflection.Assembly
+        objAssembly = objAssembly.LoadFrom(GetInstallDirectory("NFe_Util_2G.dll"))
+        nfe = objAssembly.CreateInstance("NFe_Util_2G.Util", True)
+        Dim msgDados As String     ' retorna a mensagem XML enviada para o WS
+        Dim msgRetWS As String     ' retorna a mensagem XML de resposta do WS
+        Dim msgResultado As String    ' retorna a literal do resultado da chamada do WS
+        Dim siglaWS As String      ' informar a sigla do WS que deseja consultar, informar SVAN - SEFAZ Virtual do Ambiente Nacional (CE, ES, MA, PA, PI e RN) ou SVRS - SEFAZ Virtual do Rio Grande do Sul (AC, AL, AM, AP, DF, MS, PB, RJ, RO, RR, SC, SE e TO), caso a UF seja usuário da SEFAZ Virtual, em caso contrário informar a sigla da UF (AM, BA, CE, GO, MS, MT, MG, PE, PR, RS e SP). Em caso de contingência SCAN, informar a sigla SCAN
+        Dim Certificado As String  ' informar o Nome do titular (campo Assunto) do certificado digital a ser utlizado na conexão SSL. Ex.: "CN=NFe - Associacao NF-e:99999090910270, C=BR, L=PORTO ALEGRE, O=Teste Projeto NFe RS, OU=Teste Projeto NFe RS, S=RS"
+        'Dim chaveNfe As String   ' informar a chave de acesso da NF-e que se deseja consultar
+        Dim proxy As String    ' informar 'http://proxyserver:port' quando existir uso de proxy no ambiente. verificar com o cliente qual é o endereço do servidor proxy e a porta https, a porta padrão do https é 443, assim teríamos algo do tipo 'http://192.168.15.1:443'
+        Dim Usuario As String    ' informar o usuário para autenticação no proxy, se necessário
+        Dim Senha As String    ' informar a senha de autenticação no proxy, se necessário
+        Dim CnpjRetorno As String, ChaveRetorno As String
+        '
+        Dim tipoAmbiente As Integer    ' informar o código do ambiente a ser consultado: 1- produção ou 2-homologação
+        Dim versao As String    ' informar o versão da mensagem do WS - 1.07 (manual de integração versão 2.04 ou 3.00) ou 2.00 (manual de integração versão 4.0x)
+        proxy = ""    ' informar 'http://proxyserver:port' quando existir uso de proxy no ambiente. verificar com o cliente qual é o endereço do servidor proxy e a porta https, a porta padrão do https é 443, assim teríamos algo do tipo 'http://192.168.15.1:443'
+        Usuario = ""    ' informar o usuário para autenticação no proxy, se necessário
+        Senha = ""    ' informar a senha de autenticação no proxy, se necessário
+        msgDados = ""    ' retorna a mensagem XML enviada para o WS
+        msgRetWS = ""    ' retorna a mensagem XML de resposta do WS
+        msgResultado = ""    ' retorna a literal do resultado da chamada do WS
+
+        Certificado = ds.Tables(0).Rows(0)("CertiEmi")
+
+        siglaWS = "RS"    ' se a UF utilizar SEFAZ Virtual, informar SVRS (Ex. RJ, SC, etc.) ou SVAN (Ex. ES, RN, etc.)
+
+
+
+        tipoAmbiente = CLng("2")  ' informar o código do ambiente a ser consultado: 1- produção ou 2-homologação
+        versao = "4.00"    ' informar o versão da mensagem do WS - 1.07 (manual de integração versão 2.04 ou 3.00) ou 2.00 (manual de integração versão 4.0x)
+        '
+        Dim Result As Long
+        Dim objNFeUtil As Object
+
+        chaveNfe = Replace(chaveNfe, "NFe", "")
+        Result = nfe.ConsultaNF2G(siglaWS, tipoAmbiente, Certificado, versao, msgDados, msgRetWS, msgResultado, chaveNfe, proxy, Usuario, Senha)
+
+
+
+        ' MsgBox msgResultado
+
+        'reto = msgRetWS        ' string com a mensagem XML da resposta do WS
+        ChaveRetorno = RetornaValorNodoXML(msgRetWS, "chNFe", "infProt", "")
+        CnpjRetorno = Mid(ChaveRetorno, 7, 14)
+
+        '    If CnpjRetorno = "" Or IsNull(CnpjRetorno) Then
+        '    Else
+
+        '        If CnpjRetorno <> format(CnpjDesti, "0000000000000") Then
+        '            Beep
+        '            MsgBox "CNPJ/CPF diferente da nota na tela com o que está no SEFAZ !!!!!!! ", vbCritical, "Informação"
+        '            Exit Function
+        '        End If
+        '    End If
+        Consulta_NFE = msgRetWS
 
     End Function
 
