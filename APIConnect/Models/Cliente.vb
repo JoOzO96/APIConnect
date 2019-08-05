@@ -54,6 +54,8 @@
     Private _clientetipo As Long
     Private _diacobranca As Long
     Private _diaparavencimento As Long
+    Private _cadastroAndroid As Boolean
+    Private _alteradoAndroid As Boolean
 
     Public Property codigo As Long
         Get
@@ -511,6 +513,24 @@
         End Get
         Set(value As Long)
             _diaparavencimento = value
+        End Set
+    End Property
+
+    Public Property cadastroAndroid As Boolean
+        Get
+            Return _cadastroAndroid
+        End Get
+        Set(value As Boolean)
+            _cadastroAndroid = value
+        End Set
+    End Property
+
+    Public Property alteradoAndroid As Boolean
+        Get
+            Return _alteradoAndroid
+        End Get
+        Set(value As Boolean)
+            _alteradoAndroid = value
         End Set
     End Property
 End Class

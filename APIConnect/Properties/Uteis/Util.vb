@@ -221,6 +221,18 @@ Module Util
                     Exit For
                 End If
             Next
+            For i = 0 To field.Count - 1
+                If field(i).Name = "cadastroAndroid" Then
+                    field.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+            For i = 0 To field.Count - 1
+                If field(i).Name = "alteradoAndroid" Then
+                    field.RemoveAt(i)
+                    Exit For
+                End If
+            Next
 
         End If
 
@@ -256,7 +268,7 @@ Module Util
             If field(i).PropertyType.FullName.ToUpper.Equals("SYSTEM.DATETIME") Then
 
                 dadosTabela = "#"
-                dadosTabela = dadosTabela & dado
+                dadosTabela = dadosTabela & Format(dado, "yyyy-MM-dd")
                 dadosTabela = dadosTabela & "#"
             Else
 

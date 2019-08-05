@@ -195,6 +195,7 @@
     <Compile Include="Controllers\CidadeController.vb" />
     <Compile Include="Controllers\ClienteController.vb" />
     <Compile Include="Controllers\ClienteSefazController.vb" />
+    <Compile Include="Controllers\EmiteConfiguraController.vb" />
     <Compile Include="Controllers\EmitenteController.vb" />
     <Compile Include="Controllers\EnviaNfeController.vb" />
     <Compile Include="Controllers\FormaPagamentoController.vb" />
@@ -248,6 +249,7 @@
     <Compile Include="Controllers\ValuesController.vb" />
     <Compile Include="Properties\Uteis\Conexao.vb" />
     <Compile Include="Properties\Uteis\JsonExtensions.vb" />
+    <Compile Include="Properties\Uteis\IniciaEmitente.vb" />
     <Compile Include="Properties\Uteis\NFe.vb" />
     <Compile Include="Properties\Uteis\PegaFusoHorario.vb" />
     <Compile Include="Properties\Uteis\SalvaArquivos.vb" />

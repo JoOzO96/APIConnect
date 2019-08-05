@@ -20,12 +20,15 @@ Namespace Controllers
             Dim listainfCadastro As New List(Of InfCadastro)
             Dim retorno As String
             Dim i As Long
-            retorno = ConsultaCNPJ(id)
-                retorno = Replace(retorno, "xmlns=" & Chr(34) & "http://www.portalfiscal.inf.br/nfe" & Chr(34), "xmlns:c=" & Chr(34) & "http://www.portalfiscal.inf.br/nfe" & Chr(34))
-                If InStr(retorno, "retConsCad") Then
-                    xml.LoadXml(retorno)
 
-                    infCad = xml.SelectNodes("//infCad")
+            retorno = ConsultaCNPJ(id)
+            retorno = Replace(retorno, "xmlns=" & Chr(34) & "http://www.portalfiscal.inf.br/nfe" & Chr(34), "xmlns:c=" & Chr(34) & "http://www.portalfiscal.inf.br/nfe" & Chr(34))
+
+            If InStr(retorno, "retConsCad") Then
+                SalvaArquivo(1, Now(), "SEFAZ", retorno, id & ".xml")
+                xml.LoadXml(retorno)
+
+                infCad = xml.SelectNodes("//infCad")
 
                     For Each objeto In infCad
 

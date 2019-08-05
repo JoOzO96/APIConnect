@@ -8,13 +8,19 @@ Namespace Controllers
 
         ' GET: api/Emitente
         Public Function GetValues() As Emitente
+
+
+        End Function
+
+        ' GET: api/Emitente/5
+        Public Function GetValue(ByVal id As Integer) As Emitente
             Dim dados As New OleDbConnection
             Dim comando As New OleDbCommand
             Dim ds As New DataSet
 
             dados.ConnectionString = RetornaConexao()
             dados.Open()
-            comando = New OleDbCommand("SELECT * from Emitente", dados)
+            comando = New OleDbCommand("SELECT * from Emitente Where Codigoemitente = " & id, dados)
             Dim da As New OleDbDataAdapter(comando)
             da.Fill(ds, "Emitente")
 
@@ -27,29 +33,18 @@ Namespace Controllers
                 emitente = New Emitente
                 For j = 0 To fieldList.Length - 1
                     nomeCampo = fieldList(j).Name.ToLower
-                    If (nomeCampo.Equals("codigo")) Then
-                        nomeCampo = "Código"
-                    ElseIf (nomeCampo.Equals("nomecliente")) Then
-                        nomeCampo = "Nome Cliente"
-                    ElseIf (nomeCampo.Equals("datanasc")) Then
-                        nomeCampo = "Data Nasc"
-                    ElseIf (nomeCampo.Equals("codprofissao")) Then
-                        nomeCampo = "Cód Profissao"
-                    ElseIf (nomeCampo.Equals("codcidade")) Then
-                        nomeCampo = "Cod Cidade"
-                    ElseIf (nomeCampo.Equals("responsavel")) Then
-                        nomeCampo = "Responsável"
-                    ElseIf (nomeCampo.Equals("codvendedor")) Then
-                        nomeCampo = "Cód Vendedor"
-                    ElseIf (nomeCampo.Equals("conjuge")) Then
-                        nomeCampo = "conjugê"
-                    ElseIf (nomeCampo.Equals("codigopgto")) Then
-                        nomeCampo = "CódigoPgto"
+                    If (nomeCampo.Equals("emailemi")) Then
+                        nomeCampo = "E-mailEmi"
+                    End If
+                    If (nomeCampo.Equals("modulo")) Then
+                        nomeCampo = "Módulo"
+                    End If
+                    If (nomeCampo.Equals("codhistorico")) Then
+                        nomeCampo = "Cód Histórico"
                     End If
 
                     If Not IsDBNull(ds.Tables(0).Rows(i)(nomeCampo)) Then
                         emitente = colocaDadosObjeto(emitente, fieldList(j), ds.Tables(0).Rows(i)(nomeCampo))
-                        'fieldList(j).SetValue(cliente, ds.Tables(0).Rows(i)(nomeCampo))
                     End If
                 Next
             Next
@@ -57,12 +52,6 @@ Namespace Controllers
             dados.Close()
 
             Return emitente
-
-        End Function
-
-        ' GET: api/Emitente/5
-        Public Function GetValue(ByVal id As Integer) As String
-
         End Function
 
         ' POST: api/Emitente

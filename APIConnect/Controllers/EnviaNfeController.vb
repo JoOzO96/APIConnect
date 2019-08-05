@@ -49,7 +49,7 @@ Namespace Controllers
                     retornoEnvio = EnviaNFE(xml)
 
                     If (RetornaValorNodoXML(retornoEnvio, "cStat", "protNFe", "infProt") = "100") Then
-
+                        SalvaArquivo(1, Now(), "NFE", retornoEnvio, "P" & notaFiscal.codemitente & " " & notaFiscal.codnota & ".xml")
                         xmlAssinado.LoadXml(retornoEnvio)
 
                         notaFiscal.chave = RetornaValorNodoXML(xmlAssinado.InnerXml, "chNFe", "protNFe", "infProt")

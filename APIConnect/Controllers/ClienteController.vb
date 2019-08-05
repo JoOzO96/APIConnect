@@ -167,32 +167,61 @@ Namespace Controllers
                     cliente = New Cliente
 
                     cliente = listaCliente(i)
-                    cliente.codprofissao = 1
-                    insert = RetornaInsert(fieldList, cliente, "Cliente")
-                    insert = insert.Replace("codigo", "[Código]")
-                    insert = insert.Replace("nomecliente", "[nome cliente]")
-                    insert = insert.Replace("codprofissao", "[Cód Profissao]")
-                    insert = insert.Replace("codcidade", "[Cod Cidade]")
-                    insert = insert.Replace("codvendedor", "[Cód Vendedor]")
-                    insert = insert.Replace("responsavel", "[Responsável]")
-                    insert = insert.Replace("conjuge", "[Conjugê]")
-                    insert = insert.Replace("[Código]pgto", "[CódigoPgto]")
+                    If cliente.alteradoAndroid = True Then
+                        cliente.codprofissao = 1
+                        insert = RetornaUpdate(fieldList, cliente, "Cliente", "[Código]", cliente.codigo)
+                        insert = insert.Replace("codigo", "[Código]")
+                        insert = insert.Replace("nomecliente", "[nome cliente]")
+                        insert = insert.Replace("codprofissao", "[Cód Profissao]")
+                        insert = insert.Replace("codcidade", "[Cod Cidade]")
+                        insert = insert.Replace("codvendedor", "[Cód Vendedor]")
+                        insert = insert.Replace("responsavel", "[Responsável]")
+                        insert = insert.Replace("conjuge", "[Conjugê]")
+                        insert = insert.Replace("[Código]pgto", "[CódigoPgto]")
 
-                    comando = New OleDbCommand(insert, dados)
-                    Dim numerodelinhas = comando.ExecuteNonQuery()
-                    comando = New OleDbCommand("SELECT TOP 1 * from Cliente order by [Código] desc", dados)
-                    da = New OleDbDataAdapter(comando)
-                    da.Fill(ds, "Cliente")
+                        comando = New OleDbCommand(insert, dados)
+                        Dim numerodelinhas = comando.ExecuteNonQuery()
+                        comando = New OleDbCommand("SELECT TOP 1 * from Cliente WHERE [Código] = " & cliente.codigo & "  order by [Código] desc", dados)
+                        da = New OleDbDataAdapter(comando)
+                        da.Fill(ds, "Cliente")
 
-                    comando.Dispose()
-                    controleCodigo.CodigoAndroid = cliente.codigo
-                    controleCodigo.CodigoBanco = ds.Tables(0).Rows(0)("Código")
+                        comando.Dispose()
+                        controleCodigo.CodigoAndroid = cliente.codigo
+                        controleCodigo.CodigoBanco = ds.Tables(0).Rows(0)("Código")
 
-                    ds.Dispose()
-                    ds = Nothing
-                    da.Dispose()
-                    da = Nothing
-                    dados.Close()
+                        ds.Dispose()
+                        ds = Nothing
+                        da.Dispose()
+                        da = Nothing
+                        dados.Close()
+                    Else
+                        cliente.codprofissao = 1
+                        insert = RetornaInsert(fieldList, cliente, "Cliente")
+                        insert = insert.Replace("codigo", "[Código]")
+                        insert = insert.Replace("nomecliente", "[nome cliente]")
+                        insert = insert.Replace("codprofissao", "[Cód Profissao]")
+                        insert = insert.Replace("codcidade", "[Cod Cidade]")
+                        insert = insert.Replace("codvendedor", "[Cód Vendedor]")
+                        insert = insert.Replace("responsavel", "[Responsável]")
+                        insert = insert.Replace("conjuge", "[Conjugê]")
+                        insert = insert.Replace("[Código]pgto", "[CódigoPgto]")
+
+                        comando = New OleDbCommand(insert, dados)
+                        Dim numerodelinhas = comando.ExecuteNonQuery()
+                        comando = New OleDbCommand("SELECT TOP 1 * from Cliente order by [Código] desc", dados)
+                        da = New OleDbDataAdapter(comando)
+                        da.Fill(ds, "Cliente")
+
+                        comando.Dispose()
+                        controleCodigo.CodigoAndroid = cliente.codigo
+                        controleCodigo.CodigoBanco = ds.Tables(0).Rows(0)("Código")
+
+                        ds.Dispose()
+                        ds = Nothing
+                        da.Dispose()
+                        da = Nothing
+                        dados.Close()
+                    End If
                     listcontrolecodigo.Add(controleCodigo)
                 Next
 

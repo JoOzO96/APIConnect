@@ -1,4 +1,57 @@
 ﻿Public Class Emitente
+    Private _cnpjemi As String
+    Private _cpfemi As String
+    Private _emitente As String
+    Private _fantasia As String
+    Private _endereco As String
+    Private _numero As String
+    Private _complemento As String
+    Private _bairro As String
+    Private _codmuni As String
+    Private _municipio As String
+    Private _uf As String
+    Private _cep As String
+    Private _codpais As String
+    Private _pais As String
+    Private _fone As String
+    Private _ieemi As String
+    Private _iesub As String
+    Private _imemi As String
+    Private _cnaeemi As String
+    Private _tributa As String
+    Private _certiemi As String
+    Private _licenca As String
+    Private _hambiente As String
+    Private _emailemi As String
+    Private _server As String
+    Private _porta As Long
+    Private _autenticacao As Byte
+    Private _usuario As String
+    Private _senha As String
+    Private _copiadanfe As Byte
+    Private _csosn As String
+    Private _perapro As Single
+    Private _user As String
+    Private _modulo As Byte
+    Private _cupomnfe As Byte
+    Private _portaimpre As String
+    Private _nporta As String
+    Private _duplicata As Boolean
+    Private _mecanica As Boolean
+    Private _emailcontador As String
+    Private _dadosobs As String
+    Private _descpedidopor As Boolean
+    Private _descprodutopor As Boolean
+    Private _textologo As Boolean
+    Private _calprodutosimples As Boolean
+    Private _pedidoean As Boolean
+    Private _listainicio As Boolean
+    Private _tipoimpfiscal As String
+    Private _codigoemitente As Long
+    Private _geracodigogrupo As Boolean
+    Private _ipipeso As Boolean
+    Private _usaleitor As Boolean
+    Private _calculajuro As Boolean
     Private _carne As Boolean
     Private _numerocaracter As Long
     Private _serie As String
@@ -1927,6 +1980,483 @@
         End Get
         Set(value As String)
             _nomecertificadonfse = value
+        End Set
+    End Property
+
+    Public Property cnpjemi As String
+        Get
+            Return _cnpjemi
+        End Get
+        Set(value As String)
+            _cnpjemi = value
+        End Set
+    End Property
+
+    Public Property cpfemi As String
+        Get
+            Return _cpfemi
+        End Get
+        Set(value As String)
+            _cpfemi = value
+        End Set
+    End Property
+
+    Public Property emitente As String
+        Get
+            Return _emitente
+        End Get
+        Set(value As String)
+            _emitente = value
+        End Set
+    End Property
+
+    Public Property fantasia As String
+        Get
+            Return _fantasia
+        End Get
+        Set(value As String)
+            _fantasia = value
+        End Set
+    End Property
+
+    Public Property endereco As String
+        Get
+            Return _endereco
+        End Get
+        Set(value As String)
+            _endereco = value
+        End Set
+    End Property
+
+    Public Property numero As String
+        Get
+            Return _numero
+        End Get
+        Set(value As String)
+            _numero = value
+        End Set
+    End Property
+
+    Public Property complemento As String
+        Get
+            Return _complemento
+        End Get
+        Set(value As String)
+            _complemento = value
+        End Set
+    End Property
+
+    Public Property bairro As String
+        Get
+            Return _bairro
+        End Get
+        Set(value As String)
+            _bairro = value
+        End Set
+    End Property
+
+    Public Property codmuni As String
+        Get
+            Return _codmuni
+        End Get
+        Set(value As String)
+            _codmuni = value
+        End Set
+    End Property
+
+    Public Property municipio As String
+        Get
+            Return _municipio
+        End Get
+        Set(value As String)
+            _municipio = value
+        End Set
+    End Property
+
+    Public Property uf As String
+        Get
+            Return _uf
+        End Get
+        Set(value As String)
+            _uf = value
+        End Set
+    End Property
+
+    Public Property cep As String
+        Get
+            Return _cep
+        End Get
+        Set(value As String)
+            _cep = value
+        End Set
+    End Property
+
+    Public Property codpais As String
+        Get
+            Return _codpais
+        End Get
+        Set(value As String)
+            _codpais = value
+        End Set
+    End Property
+
+    Public Property pais As String
+        Get
+            Return _pais
+        End Get
+        Set(value As String)
+            _pais = value
+        End Set
+    End Property
+
+    Public Property fone As String
+        Get
+            Return _fone
+        End Get
+        Set(value As String)
+            _fone = value
+        End Set
+    End Property
+
+    Public Property ieemi As String
+        Get
+            Return _ieemi
+        End Get
+        Set(value As String)
+            _ieemi = value
+        End Set
+    End Property
+
+    Public Property iesub As String
+        Get
+            Return _iesub
+        End Get
+        Set(value As String)
+            _iesub = value
+        End Set
+    End Property
+
+    Public Property imemi As String
+        Get
+            Return _imemi
+        End Get
+        Set(value As String)
+            _imemi = value
+        End Set
+    End Property
+
+    Public Property cnaeemi As String
+        Get
+            Return _cnaeemi
+        End Get
+        Set(value As String)
+            _cnaeemi = value
+        End Set
+    End Property
+
+    Public Property tributa As String
+        Get
+            Return _tributa
+        End Get
+        Set(value As String)
+            _tributa = value
+        End Set
+    End Property
+
+    Public Property certiemi As String
+        Get
+            Return _certiemi
+        End Get
+        Set(value As String)
+            _certiemi = value
+        End Set
+    End Property
+
+    Public Property licenca As String
+        Get
+            Return _licenca
+        End Get
+        Set(value As String)
+            _licenca = value
+        End Set
+    End Property
+
+    Public Property hambiente As String
+        Get
+            Return _hambiente
+        End Get
+        Set(value As String)
+            _hambiente = value
+        End Set
+    End Property
+
+    Public Property emailemi As String
+        Get
+            Return _emailemi
+        End Get
+        Set(value As String)
+            _emailemi = value
+        End Set
+    End Property
+
+    Public Property server As String
+        Get
+            Return _server
+        End Get
+        Set(value As String)
+            _server = value
+        End Set
+    End Property
+
+    Public Property porta As Long
+        Get
+            Return _porta
+        End Get
+        Set(value As Long)
+            _porta = value
+        End Set
+    End Property
+
+    Public Property autenticacao As Byte
+        Get
+            Return _autenticacao
+        End Get
+        Set(value As Byte)
+            _autenticacao = value
+        End Set
+    End Property
+
+    Public Property usuario As String
+        Get
+            Return _usuario
+        End Get
+        Set(value As String)
+            _usuario = value
+        End Set
+    End Property
+
+    Public Property senha As String
+        Get
+            Return _senha
+        End Get
+        Set(value As String)
+            _senha = value
+        End Set
+    End Property
+
+    Public Property copiadanfe As Byte
+        Get
+            Return _copiadanfe
+        End Get
+        Set(value As Byte)
+            _copiadanfe = value
+        End Set
+    End Property
+
+    Public Property csosn As String
+        Get
+            Return _csosn
+        End Get
+        Set(value As String)
+            _csosn = value
+        End Set
+    End Property
+
+    Public Property perapro As Single
+        Get
+            Return _perapro
+        End Get
+        Set(value As Single)
+            _perapro = value
+        End Set
+    End Property
+
+    Public Property user As String
+        Get
+            Return _user
+        End Get
+        Set(value As String)
+            _user = value
+        End Set
+    End Property
+
+    Public Property modulo As Byte
+        Get
+            Return _modulo
+        End Get
+        Set(value As Byte)
+            _modulo = value
+        End Set
+    End Property
+
+    Public Property cupomnfe As Byte
+        Get
+            Return _cupomnfe
+        End Get
+        Set(value As Byte)
+            _cupomnfe = value
+        End Set
+    End Property
+
+    Public Property portaimpre As String
+        Get
+            Return _portaimpre
+        End Get
+        Set(value As String)
+            _portaimpre = value
+        End Set
+    End Property
+
+    Public Property nporta As String
+        Get
+            Return _nporta
+        End Get
+        Set(value As String)
+            _nporta = value
+        End Set
+    End Property
+
+    Public Property duplicata As Boolean
+        Get
+            Return _duplicata
+        End Get
+        Set(value As Boolean)
+            _duplicata = value
+        End Set
+    End Property
+
+    Public Property mecanica As Boolean
+        Get
+            Return _mecanica
+        End Get
+        Set(value As Boolean)
+            _mecanica = value
+        End Set
+    End Property
+
+    Public Property emailcontador As String
+        Get
+            Return _emailcontador
+        End Get
+        Set(value As String)
+            _emailcontador = value
+        End Set
+    End Property
+
+    Public Property dadosobs As String
+        Get
+            Return _dadosobs
+        End Get
+        Set(value As String)
+            _dadosobs = value
+        End Set
+    End Property
+
+    Public Property descpedidopor As Boolean
+        Get
+            Return _descpedidopor
+        End Get
+        Set(value As Boolean)
+            _descpedidopor = value
+        End Set
+    End Property
+
+    Public Property descprodutopor As Boolean
+        Get
+            Return _descprodutopor
+        End Get
+        Set(value As Boolean)
+            _descprodutopor = value
+        End Set
+    End Property
+
+    Public Property textologo As Boolean
+        Get
+            Return _textologo
+        End Get
+        Set(value As Boolean)
+            _textologo = value
+        End Set
+    End Property
+
+    Public Property calprodutosimples As Boolean
+        Get
+            Return _calprodutosimples
+        End Get
+        Set(value As Boolean)
+            _calprodutosimples = value
+        End Set
+    End Property
+
+    Public Property pedidoean As Boolean
+        Get
+            Return _pedidoean
+        End Get
+        Set(value As Boolean)
+            _pedidoean = value
+        End Set
+    End Property
+
+    Public Property listainicio As Boolean
+        Get
+            Return _listainicio
+        End Get
+        Set(value As Boolean)
+            _listainicio = value
+        End Set
+    End Property
+
+    Public Property tipoimpfiscal As String
+        Get
+            Return _tipoimpfiscal
+        End Get
+        Set(value As String)
+            _tipoimpfiscal = value
+        End Set
+    End Property
+
+    Public Property codigoemitente As Long
+        Get
+            Return _codigoemitente
+        End Get
+        Set(value As Long)
+            _codigoemitente = value
+        End Set
+    End Property
+
+    Public Property geracodigogrupo As Boolean
+        Get
+            Return _geracodigogrupo
+        End Get
+        Set(value As Boolean)
+            _geracodigogrupo = value
+        End Set
+    End Property
+
+    Public Property ipipeso As Boolean
+        Get
+            Return _ipipeso
+        End Get
+        Set(value As Boolean)
+            _ipipeso = value
+        End Set
+    End Property
+
+    Public Property usaleitor As Boolean
+        Get
+            Return _usaleitor
+        End Get
+        Set(value As Boolean)
+            _usaleitor = value
+        End Set
+    End Property
+
+    Public Property calculajuro As Boolean
+        Get
+            Return _calculajuro
+        End Get
+        Set(value As Boolean)
+            _calculajuro = value
         End Set
     End Property
 End Class
