@@ -1,9 +1,10 @@
 ﻿Public Class EmiteConfigura
+
     Private _codemitente As Long
     Private _exibirdadosced As Boolean
-    Private _filtratextoescrita As Boolean
     Private _exibirdadoslaquentloja As Boolean
     Private _diascarenciajuros As Byte
+    Private _filtratextoescrita As Boolean
     Private _exibirdadosalternativa As Boolean
     Private _usaconversaoentrada As Boolean
     Private _valorboletospadrao As Double
@@ -19,14 +20,16 @@
     Private _bloquearquantidadenegativa As Boolean
     Private _utilizarpontos As Boolean
     Private _usarepsonlx300 As Boolean
-    Private _produtopredominantecte As String
-    Private _produtocomponentecte As String
-    Private _produtoaidf As String
     Private _exibirdadosoliveira As Boolean
+    Private _produtopredominantecte As String
     Private _ocultavencibarrapedido As Boolean
     Private _emitenfse As Boolean
     Private _exibirdadoshs As Boolean
+    Private _naoalteracustoentrada As Boolean
+    Private _caixapadrao As Long
+    Private _exibirdadosmiotto As Boolean
     Private _exibircustoletras As Boolean
+    Private _exibirvendedorcupom As Boolean
     Private _nfseusuario As String
     Private _nfsesenha As String
     Private _nfsecancelamento As String
@@ -37,19 +40,23 @@
     Private _nfseconsultaenvioloterps As String
     Private _nfseconsultaenviorps As String
     Private _nfseconsultasequencialote As String
-    Private _exibirvendedorcupom As Boolean
-    Private _caixapadrao As Long
-    Private _cadastroduplicadosclientes As Boolean
-    Private _ocultarcestnota As Boolean
-    Private _naoalteracustoentrada As Boolean
-    Private _exibirdadosmiotto As Boolean
     Private _exibirdadosvestbem As Boolean
+    Private _ocultarcestnota As Boolean
+    Private _cadastroduplicadosclientes As Boolean
     Private _exibirdadosestilo As Boolean
-    Private _contacaixaveiculosvenda As String
     Private _exibirdadostrattore As Boolean
     Private _contacaixachequelaca As String
     Private _contacaixachequebaixa As String
+    Private _contacaixaveiculosvenda As String
     Private _utilizaimportacaoautomatica As Boolean
+    Private _codnaturezatranferencia As Long
+    Private _downloaddllnfe As Boolean
+    Private _downloaddllcte As Boolean
+    Private _downloaddllmdfe As Boolean
+    Private _exibirdadoscanal As Boolean
+    Private _ordempedido As Byte
+    Private _exibirdadoslimalimao As Boolean
+    Private _exibirdadoslimpar As Boolean
     Private _gerablocok As Boolean
     Private _cstpadraocadastro As String
     Private _converteimpostoentrada As Boolean
@@ -60,6 +67,13 @@
     Private _usarfatorconversao As Boolean
     Private _forcarcfopentrada As Boolean
     Private _geranotalote As Boolean
+    Private _exibirdadosgellus As Boolean
+    Private _exibirdadosourobranco As Boolean
+    Private _produtocomponentecte As String
+    Private _certificadoandroid As String
+    Private _filtrarprodcompandroid As Boolean
+    Private _nfseoptantesimplesnacional As Boolean
+    Private _regimeespecialtributacao As Long
 
     Public Property codemitente As Long
         Get
@@ -79,15 +93,6 @@
         End Set
     End Property
 
-    Public Property filtratextoescrita As Boolean
-        Get
-            Return _filtratextoescrita
-        End Get
-        Set(value As Boolean)
-            _filtratextoescrita = value
-        End Set
-    End Property
-
     Public Property exibirdadoslaquentloja As Boolean
         Get
             Return _exibirdadoslaquentloja
@@ -103,6 +108,15 @@
         End Get
         Set(value As Byte)
             _diascarenciajuros = value
+        End Set
+    End Property
+
+    Public Property filtratextoescrita As Boolean
+        Get
+            Return _filtratextoescrita
+        End Get
+        Set(value As Boolean)
+            _filtratextoescrita = value
         End Set
     End Property
 
@@ -241,39 +255,21 @@
         End Set
     End Property
 
-    Public Property produtopredominantecte As String
-        Get
-            Return _produtopredominantecte
-        End Get
-        Set(value As String)
-            _produtopredominantecte = value
-        End Set
-    End Property
-
-    Public Property produtocomponentecte As String
-        Get
-            Return _produtocomponentecte
-        End Get
-        Set(value As String)
-            _produtocomponentecte = value
-        End Set
-    End Property
-
-    Public Property produtoaidf As String
-        Get
-            Return _produtoaidf
-        End Get
-        Set(value As String)
-            _produtoaidf = value
-        End Set
-    End Property
-
     Public Property exibirdadosoliveira As Boolean
         Get
             Return _exibirdadosoliveira
         End Get
         Set(value As Boolean)
             _exibirdadosoliveira = value
+        End Set
+    End Property
+
+    Public Property produtopredominantecte As String
+        Get
+            Return _produtopredominantecte
+        End Get
+        Set(value As String)
+            _produtopredominantecte = value
         End Set
     End Property
 
@@ -304,12 +300,48 @@
         End Set
     End Property
 
+    Public Property naoalteracustoentrada As Boolean
+        Get
+            Return _naoalteracustoentrada
+        End Get
+        Set(value As Boolean)
+            _naoalteracustoentrada = value
+        End Set
+    End Property
+
+    Public Property caixapadrao As Long
+        Get
+            Return _caixapadrao
+        End Get
+        Set(value As Long)
+            _caixapadrao = value
+        End Set
+    End Property
+
+    Public Property exibirdadosmiotto As Boolean
+        Get
+            Return _exibirdadosmiotto
+        End Get
+        Set(value As Boolean)
+            _exibirdadosmiotto = value
+        End Set
+    End Property
+
     Public Property exibircustoletras As Boolean
         Get
             Return _exibircustoletras
         End Get
         Set(value As Boolean)
             _exibircustoletras = value
+        End Set
+    End Property
+
+    Public Property exibirvendedorcupom As Boolean
+        Get
+            Return _exibirvendedorcupom
+        End Get
+        Set(value As Boolean)
+            _exibirvendedorcupom = value
         End Set
     End Property
 
@@ -403,30 +435,12 @@
         End Set
     End Property
 
-    Public Property exibirvendedorcupom As Boolean
+    Public Property exibirdadosvestbem As Boolean
         Get
-            Return _exibirvendedorcupom
+            Return _exibirdadosvestbem
         End Get
         Set(value As Boolean)
-            _exibirvendedorcupom = value
-        End Set
-    End Property
-
-    Public Property caixapadrao As Long
-        Get
-            Return _caixapadrao
-        End Get
-        Set(value As Long)
-            _caixapadrao = value
-        End Set
-    End Property
-
-    Public Property cadastroduplicadosclientes As Boolean
-        Get
-            Return _cadastroduplicadosclientes
-        End Get
-        Set(value As Boolean)
-            _cadastroduplicadosclientes = value
+            _exibirdadosvestbem = value
         End Set
     End Property
 
@@ -439,30 +453,12 @@
         End Set
     End Property
 
-    Public Property naoalteracustoentrada As Boolean
+    Public Property cadastroduplicadosclientes As Boolean
         Get
-            Return _naoalteracustoentrada
+            Return _cadastroduplicadosclientes
         End Get
         Set(value As Boolean)
-            _naoalteracustoentrada = value
-        End Set
-    End Property
-
-    Public Property exibirdadosmiotto As Boolean
-        Get
-            Return _exibirdadosmiotto
-        End Get
-        Set(value As Boolean)
-            _exibirdadosmiotto = value
-        End Set
-    End Property
-
-    Public Property exibirdadosvestbem As Boolean
-        Get
-            Return _exibirdadosvestbem
-        End Get
-        Set(value As Boolean)
-            _exibirdadosvestbem = value
+            _cadastroduplicadosclientes = value
         End Set
     End Property
 
@@ -472,15 +468,6 @@
         End Get
         Set(value As Boolean)
             _exibirdadosestilo = value
-        End Set
-    End Property
-
-    Public Property contacaixaveiculosvenda As String
-        Get
-            Return _contacaixaveiculosvenda
-        End Get
-        Set(value As String)
-            _contacaixaveiculosvenda = value
         End Set
     End Property
 
@@ -511,12 +498,93 @@
         End Set
     End Property
 
+    Public Property contacaixaveiculosvenda As String
+        Get
+            Return _contacaixaveiculosvenda
+        End Get
+        Set(value As String)
+            _contacaixaveiculosvenda = value
+        End Set
+    End Property
+
     Public Property utilizaimportacaoautomatica As Boolean
         Get
             Return _utilizaimportacaoautomatica
         End Get
         Set(value As Boolean)
             _utilizaimportacaoautomatica = value
+        End Set
+    End Property
+
+    Public Property codnaturezatranferencia As Long
+        Get
+            Return _codnaturezatranferencia
+        End Get
+        Set(value As Long)
+            _codnaturezatranferencia = value
+        End Set
+    End Property
+
+    Public Property downloaddllnfe As Boolean
+        Get
+            Return _downloaddllnfe
+        End Get
+        Set(value As Boolean)
+            _downloaddllnfe = value
+        End Set
+    End Property
+
+    Public Property downloaddllcte As Boolean
+        Get
+            Return _downloaddllcte
+        End Get
+        Set(value As Boolean)
+            _downloaddllcte = value
+        End Set
+    End Property
+
+    Public Property downloaddllmdfe As Boolean
+        Get
+            Return _downloaddllmdfe
+        End Get
+        Set(value As Boolean)
+            _downloaddllmdfe = value
+        End Set
+    End Property
+
+    Public Property exibirdadoscanal As Boolean
+        Get
+            Return _exibirdadoscanal
+        End Get
+        Set(value As Boolean)
+            _exibirdadoscanal = value
+        End Set
+    End Property
+
+    Public Property ordempedido As Byte
+        Get
+            Return _ordempedido
+        End Get
+        Set(value As Byte)
+            _ordempedido = value
+        End Set
+    End Property
+
+    Public Property exibirdadoslimalimao As Boolean
+        Get
+            Return _exibirdadoslimalimao
+        End Get
+        Set(value As Boolean)
+            _exibirdadoslimalimao = value
+        End Set
+    End Property
+
+    Public Property exibirdadoslimpar As Boolean
+        Get
+            Return _exibirdadoslimpar
+        End Get
+        Set(value As Boolean)
+            _exibirdadoslimpar = value
         End Set
     End Property
 
@@ -607,6 +675,69 @@
         End Get
         Set(value As Boolean)
             _geranotalote = value
+        End Set
+    End Property
+
+    Public Property exibirdadosgellus As Boolean
+        Get
+            Return _exibirdadosgellus
+        End Get
+        Set(value As Boolean)
+            _exibirdadosgellus = value
+        End Set
+    End Property
+
+    Public Property exibirdadosourobranco As Boolean
+        Get
+            Return _exibirdadosourobranco
+        End Get
+        Set(value As Boolean)
+            _exibirdadosourobranco = value
+        End Set
+    End Property
+
+    Public Property produtocomponentecte As String
+        Get
+            Return _produtocomponentecte
+        End Get
+        Set(value As String)
+            _produtocomponentecte = value
+        End Set
+    End Property
+
+    Public Property certificadoandroid As String
+        Get
+            Return _certificadoandroid
+        End Get
+        Set(value As String)
+            _certificadoandroid = value
+        End Set
+    End Property
+
+    Public Property filtrarprodcompandroid As Boolean
+        Get
+            Return _filtrarprodcompandroid
+        End Get
+        Set(value As Boolean)
+            _filtrarprodcompandroid = value
+        End Set
+    End Property
+
+    Public Property nfseoptantesimplesnacional As Boolean
+        Get
+            Return _nfseoptantesimplesnacional
+        End Get
+        Set(value As Boolean)
+            _nfseoptantesimplesnacional = value
+        End Set
+    End Property
+
+    Public Property regimeespecialtributacao As Long
+        Get
+            Return _regimeespecialtributacao
+        End Get
+        Set(value As Long)
+            _regimeespecialtributacao = value
         End Set
     End Property
 End Class

@@ -35,8 +35,9 @@
     Private _codemitente As Long
     Private _codstatus As String
     Private _servicosolicitado As String
+    Private _nfe As Boolean
 
-    Public Property Pedido As Long
+    Public Property pedido As Long
         Get
             Return _pedido
         End Get
@@ -45,7 +46,7 @@
         End Set
     End Property
 
-    Public Property Codpedido As Long
+    Public Property codpedido As Long
         Get
             Return _codpedido
         End Get
@@ -54,7 +55,7 @@
         End Set
     End Property
 
-    Public Property Codcliente As Long
+    Public Property codcliente As Long
         Get
             Return _codcliente
         End Get
@@ -63,7 +64,7 @@
         End Set
     End Property
 
-    Public Property Data As Date
+    Public Property data As Date
         Get
             Return _data
         End Get
@@ -72,7 +73,7 @@
         End Set
     End Property
 
-    Public Property Codvendedor As String
+    Public Property codvendedor As String
         Get
             Return _codvendedor
         End Get
@@ -81,7 +82,7 @@
         End Set
     End Property
 
-    Public Property Formadepagamento As String
+    Public Property formadepagamento As String
         Get
             Return _formadepagamento
         End Get
@@ -90,7 +91,7 @@
         End Set
     End Property
 
-    Public Property Frete As Double
+    Public Property frete As Double
         Get
             Return _frete
         End Get
@@ -99,7 +100,7 @@
         End Set
     End Property
 
-    Public Property Valortotal As Double
+    Public Property valortotal As Double
         Get
             Return _valortotal
         End Get
@@ -108,7 +109,7 @@
         End Set
     End Property
 
-    Public Property Entrada As Double
+    Public Property entrada As Double
         Get
             Return _entrada
         End Get
@@ -117,7 +118,7 @@
         End Set
     End Property
 
-    Public Property Orpedi As String
+    Public Property orpedi As String
         Get
             Return _orpedi
         End Get
@@ -126,7 +127,7 @@
         End Set
     End Property
 
-    Public Property Codbanco As Long
+    Public Property codbanco As Long
         Get
             Return _codbanco
         End Get
@@ -135,7 +136,7 @@
         End Set
     End Property
 
-    Public Property Obs As String
+    Public Property obs As String
         Get
             Return _obs
         End Get
@@ -144,7 +145,7 @@
         End Set
     End Property
 
-    Public Property Desconto As Long
+    Public Property desconto As Long
         Get
             Return _desconto
         End Get
@@ -153,7 +154,7 @@
         End Set
     End Property
 
-    Public Property Nome As String
+    Public Property nome As String
         Get
             Return _nome
         End Get
@@ -162,7 +163,7 @@
         End Set
     End Property
 
-    Public Property Total As Double
+    Public Property total As Double
         Get
             Return _total
         End Get
@@ -171,7 +172,7 @@
         End Set
     End Property
 
-    Public Property Venci1 As Date
+    Public Property venci1 As Date
         Get
             Return _venci1
         End Get
@@ -180,7 +181,7 @@
         End Set
     End Property
 
-    Public Property Valor1 As Double
+    Public Property valor1 As Double
         Get
             Return _valor1
         End Get
@@ -189,7 +190,7 @@
         End Set
     End Property
 
-    Public Property Dias As Long
+    Public Property dias As Long
         Get
             Return _dias
         End Get
@@ -198,7 +199,7 @@
         End Set
     End Property
 
-    Public Property Juro As Long
+    Public Property juro As Long
         Get
             Return _juro
         End Get
@@ -207,7 +208,7 @@
         End Set
     End Property
 
-    Public Property Simnao As Boolean
+    Public Property simnao As Boolean
         Get
             Return _simnao
         End Get
@@ -216,7 +217,7 @@
         End Set
     End Property
 
-    Public Property Pgto As Long
+    Public Property pgto As Long
         Get
             Return _pgto
         End Get
@@ -225,7 +226,7 @@
         End Set
     End Property
 
-    Public Property Cheque As String
+    Public Property cheque As String
         Get
             Return _cheque
         End Get
@@ -234,7 +235,7 @@
         End Set
     End Property
 
-    Public Property Data1 As Date
+    Public Property data1 As Date
         Get
             Return _data1
         End Get
@@ -243,7 +244,7 @@
         End Set
     End Property
 
-    Public Property Notafisca As String
+    Public Property notafisca As String
         Get
             Return _notafisca
         End Get
@@ -252,7 +253,7 @@
         End Set
     End Property
 
-    Public Property Via As Long
+    Public Property via As Long
         Get
             Return _via
         End Get
@@ -261,7 +262,7 @@
         End Set
     End Property
 
-    Public Property Baixa As Boolean
+    Public Property baixa As Boolean
         Get
             Return _baixa
         End Get
@@ -270,7 +271,7 @@
         End Set
     End Property
 
-    Public Property Veiculo As String
+    Public Property veiculo As String
         Get
             Return _veiculo
         End Get
@@ -279,7 +280,7 @@
         End Set
     End Property
 
-    Public Property Placa As String
+    Public Property placa As String
         Get
             Return _placa
         End Get
@@ -288,7 +289,7 @@
         End Set
     End Property
 
-    Public Property Ano As String
+    Public Property ano As String
         Get
             Return _ano
         End Get
@@ -297,7 +298,7 @@
         End Set
     End Property
 
-    Public Property Nparce As Long
+    Public Property nparce As Long
         Get
             Return _nparce
         End Get
@@ -306,7 +307,7 @@
         End Set
     End Property
 
-    Public Property Codinstituicao As Long
+    Public Property codinstituicao As Long
         Get
             Return _codinstituicao
         End Get
@@ -315,7 +316,7 @@
         End Set
     End Property
 
-    Public Property Nfc As String
+    Public Property nfc As String
         Get
             Return _nfc
         End Get
@@ -324,7 +325,7 @@
         End Set
     End Property
 
-    Public Property Codcaixa As Long
+    Public Property codcaixa As Long
         Get
             Return _codcaixa
         End Get
@@ -333,7 +334,7 @@
         End Set
     End Property
 
-    Public Property Servicosolicitado As String
+    Public Property servicosolicitado As String
         Get
             Return _servicosolicitado
         End Get
@@ -342,7 +343,7 @@
         End Set
     End Property
 
-    Public Property Codemitente As Long
+    Public Property codemitente As Long
         Get
             Return _codemitente
         End Get
@@ -351,12 +352,21 @@
         End Set
     End Property
 
-    Public Property Codstatus As String
+    Public Property codstatus As String
         Get
             Return _codstatus
         End Get
         Set(value As String)
             _codstatus = value
+        End Set
+    End Property
+
+    Public Property nfe As Boolean
+        Get
+            Return _nfe
+        End Get
+        Set(value As Boolean)
+            _nfe = value
         End Set
     End Property
 End Class

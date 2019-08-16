@@ -1,10 +1,9 @@
-﻿Public Class NotaFiscal
+﻿Public Class notafiscal
+
     Private _codnota As String
     Private _codemitente As Long
-    Private _codtipo As Byte
+    Private _codtipo As Long
     Private _codcliente As Long
-    Private _nomecliente As String
-    Private _cgccpf As String
     Private _marc As Boolean
     Private _cnpj As String
     Private _cpf As String
@@ -12,7 +11,7 @@
     Private _cep As String
     Private _codcidade As Long
     Private _bairro As String
-    Private _fonefax As String
+    Private _fonefax As String 'fone/fax
     Private _inscesta As String
     Private _saida As String
     Private _venda As String
@@ -20,7 +19,7 @@
     Private _dataemissao As Date
     Private _datasaida As Date
     Private _hora As Date
-    Private _codinstituicao As Byte
+    Private _codinstituicao As Long
     Private _praca As String
     Private _fatura As String
     Private _vencimento As Date
@@ -39,20 +38,18 @@
     Private _observacao As String
     Private _pesobruto As Long
     Private _pesoliquido As Long
-    Private _quantidade As Integer
+    Private _quantidade As Long
     Private _especie As String
     Private _marca As String
     Private _numero As String
     Private _complemento As String
-    Private _codvendedor As String
+    Private _codvendedor As Long
     Private _firma As String
-    Private _desconto As Single
+    Private _desconto As Long
     Private _cf As String
     Private _tran As String
     Private _cancela As Boolean
-    Private _simnao As Boolean
-    Private _nnota As String
-    Private _dupli As Boolean
+    Private _simnao As Boolean 'sim/nao
     Private _norconti As String
     Private _chave As String
     Private _protocolo As String
@@ -61,6 +58,7 @@
     Private _issqn As Double
     Private _vissqn As Double
     Private _pedido As Long
+    Private _nomecliente As String
     Private _protocoloc As String
     Private _envemail As Boolean
     Private _notaref As String
@@ -70,8 +68,8 @@
     Private _funrural As Double
     Private _reajustadas As Double
     Private _valorfun As Double
-    Private _valortributos As Double
     Private _totaltributos As Double
+    Private _valortributos As Double
     Private _agrupa As Boolean
     Private _codpgto As Long
     Private _baseimpo As Double
@@ -89,6 +87,7 @@
     Private _placavei As String
     Private _operacaosefaz As Boolean
     Private _estonodenfe As Boolean
+    Private _consumidorfinal As Long
 
     Public Property codnota As String
         Get
@@ -108,11 +107,11 @@
         End Set
     End Property
 
-    Public Property codtipo As Byte
+    Public Property codtipo As Long
         Get
             Return _codtipo
         End Get
-        Set(value As Byte)
+        Set(value As Long)
             _codtipo = value
         End Set
     End Property
@@ -123,24 +122,6 @@
         End Get
         Set(value As Long)
             _codcliente = value
-        End Set
-    End Property
-
-    Public Property nomecliente As String
-        Get
-            Return _nomecliente
-        End Get
-        Set(value As String)
-            _nomecliente = value
-        End Set
-    End Property
-
-    Public Property cgccpf As String
-        Get
-            Return _cgccpf
-        End Get
-        Set(value As String)
-            _cgccpf = value
         End Set
     End Property
 
@@ -279,11 +260,11 @@
         End Set
     End Property
 
-    Public Property codinstituicao As Byte
+    Public Property codinstituicao As Long
         Get
             Return _codinstituicao
         End Get
-        Set(value As Byte)
+        Set(value As Long)
             _codinstituicao = value
         End Set
     End Property
@@ -450,11 +431,11 @@
         End Set
     End Property
 
-    Public Property quantidade As Integer
+    Public Property quantidade As Long
         Get
             Return _quantidade
         End Get
-        Set(value As Integer)
+        Set(value As Long)
             _quantidade = value
         End Set
     End Property
@@ -495,11 +476,11 @@
         End Set
     End Property
 
-    Public Property codvendedor As String
+    Public Property codvendedor As Long
         Get
             Return _codvendedor
         End Get
-        Set(value As String)
+        Set(value As Long)
             _codvendedor = value
         End Set
     End Property
@@ -513,11 +494,11 @@
         End Set
     End Property
 
-    Public Property desconto As Single
+    Public Property desconto As Long
         Get
             Return _desconto
         End Get
-        Set(value As Single)
+        Set(value As Long)
             _desconto = value
         End Set
     End Property
@@ -555,24 +536,6 @@
         End Get
         Set(value As Boolean)
             _simnao = value
-        End Set
-    End Property
-
-    Public Property nnota As String
-        Get
-            Return _nnota
-        End Get
-        Set(value As String)
-            _nnota = value
-        End Set
-    End Property
-
-    Public Property dupli As Boolean
-        Get
-            Return _dupli
-        End Get
-        Set(value As Boolean)
-            _dupli = value
         End Set
     End Property
 
@@ -645,6 +608,15 @@
         End Get
         Set(value As Long)
             _pedido = value
+        End Set
+    End Property
+
+    Public Property nomecliente As String
+        Get
+            Return _nomecliente
+        End Get
+        Set(value As String)
+            _nomecliente = value
         End Set
     End Property
 
@@ -729,21 +701,21 @@
         End Set
     End Property
 
-    Public Property valortributos As Double
-        Get
-            Return _valortributos
-        End Get
-        Set(value As Double)
-            _valortributos = value
-        End Set
-    End Property
-
     Public Property totaltributos As Double
         Get
             Return _totaltributos
         End Get
         Set(value As Double)
             _totaltributos = value
+        End Set
+    End Property
+
+    Public Property valortributos As Double
+        Get
+            Return _valortributos
+        End Get
+        Set(value As Double)
+            _valortributos = value
         End Set
     End Property
 
@@ -897,6 +869,15 @@
         End Get
         Set(value As Boolean)
             _estonodenfe = value
+        End Set
+    End Property
+
+    Public Property consumidorfinal As Long
+        Get
+            Return _consumidorfinal
+        End Get
+        Set(value As Long)
+            _consumidorfinal = value
         End Set
     End Property
 End Class

@@ -45,11 +45,11 @@ Namespace Controllers
                     pedidoproduto = listaPedido(i)
                     pedidoproduto.Eminota = True
                     insert = RetornaInsert(fieldList, pedidoproduto, "[Pedido Produto]")
-                    insert = insert.Replace("Codproduto", "[Cód Produto]")
-                    insert = insert.Replace("Codpedido", "[Cód Pedido]")
-                    insert = insert.Replace("Valorunitario", "[Valor Unitário]")
-                    insert = insert.Replace("Valortotal", "[Valor Total]")
-                    insert = insert.Replace("Codmecanico", "[Cód Mecanico]")
+                    insert = insert.Replace("codproduto", "[Cód Produto]")
+                    insert = insert.Replace("codpedido", "[Cód Pedido]")
+                    insert = insert.Replace("valorunitario", "[Valor Unitário]")
+                    insert = insert.Replace("valortotal", "[Valor Total]")
+                    insert = insert.Replace("codmecanico", "[Cód Mecanico]")
 
 
                     comando = New OleDbCommand(insert, dados)
@@ -67,6 +67,7 @@ Namespace Controllers
                     'da = Nothing
                     'dados.Close()
                     listcontrolecodigo.Add(controleCodigo)
+                    dados.Close()
                 Next
 
                 Return listcontrolecodigo

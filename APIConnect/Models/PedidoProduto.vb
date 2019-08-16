@@ -1,198 +1,43 @@
 ﻿Public Class PedidoProduto
 
-    Private _codmecanico As String 'Cód Mecanico
-    Private _codpedido As Double 'Cód Pedido
-    Private _codproduto As String 'Cód Produto
-    Private _comip As Double
-    Private _conta As Integer
-    Private _custo As Double
-    Private _datas As Date
-    Private _desconto As Double
-    Private _descri As String
-    Private _desenho As String
-    Private _desvalor As Double
-    Private _dot As String
-    Private _eminota As Boolean
-    Private _eminotaagru As Boolean
-    Private _lucro As Double
-    Private _marca As String
-    Private _modelo As String
-    Private _nserie As String
+
     Private _pedido As Long
-    Private _porimposto As Double
-    Private _quanti As Double
-    Private _quantidade As Double
-    Private _retirada As Double
-    Private _saldoret As Double
+    Private _codproduto As String
+    Private _codpedido As Double
+    Private _quantidade As Single
+    Private _valorunitario As Double
+    Private _valortotal As Double
+    Private _desconto As Double
+    Private _quanti As Single
+    Private _lucro As Single
+    Private _custo As Double
+    Private _descri As String
     Private _tamanho As String
+    Private _desvalor As Single
     Private _totalimposto As Double
+    Private _porimposto As Single
+    Private _eminota As Boolean
+    Private _datas As Date
+    Private _emitenota As Boolean
+    Private _modelo As String
+    Private _marca As String
+    Private _desenho As String
+    Private _nserie As String
+    Private _dot As String
+    Private _retirada As Single
+    Private _saldoret As Single
     Private _totalimpostoest As Double
-    Private _valortotal As Double 'Valor Total
-    Private _valorunitario As Double 'Valor Unitário
+    Private _comip As Single
+    Private _vcomi As Single
+    Private _eminotaagru As Boolean
+    Private _codcor As Long
+    Private _pp As Byte
+    Private _p As Byte
+    Private _m As Byte
+    Private _g As Byte
+    Private _gg As Byte
 
-    Public Property Codmecanico As String
-        Get
-            Return _codmecanico
-        End Get
-        Set(value As String)
-            _codmecanico = value
-        End Set
-    End Property
-
-    Public Property Codpedido As Double
-        Get
-            Return _codpedido
-        End Get
-        Set(value As Double)
-            _codpedido = value
-        End Set
-    End Property
-
-    Public Property Codproduto As String
-        Get
-            Return _codproduto
-        End Get
-        Set(value As String)
-            _codproduto = value
-        End Set
-    End Property
-
-    Public Property Comip As Double
-        Get
-            Return _comip
-        End Get
-        Set(value As Double)
-            _comip = value
-        End Set
-    End Property
-
-    Public Property Conta As Integer
-        Get
-            Return _conta
-        End Get
-        Set(value As Integer)
-            _conta = value
-        End Set
-    End Property
-
-    Public Property Custo As Double
-        Get
-            Return _custo
-        End Get
-        Set(value As Double)
-            _custo = value
-        End Set
-    End Property
-
-    Public Property Datas As Date
-        Get
-            Return _datas
-        End Get
-        Set(value As Date)
-            _datas = value
-        End Set
-    End Property
-
-    Public Property Desconto As Double
-        Get
-            Return _desconto
-        End Get
-        Set(value As Double)
-            _desconto = value
-        End Set
-    End Property
-
-    Public Property Descri As String
-        Get
-            Return _descri
-        End Get
-        Set(value As String)
-            _descri = value
-        End Set
-    End Property
-
-    Public Property Desenho As String
-        Get
-            Return _desenho
-        End Get
-        Set(value As String)
-            _desenho = value
-        End Set
-    End Property
-
-    Public Property Desvalor As Double
-        Get
-            Return _desvalor
-        End Get
-        Set(value As Double)
-            _desvalor = value
-        End Set
-    End Property
-
-    Public Property Dot As String
-        Get
-            Return _dot
-        End Get
-        Set(value As String)
-            _dot = value
-        End Set
-    End Property
-
-    Public Property Eminota As Boolean
-        Get
-            Return _eminota
-        End Get
-        Set(value As Boolean)
-            _eminota = value
-        End Set
-    End Property
-
-    Public Property Eminotaagru As Boolean
-        Get
-            Return _eminotaagru
-        End Get
-        Set(value As Boolean)
-            _eminotaagru = value
-        End Set
-    End Property
-
-    Public Property Lucro As Double
-        Get
-            Return _lucro
-        End Get
-        Set(value As Double)
-            _lucro = value
-        End Set
-    End Property
-
-    Public Property Marca As String
-        Get
-            Return _marca
-        End Get
-        Set(value As String)
-            _marca = value
-        End Set
-    End Property
-
-    Public Property Modelo As String
-        Get
-            Return _modelo
-        End Get
-        Set(value As String)
-            _modelo = value
-        End Set
-    End Property
-
-    Public Property Nserie As String
-        Get
-            Return _nserie
-        End Get
-        Set(value As String)
-            _nserie = value
-        End Set
-    End Property
-
-    Public Property Pedido As Long
+    Public Property pedido As Long
         Get
             Return _pedido
         End Get
@@ -201,79 +46,43 @@
         End Set
     End Property
 
-    Public Property Porimposto As Double
+    Public Property codproduto As String
         Get
-            Return _porimposto
+            Return _codproduto
         End Get
-        Set(value As Double)
-            _porimposto = value
+        Set(value As String)
+            _codproduto = value
         End Set
     End Property
 
-    Public Property Quanti As Double
+    Public Property codpedido As Double
         Get
-            Return _quanti
+            Return _codpedido
         End Get
         Set(value As Double)
-            _quanti = value
+            _codpedido = value
         End Set
     End Property
 
-    Public Property Quantidade As Double
+    Public Property quantidade As Single
         Get
             Return _quantidade
         End Get
-        Set(value As Double)
+        Set(value As Single)
             _quantidade = value
         End Set
     End Property
 
-    Public Property Retirada As Double
+    Public Property valorunitario As Double
         Get
-            Return _retirada
+            Return _valorunitario
         End Get
         Set(value As Double)
-            _retirada = value
+            _valorunitario = value
         End Set
     End Property
 
-    Public Property Saldoret As Double
-        Get
-            Return _saldoret
-        End Get
-        Set(value As Double)
-            _saldoret = value
-        End Set
-    End Property
-
-    Public Property Tamanho As String
-        Get
-            Return _tamanho
-        End Get
-        Set(value As String)
-            _tamanho = value
-        End Set
-    End Property
-
-    Public Property Totalimposto As Double
-        Get
-            Return _totalimposto
-        End Get
-        Set(value As Double)
-            _totalimposto = value
-        End Set
-    End Property
-
-    Public Property Totalimpostoest As Double
-        Get
-            Return _totalimpostoest
-        End Get
-        Set(value As Double)
-            _totalimpostoest = value
-        End Set
-    End Property
-
-    Public Property Valortotal As Double
+    Public Property valortotal As Double
         Get
             Return _valortotal
         End Get
@@ -282,12 +91,210 @@
         End Set
     End Property
 
-    Public Property Valorunitario As Double
+    Public Property desconto As Double
         Get
-            Return _valorunitario
+            Return _desconto
         End Get
         Set(value As Double)
-            _valorunitario = value
+            _desconto = value
+        End Set
+    End Property
+
+    Public Property quanti As Single
+        Get
+            Return _quanti
+        End Get
+        Set(value As Single)
+            _quanti = value
+        End Set
+    End Property
+
+    Public Property lucro As Single
+        Get
+            Return _lucro
+        End Get
+        Set(value As Single)
+            _lucro = value
+        End Set
+    End Property
+
+    Public Property custo As Double
+        Get
+            Return _custo
+        End Get
+        Set(value As Double)
+            _custo = value
+        End Set
+    End Property
+
+    Public Property descri As String
+        Get
+            Return _descri
+        End Get
+        Set(value As String)
+            _descri = value
+        End Set
+    End Property
+
+    Public Property tamanho As String
+        Get
+            Return _tamanho
+        End Get
+        Set(value As String)
+            _tamanho = value
+        End Set
+    End Property
+
+    Public Property desvalor As Single
+        Get
+            Return _desvalor
+        End Get
+        Set(value As Single)
+            _desvalor = value
+        End Set
+    End Property
+
+    Public Property totalimposto As Double
+        Get
+            Return _totalimposto
+        End Get
+        Set(value As Double)
+            _totalimposto = value
+        End Set
+    End Property
+
+    Public Property porimposto As Single
+        Get
+            Return _porimposto
+        End Get
+        Set(value As Single)
+            _porimposto = value
+        End Set
+    End Property
+
+    Public Property eminota As Boolean
+        Get
+            Return _eminota
+        End Get
+        Set(value As Boolean)
+            _eminota = value
+        End Set
+    End Property
+
+    Public Property datas As Date
+        Get
+            Return _datas
+        End Get
+        Set(value As Date)
+            _datas = value
+        End Set
+    End Property
+
+    Public Property emitenota As Boolean
+        Get
+            Return _emitenota
+        End Get
+        Set(value As Boolean)
+            _emitenota = value
+        End Set
+    End Property
+
+    Public Property modelo As String
+        Get
+            Return _modelo
+        End Get
+        Set(value As String)
+            _modelo = value
+        End Set
+    End Property
+
+    Public Property marca As String
+        Get
+            Return _marca
+        End Get
+        Set(value As String)
+            _marca = value
+        End Set
+    End Property
+
+    Public Property desenho As String
+        Get
+            Return _desenho
+        End Get
+        Set(value As String)
+            _desenho = value
+        End Set
+    End Property
+
+    Public Property nserie As String
+        Get
+            Return _nserie
+        End Get
+        Set(value As String)
+            _nserie = value
+        End Set
+    End Property
+
+    Public Property dot As String
+        Get
+            Return _dot
+        End Get
+        Set(value As String)
+            _dot = value
+        End Set
+    End Property
+
+    Public Property retirada As Single
+        Get
+            Return _retirada
+        End Get
+        Set(value As Single)
+            _retirada = value
+        End Set
+    End Property
+
+    Public Property saldoret As Single
+        Get
+            Return _saldoret
+        End Get
+        Set(value As Single)
+            _saldoret = value
+        End Set
+    End Property
+
+    Public Property totalimpostoest As Double
+        Get
+            Return _totalimpostoest
+        End Get
+        Set(value As Double)
+            _totalimpostoest = value
+        End Set
+    End Property
+
+    Public Property comip As Single
+        Get
+            Return _comip
+        End Get
+        Set(value As Single)
+            _comip = value
+        End Set
+    End Property
+
+    Public Property vcomi As Single
+        Get
+            Return _vcomi
+        End Get
+        Set(value As Single)
+            _vcomi = value
+        End Set
+    End Property
+
+    Public Property eminotaagru As Boolean
+        Get
+            Return _eminotaagru
+        End Get
+        Set(value As Boolean)
+            _eminotaagru = value
         End Set
     End Property
 End Class

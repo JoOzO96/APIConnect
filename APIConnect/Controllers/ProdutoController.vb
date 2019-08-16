@@ -12,10 +12,16 @@ Namespace Controllers
             Dim dados As New OleDbConnection
             Dim comando As New OleDbCommand
             Dim ds As New DataSet
-
+            Dim emitenteConfigura As New EmiteConfigura
+            emitenteConfigura = RetornaEmitenteConfigura(1)
             dados.ConnectionString = RetornaConexao()
             dados.Open()
-            comando = New OleDbCommand("SELECT * from Produto WHERE inativo = false", dados)
+            If emitenteConfigura.Filtrarprodcompandroid Then
+                comando = New OleDbCommand("SELECT * from Produto WHERE inativo = false and [máquina] = true", dados)
+            Else
+                comando = New OleDbCommand("SELECT * from Produto WHERE inativo = false", dados)
+            End If
+
             Dim da As New OleDbDataAdapter(comando)
             da.Fill(ds, "Produto")
 

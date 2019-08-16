@@ -31,31 +31,33 @@ Namespace Controllers
             For i = 0 To ds.Tables(0).Rows.Count - 1
                 cliente = New Cliente
                 For j = 0 To fieldList.Length - 1
+
                     nomeCampo = fieldList(j).Name.ToLower
-                    If (nomeCampo.Equals("codigo")) Then
-                        nomeCampo = "Código"
-                    ElseIf (nomeCampo.Equals("nomecliente")) Then
-                        nomeCampo = "Nome Cliente"
-                    ElseIf (nomeCampo.Equals("datanasc")) Then
-                        nomeCampo = "Data Nasc"
-                    ElseIf (nomeCampo.Equals("codprofissao")) Then
-                        nomeCampo = "Cód Profissao"
-                    ElseIf (nomeCampo.Equals("codcidade")) Then
-                        nomeCampo = "Cod Cidade"
-                    ElseIf (nomeCampo.Equals("responsavel")) Then
-                        nomeCampo = "Responsável"
-                    ElseIf (nomeCampo.Equals("codvendedor")) Then
-                        nomeCampo = "Cód Vendedor"
-                    ElseIf (nomeCampo.Equals("conjuge")) Then
-                        nomeCampo = "conjugê"
-                    ElseIf (nomeCampo.Equals("codigopgto")) Then
-                        nomeCampo = "CódigoPgto"
+                    If Not nomeCampo.Equals("cadastroandroid") And Not nomeCampo.Equals("alteradoandroid") Then
+                        If (nomeCampo.Equals("codigo")) Then
+                            nomeCampo = "Código"
+                        ElseIf (nomeCampo.Equals("nomecliente")) Then
+                            nomeCampo = "Nome Cliente"
+                        ElseIf (nomeCampo.Equals("datanasc")) Then
+                            nomeCampo = "Data Nasc"
+                        ElseIf (nomeCampo.Equals("codprofissao")) Then
+                            nomeCampo = "Cód Profissao"
+                        ElseIf (nomeCampo.Equals("codcidade")) Then
+                            nomeCampo = "Cod Cidade"
+                        ElseIf (nomeCampo.Equals("responsavel")) Then
+                            nomeCampo = "Responsável"
+                        ElseIf (nomeCampo.Equals("codvendedor")) Then
+                            nomeCampo = "Cód Vendedor"
+                        ElseIf (nomeCampo.Equals("conjuge")) Then
+                            nomeCampo = "conjugê"
+                        ElseIf (nomeCampo.Equals("codigopgto")) Then
+                            nomeCampo = "CódigoPgto"
+                        End If
 
-                    End If
-
-                    If Not IsDBNull(ds.Tables(0).Rows(i)(nomeCampo)) Then
-                        cliente = colocaDadosObjeto(cliente, fieldList(j), ds.Tables(0).Rows(i)(nomeCampo))
-                        'fieldList(j).SetValue(cliente, ds.Tables(0).Rows(i)(nomeCampo))
+                        If Not IsDBNull(ds.Tables(0).Rows(i)(nomeCampo)) Then
+                            cliente = colocaDadosObjeto(cliente, fieldList(j), ds.Tables(0).Rows(i)(nomeCampo))
+                            'fieldList(j).SetValue(cliente, ds.Tables(0).Rows(i)(nomeCampo))
+                        End If
                     End If
                 Next
                 _cliente.Add(cliente)
@@ -106,30 +108,31 @@ Namespace Controllers
                 cliente = New Cliente
                 For j = 0 To fieldList.Length - 1
                     nomeCampo = fieldList(j).Name.ToLower
-                    If (nomeCampo.Equals("codigo")) Then
-                        nomeCampo = "Código"
-                    ElseIf (nomeCampo.Equals("nomecliente")) Then
-                        nomeCampo = "Nome Cliente"
-                    ElseIf (nomeCampo.Equals("datanasc")) Then
-                        nomeCampo = "Data Nasc"
-                    ElseIf (nomeCampo.Equals("codprofissao")) Then
-                        nomeCampo = "Cód Profissao"
-                    ElseIf (nomeCampo.Equals("codcidade")) Then
-                        nomeCampo = "Cod Cidade"
-                    ElseIf (nomeCampo.Equals("responsavel")) Then
-                        nomeCampo = "Responsável"
-                    ElseIf (nomeCampo.Equals("codvendedor")) Then
-                        nomeCampo = "Cód Vendedor"
-                    ElseIf (nomeCampo.Equals("conjuge")) Then
-                        nomeCampo = "conjugê"
-                    ElseIf (nomeCampo.Equals("codigopgto")) Then
-                        nomeCampo = "CódigoPgto"
+                    If Not nomeCampo.Equals("cadastroandroid") And Not nomeCampo.Equals("alteradoandroid") Then
+                        If (nomeCampo.Equals("codigo")) Then
+                            nomeCampo = "Código"
+                        ElseIf (nomeCampo.Equals("nomecliente")) Then
+                            nomeCampo = "Nome Cliente"
+                        ElseIf (nomeCampo.Equals("datanasc")) Then
+                            nomeCampo = "Data Nasc"
+                        ElseIf (nomeCampo.Equals("codprofissao")) Then
+                            nomeCampo = "Cód Profissao"
+                        ElseIf (nomeCampo.Equals("codcidade")) Then
+                            nomeCampo = "Cod Cidade"
+                        ElseIf (nomeCampo.Equals("responsavel")) Then
+                            nomeCampo = "Responsável"
+                        ElseIf (nomeCampo.Equals("codvendedor")) Then
+                            nomeCampo = "Cód Vendedor"
+                        ElseIf (nomeCampo.Equals("conjuge")) Then
+                            nomeCampo = "conjugê"
+                        ElseIf (nomeCampo.Equals("codigopgto")) Then
+                            nomeCampo = "CódigoPgto"
+                        End If
 
-                    End If
-
-                    If Not IsDBNull(ds.Tables(0).Rows(i)(nomeCampo)) Then
-                        cliente = colocaDadosObjeto(cliente, fieldList(j), ds.Tables(0).Rows(i)(nomeCampo))
-                        'fieldList(j).SetValue(cliente, ds.Tables(0).Rows(i)(nomeCampo))
+                        If Not IsDBNull(ds.Tables(0).Rows(i)(nomeCampo)) Then
+                            cliente = colocaDadosObjeto(cliente, fieldList(j), ds.Tables(0).Rows(i)(nomeCampo))
+                            'fieldList(j).SetValue(cliente, ds.Tables(0).Rows(i)(nomeCampo))
+                        End If
                     End If
                 Next
                 _cliente.Add(cliente)
@@ -208,9 +211,16 @@ Namespace Controllers
 
                         comando = New OleDbCommand(insert, dados)
                         Dim numerodelinhas = comando.ExecuteNonQuery()
-                        comando = New OleDbCommand("SELECT TOP 1 * from Cliente order by [Código] desc", dados)
+                        ds.Dispose()
+                        ds = Nothing
+                        da.Dispose()
+                        da = Nothing
+                        dados.Close()
+                        dados.Open()
+                        ds = New DataSet
+                        comando = New OleDbCommand("SELECT TOP 1 * from ClienteAndroid order by [Código] desc", dados)
                         da = New OleDbDataAdapter(comando)
-                        da.Fill(ds, "Cliente")
+                        da.Fill(ds, "ClienteAndroid")
 
                         comando.Dispose()
                         controleCodigo.CodigoAndroid = cliente.codigo

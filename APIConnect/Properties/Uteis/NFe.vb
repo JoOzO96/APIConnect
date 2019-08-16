@@ -35,14 +35,14 @@ Module NFe
 
         conexao.ConnectionString = RetornaConexao()
         conexao.Open()
-        comando = New OleDbCommand("SELECT * FROM EMITENTE", conexao)
+        comando = New OleDbCommand("SELECT * FROM EmiteConfigura", conexao)
         Dim da As New OleDbDataAdapter(comando)
-        da.Fill(ds, "Emitente")
+        da.Fill(ds, "EmiteConfigura")
 
 
-        nomeCertificado = ds.Tables(0).Rows(0)("CertiEmi")
-        siglaUF = ds.Tables(0).Rows(0)("UF")
-        tipoAmbiente = ds.Tables(0).Rows(0)("Hambiente")
+        nomeCertificado = ds.Tables(0).Rows(0)("CertificadoAndroid")
+        siglaUF = "RS"
+        tipoAmbiente = 1
         versao = "4.00"
         If cnpj.Length = 14 Then
             tpArgumento = "1"
@@ -410,16 +410,10 @@ Module NFe
 
         conexao.ConnectionString = RetornaConexao()
         conexao.Open()
-        comando = New OleDbCommand("SELECT [Nota Fiscal].[Cód Nota], [Nota Fiscal].CodEmitente, [Nota Fiscal].[Cód Tipo], [Tipo Natureza].[Natureza Operação] AS Natu, [Nota Fiscal].[Data emissão] AS Datae, " &
-                                   "[Nota Fiscal].[Data Saída] AS DataS, [Nota Fiscal].Saída, [Tipo Natureza].Pagamento, [Nota Fiscal].NorConti, [Nota Fiscal].Hora, [Nota Fiscal].NotaRef, [Nota Fiscal].ChaveRef, " &
-                                   "Left([codmuni],2) AS codUF, Left([CodNacionalCIDADE],2) AS CodUFDEs, [Nota Fiscal].BaseImpo, [Nota Fiscal].DesAduaneira, [Nota Fiscal].ValoImpor, [Nota Fiscal].ValorIOF, " &
-                                   "[Nota Fiscal].Finalidade, [Tipo Natureza].OcultarTributos, [Nota Fiscal].CCOCupom, [Nota Fiscal].codpgto, Pgto.MeioPgtoNFe, [Nota Fiscal].ConsumidorFinal, " &
-                                   "Emitente.CodMuni, Emitente.Serie, Emitente.CNPJEmi " &
-                                   "FROM Emitente INNER JOIN (Pgto INNER JOIN ([Tipo Natureza] INNER JOIN (Cidade INNER JOIN [Nota Fiscal] ON Cidade.[Cód Cidade] = [Nota Fiscal].[Cód Cidade]) ON " &
-                                   "[Tipo Natureza].[Cód Tipo] = [Nota Fiscal].[Cód Tipo]) ON Pgto.Código = [Nota Fiscal].CodPgto) ON Emitente.CodigoEmitente = [Nota Fiscal].CodEmitente WHERE [CÓD NOTA] = '" & codnota &
+        comando = New OleDbCommand("SELECT * FROM NotaAndroid WHERE [CÓD NOTA] = '" & codnota &
                                    "' ORDER BY [Nota Fiscal].[Cód Nota]", conexao)
         Dim da As New OleDbDataAdapter(comando)
-        da.Fill(ds, "Emitente")
+        da.Fill(ds, "NotaAndroid")
 
         'indFinal = ds.Tables(0).Rows(0)("ConsumidorFinal")
 
@@ -697,22 +691,11 @@ Module NFe
         totalICMS_vFCPST = 0
         totalICMS_vFCPUSTRet = 0
         totalICMS_vIPIDevol = 0
-
-        comando = New OleDbCommand("SELECT [Nota Produto].[Cód Nota], [Nota Produto].Auto, [Nota Produto].CodEmitente, Produto.[Cod Produto] AS [Cód Produto], " &
-                                   "[Nota Produto].descri AS Descricao, Produto.Unid, [Nota Produto].Quantidade, Right([Sst],2) AS CST, Produto.Origem, Produto.EAN, " &
-                                   "Produto.NCM, '00' AS GEne, Produto.InfAdicionais AS Infade1, Produto.InfEspecifica AS DESP1, [Nota Produto].[Valor Unitário], " &
-                                   "[Nota Produto].[Valor Total], [Nota Produto].[Aliq ICMS], [Nota Produto].VICMS AS ICMS, [Nota Produto].CFOP, [Nota Produto].MvaP, " &
-                                   "[Nota Produto].[Valor Nota], [Nota Produto].BICMS, [Nota Produto].VBCST, [Nota Produto].VSST, [Nota Produto].DescoPro, [Nota Produto].VSeguro, " &
-                                   "[Nota Produto].Voutros, [Nota Produto].CódIPI, [Nota Produto].[Valor IPI] AS VIPI, [Nota Produto].[Aliq IPI] AS AIPI, Produto.Redu, " &
-                                   "[Nota Produto].CódPIS, Produto.CSTPIS, [Nota Produto].PORPIS, Produto.VPIS, [Nota Produto].CódCOFINS, Produto.CSTCOFINS, " &
-                                   "[Nota Produto].PORCOFINS, Produto.VCOFINS, [Nota Produto].Vfrete, Produto.ANP, [TotalTribPro]+[TotalTribEst] AS Vimpo, [Nota Produto].SST, " &
-                                   "Produto.[Cod Icms], ICMS.Percen, Produto.CodCEST, Produto.DescANP, Produto.QuantidadeConversao, Produto.UniTributacao, Produto.GlP, Produto.GlPN, " &
-                                   "Produto.GlPNi, Produto.vBCSTRet, Produto.pST, Produto.vICMSSTRet, Produto.vBCFCPSTRet, Produto.pFCPSTRet, Produto.pRedBCEfet, Produto.vBCEfet, " &
-                                   "Produto.pICMSEfet, Produto.vICMSEfet FROM (ICMS INNER JOIN Produto ON ICMS.[Cód ICMS] = Produto.[Cod Icms]) INNER JOIN [Nota Produto] ON " &
-                                   "Produto.[Cod Produto] = [Nota Produto].código WHERE [CÓD NOTA] = '" & codnota & "' ORDER BY [Nota Produto].[Cód Nota], [Nota Produto].Auto", conexao)
+        System.Threading.Thread.Sleep(3000)
+        comando = New OleDbCommand("SELECT * FROM NotaProdutoAndroid WHERE [CÓD NOTA] = '" & codnota & "' ORDER BY [Nota Produto].[Cód Nota], [Nota Produto].Auto", conexao)
         da = New OleDbDataAdapter(comando)
         dsIcms = New DataSet
-        da.Fill(dsIcms, "ICMS")
+        da.Fill(dsIcms, "NotaProdutoAndroid")
 
         For i = 1 To dsIcms.Tables(0).Rows.Count
 
@@ -854,7 +837,11 @@ Module NFe
             If emi_CRT = 1 Then
                 ICMS_orig = dsIcms.Tables(0).Rows(0)("Origem")
                 If Not IsDBNull(dsIcms.Tables(0).Rows(0)("GlP")) Then
-                    ICMS_CST = "S60"
+                    If dsIcms.Tables(0).Rows(0)("GlP") = 0 Then
+                        ICMS_CST = dsIcms.Tables(0).Rows(0)("SST")
+                    Else
+                        ICMS_CST = "S60"
+                    End If
                 Else
                     ICMS_CST = dsIcms.Tables(0).Rows(0)("SST")
                 End If

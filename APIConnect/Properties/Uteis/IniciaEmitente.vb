@@ -39,4 +39,34 @@ Module IniciaEmitente
 
         Return emitente
     End Function
+    Public Function RetornaEmitenteConfigura(codEmitente As Long) As EmiteConfigura
+        Dim dados As New OleDbConnection
+        Dim comando As New OleDbCommand
+        Dim ds As New DataSet
+
+        dados.ConnectionString = RetornaConexao()
+        dados.Open()
+        comando = New OleDbCommand("SELECT * from EmiteConfigura Where CodEmitente = " & codEmitente, dados)
+        Dim da As New OleDbDataAdapter(comando)
+        da.Fill(ds, "EmiteConfigura")
+
+        Dim emitenteConfigura As New EmiteConfigura
+        Dim fieldList() = emitenteConfigura.GetType().GetProperties
+        Dim nomeCampo As String
+
+
+        For i = 0 To ds.Tables(0).Rows.Count - 1
+            emitenteConfigura = New EmiteConfigura
+            For j = 0 To fieldList.Length - 1
+                nomeCampo = fieldList(j).Name.ToLower
+
+
+                If Not IsDBNull(ds.Tables(0).Rows(i)(nomeCampo)) Then
+                    emitenteConfigura = colocaDadosObjeto(emitenteConfigura, fieldList(j), ds.Tables(0).Rows(i)(nomeCampo))
+                End If
+            Next
+        Next
+
+        Return emitenteConfigura
+    End Function
 End Module

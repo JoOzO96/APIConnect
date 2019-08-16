@@ -100,11 +100,6 @@
     Private _fusohorario As String
     Private _numeparcela As Byte
     Private _naolancacaixa As Boolean
-    Private _senhadesconto As String
-    Private _senhaparcela As String
-    Private _senhaproduto As String
-    Private _senhacaixa As String
-    Private _senhadevedor As String
     Private _dadosimpressora As Boolean
     Private _produtocomprar As Boolean
     Private _mostrafunrural As Boolean
@@ -675,51 +670,6 @@
         End Get
         Set(value As Boolean)
             _naolancacaixa = value
-        End Set
-    End Property
-
-    Public Property senhadesconto As String
-        Get
-            Return _senhadesconto
-        End Get
-        Set(value As String)
-            _senhadesconto = value
-        End Set
-    End Property
-
-    Public Property senhaparcela As String
-        Get
-            Return _senhaparcela
-        End Get
-        Set(value As String)
-            _senhaparcela = value
-        End Set
-    End Property
-
-    Public Property senhaproduto As String
-        Get
-            Return _senhaproduto
-        End Get
-        Set(value As String)
-            _senhaproduto = value
-        End Set
-    End Property
-
-    Public Property senhacaixa As String
-        Get
-            Return _senhacaixa
-        End Get
-        Set(value As String)
-            _senhacaixa = value
-        End Set
-    End Property
-
-    Public Property senhadevedor As String
-        Get
-            Return _senhadevedor
-        End Get
-        Set(value As String)
-            _senhadevedor = value
         End Set
     End Property
 

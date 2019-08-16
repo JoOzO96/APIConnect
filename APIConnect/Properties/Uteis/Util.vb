@@ -87,8 +87,6 @@ Module Util
             Debug.Print(field.Name & Chr(13) & Chr(10) & " -" & ex.Message)
             Return obj
         End Try
-
-
     End Function
 
     Public Function retornaDadosObjeto(obj As Object, field As Object, i As Long) As Object
@@ -98,8 +96,6 @@ Module Util
             Debug.Print(field(i).Name & Chr(13) & Chr(10) & " -" & ex.Message)
             Return ""
         End Try
-
-
     End Function
 
     Public Function RetornaInsert(field As List(Of Reflection.PropertyInfo), dados As Object, tabela As String) As String
@@ -110,7 +106,7 @@ Module Util
 
         If tabela = "Pedido" Then
             For i = 0 To field.Count - 1
-                If field(i).Name = "Pedido" Then
+                If field(i).Name = "pedido" Then
                     field.RemoveAt(i)
                     Exit For
                 End If
@@ -119,8 +115,21 @@ Module Util
         End If
 
         If tabela = "Cliente" Then
+
             For i = 0 To field.Count - 1
                 If field(i).Name = "codigo" Then
+                    field.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+            For i = 0 To field.Count - 1
+                If field(i).Name = "cadastroAndroid" Then
+                    field.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+            For i = 0 To field.Count - 1
+                If field(i).Name = "alteradoAndroid" Then
                     field.RemoveAt(i)
                     Exit For
                 End If
