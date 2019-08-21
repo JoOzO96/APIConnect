@@ -41,11 +41,11 @@ Namespace Controllers
                 dados.Open()
                 comando = New OleDbCommand("DELETE * FROM [NOTA PRODUTO] WHERE [CÓD NOTA] = '" & listaNotaProduto(0).codnota & "'", dados)
                 comando.ExecuteNonQuery()
-                dados.Close()
+
 
                 For i = 0 To listaNotaProduto.Count - 1
                     Dim controleCodigo = New ControleCodigo
-                    dados.Open()
+
                     notaProduto = New NotaProduto
                     notaProduto = listaNotaProduto(i)
                     notaProduto.codemitente = 1
