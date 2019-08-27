@@ -148,6 +148,7 @@ Namespace Controllers
             Dim dados As New OleDbConnection
             Dim comando As New OleDbCommand
             Dim ds As New DataSet
+            Dim dsLog As New DataSet
             Dim json = value.ToString
             Dim listaCliente As List(Of Cliente)
             Dim cliente As New Cliente
@@ -161,12 +162,17 @@ Namespace Controllers
             comando = New OleDbCommand("SELECT TOP 1 * from Cliente order by [Código] desc", dados)
             Dim da As New OleDbDataAdapter(comando)
             da.Fill(ds, "Cliente")
-            dados.Close()
+            comando = New OleDbCommand("INSERT INTO XMLDocumento (Tipo,texto) VALUES ('JSONCLIENTE','" & value.ToString.Replace(vbCrLf, "") & "')", dados)
+            comando.ExecuteNonQuery()
+
+
+
+
             Try
                 listaCliente = JsonConvert.DeserializeObject(Of List(Of Cliente))(json)
                 For i = 0 To listaCliente.Count - 1
                     controleCodigo = New ControleCodigo
-                    dados.Open()
+
                     cliente = New Cliente
 
                     cliente = listaCliente(i)
@@ -181,22 +187,21 @@ Namespace Controllers
                         insert = insert.Replace("responsavel", "[Responsável]")
                         insert = insert.Replace("conjuge", "[Conjugê]")
                         insert = insert.Replace("[Código]pgto", "[CódigoPgto]")
-
+                        da = Nothing
+                        ds = Nothing
+                        comando = Nothing
                         comando = New OleDbCommand(insert, dados)
                         Dim numerodelinhas = comando.ExecuteNonQuery()
                         comando = New OleDbCommand("SELECT TOP 1 * from Cliente WHERE [Código] = " & cliente.codigo & "  order by [Código] desc", dados)
                         da = New OleDbDataAdapter(comando)
+                        ds = New DataSet
                         da.Fill(ds, "Cliente")
 
                         comando.Dispose()
                         controleCodigo.CodigoAndroid = cliente.codigo
                         controleCodigo.CodigoBanco = ds.Tables(0).Rows(0)("Código")
 
-                        ds.Dispose()
-                        ds = Nothing
-                        da.Dispose()
-                        da = Nothing
-                        dados.Close()
+
                     Else
                         cliente.codprofissao = 1
                         insert = RetornaInsert(fieldList, cliente, "Cliente")
@@ -211,34 +216,32 @@ Namespace Controllers
 
                         comando = New OleDbCommand(insert, dados)
                         Dim numerodelinhas = comando.ExecuteNonQuery()
-                        ds.Dispose()
-                        ds = Nothing
-                        da.Dispose()
                         da = Nothing
-                        dados.Close()
-                        dados.Open()
-                        ds = New DataSet
+                        ds = Nothing
+                        comando = Nothing
                         comando = New OleDbCommand("SELECT TOP 1 * from ClienteAndroid order by [Código] desc", dados)
                         da = New OleDbDataAdapter(comando)
+                        ds = New DataSet
                         da.Fill(ds, "ClienteAndroid")
 
                         comando.Dispose()
                         controleCodigo.CodigoAndroid = cliente.codigo
                         controleCodigo.CodigoBanco = ds.Tables(0).Rows(0)("Código")
 
-                        ds.Dispose()
-                        ds = Nothing
-                        da.Dispose()
-                        da = Nothing
-                        dados.Close()
+
                     End If
                     listcontrolecodigo.Add(controleCodigo)
-                Next
+                    da = Nothing
+                    ds = Nothing
+                    comando = Nothing
 
+                Next
+                dados.Close()
                 Return listcontrolecodigo
             Catch ex As Exception
+                dados.Close()
                 controleCodigo = New ControleCodigo
-                controleCodigo.Mensagem = ex.Message & " - " & insert
+                controleCodigo.Mensagem = ex.Message & " - " & ex.StackTrace & " - " & insert
                 listcontrolecodigo.Add(controleCodigo)
                 Return listcontrolecodigo
             End Try

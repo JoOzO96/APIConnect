@@ -405,7 +405,8 @@ Module NFe
         Dim resp_chaveNFe As String = ""
         Dim responsavelTecnico As String
 
-
+        Dim emitente As Emitente
+        emitente = RetornaEmitente(1)
         Dim DetPag As String, indPag As String, tpIntegra_Opc As String, vTroco As Double, MeioPag As String
 
         conexao.ConnectionString = RetornaConexao()
@@ -440,7 +441,7 @@ Module NFe
         End If
         ide_cMunFG = 4320909        ' código do município do IBGE de ocorrência do FG do ICMS (vide página 141 do manual)
         ide_tpImp = 1        ' orientação da impressão 1-retrato/2-paisagem
-        ide_tpAmb = 2        ' ambiente de envio da NF-e 1-produção / 2 - homologação
+        ide_tpAmb = emitente.hambiente        ' ambiente de envio da NF-e 1-produção / 2 - homologação
 
         If IsDBNull(ds.Tables(0).Rows(0)("CodUFDEs")) Or ds.Tables(0).Rows(0)("CodUFDEs") = "" Then
             idDest = 1

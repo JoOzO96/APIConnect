@@ -34,6 +34,8 @@ Namespace Controllers
             comando = New OleDbCommand("SELECT TOP 1 * from [Pedido Produto] order by Pedido desc", dados)
             Dim da As New OleDbDataAdapter(comando)
             da.Fill(ds, "Pedido Produto")
+            comando = New OleDbCommand("INSERT INTO XMLDocumento (Tipo,texto) VALUES ('JSONPEDIDOPRODUTO','" & value.ToString.Replace(vbCrLf, "") & "')", dados)
+            comando.ExecuteNonQuery()
             dados.Close()
             Try
                 listaPedido = JsonConvert.DeserializeObject(Of List(Of PedidoProduto))(json)
@@ -75,7 +77,7 @@ Namespace Controllers
                 Dim controleCodigo = New ControleCodigo
                 controleCodigo.CodigoAndroid = 0
                 controleCodigo.CodigoBanco = 0
-                controleCodigo.Mensagem = ex.Message
+                controleCodigo.Mensagem = ex.Message & "-" & insert
                 listcontrolecodigo.Add(controleCodigo)
                 Return listcontrolecodigo
                 Console.WriteLine(ex.Message)

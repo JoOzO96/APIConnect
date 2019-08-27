@@ -49,6 +49,7 @@ Namespace Controllers
                     notaProduto = New NotaProduto
                     notaProduto = listaNotaProduto(i)
                     notaProduto.codemitente = 1
+                    notaProduto.cfop = "5103"
                     If (notaProduto.Auto > 0) Then
                         insert = RetornaUpdate(fieldList, notaProduto, "[Nota Produto]", "auto", notaProduto.Auto)
                         comando = New OleDbCommand("SELECT TOP 1 * from [Nota Produto] where auto = " & notaProduto.Auto & " order by [Cód Nota] desc", dados)
@@ -74,6 +75,7 @@ Namespace Controllers
                     insert = insert.Replace("codcofins", "[CódCOFINS]")
                     insert = insert.Replace("codipi", "[CódIPI]")
                     insert = insert.Replace("codigo", "[código]")
+
                     comando = New OleDbCommand(insert, dados)
                     Dim numerodelinhas = comando.ExecuteNonQuery()
                     controleCodigo.CodigoAndroid = notaProduto.Auto

@@ -34,6 +34,8 @@ Namespace Controllers
             comando = New OleDbCommand("SELECT TOP 1 * from Pedido order by Pedido desc", dados)
             Dim da As New OleDbDataAdapter(comando)
             da.Fill(ds, "Pedido")
+            comando = New OleDbCommand("INSERT INTO XMLDocumento (Tipo,texto) VALUES ('JSONPEDIDO','" & value.ToString.Replace(vbCrLf, "") & "')", dados)
+            comando.ExecuteNonQuery()
             dados.Close()
             Try
                 listaPedido = JsonConvert.DeserializeObject(Of List(Of Pedido))(json)
