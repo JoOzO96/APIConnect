@@ -52,6 +52,11 @@ Namespace Controllers
                     If (pedido.rota = "" Or pedido.rota = vbNull) Then
                         pedido.rota = CInt(pedido.codvendedor)
                     End If
+                    If (pedido.formadepagamento) <> "" Then
+                        pedido.pgto = pedido.formadepagamento
+                        pedido.formadepagamento = ""
+                    End If
+                    pedido.baixa = True
                     insert = RetornaInsert(fieldList, pedido, "Pedido")
                     insert = insert.Replace("codcliente", "[Cód cliente]")
                     insert = insert.Replace("codvendedor", "[Cód Vendedor]")
@@ -84,7 +89,11 @@ Namespace Controllers
                     listcontrolecodigo.Add(controleCodigo)
                 Next
             Catch ex As Exception
-                Console.WriteLine(ex.Message)
+                dados.Close()
+                controleCodigo = New ControleCodigo
+                controleCodigo.Mensagem = ex.Message & " - " & ex.StackTrace & " - " & insert
+                listcontrolecodigo.Add(controleCodigo)
+                Return listcontrolecodigo
             End Try
 
 
