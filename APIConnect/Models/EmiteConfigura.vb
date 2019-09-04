@@ -74,6 +74,16 @@
     Private _filtrarprodcompandroid As Boolean
     Private _nfseoptantesimplesnacional As Boolean
     Private _regimeespecialtributacao As Long
+    Private _produtoaidf As String
+    Private _alterarclientepedido As Boolean
+    Private _gerarboletoautomatico As Boolean
+    Private _codnaturezaretorno As String
+    Private _codsetorgeral As String
+    Private _exibirnomefantasia As Boolean
+    Private _naoalteravalordevenda As Boolean
+    Private _enviadadossped As Boolean
+    Private _codnaturezaremessa As String
+    Private _codnaturezavendadireta As String
 
     Public Property codemitente As Long
         Get
@@ -738,6 +748,96 @@
         End Get
         Set(value As Long)
             _regimeespecialtributacao = value
+        End Set
+    End Property
+
+    Public Property produtoaidf As String
+        Get
+            Return _produtoaidf
+        End Get
+        Set(value As String)
+            _produtoaidf = value
+        End Set
+    End Property
+
+    Public Property alterarclientepedido As Boolean
+        Get
+            Return _alterarclientepedido
+        End Get
+        Set(value As Boolean)
+            _alterarclientepedido = value
+        End Set
+    End Property
+
+    Public Property gerarboletoautomatico As Boolean
+        Get
+            Return _gerarboletoautomatico
+        End Get
+        Set(value As Boolean)
+            _gerarboletoautomatico = value
+        End Set
+    End Property
+
+    Public Property codnaturezaretorno As String
+        Get
+            Return _codnaturezaretorno
+        End Get
+        Set(value As String)
+            _codnaturezaretorno = value
+        End Set
+    End Property
+
+    Public Property codsetorgeral As String
+        Get
+            Return _codsetorgeral
+        End Get
+        Set(value As String)
+            _codsetorgeral = value
+        End Set
+    End Property
+
+    Public Property exibirnomefantasia As Boolean
+        Get
+            Return _exibirnomefantasia
+        End Get
+        Set(value As Boolean)
+            _exibirnomefantasia = value
+        End Set
+    End Property
+
+    Public Property naoalteravalordevenda As Boolean
+        Get
+            Return _naoalteravalordevenda
+        End Get
+        Set(value As Boolean)
+            _naoalteravalordevenda = value
+        End Set
+    End Property
+
+    Public Property enviadadossped As Boolean
+        Get
+            Return _enviadadossped
+        End Get
+        Set(value As Boolean)
+            _enviadadossped = value
+        End Set
+    End Property
+
+    Public Property codnaturezaremessa As String
+        Get
+            Return _codnaturezaremessa
+        End Get
+        Set(value As String)
+            _codnaturezaremessa = value
+        End Set
+    End Property
+
+    Public Property codnaturezavendadireta As String
+        Get
+            Return _codnaturezavendadireta
+        End Get
+        Set(value As String)
+            _codnaturezavendadireta = value
         End Set
     End Property
 End Class

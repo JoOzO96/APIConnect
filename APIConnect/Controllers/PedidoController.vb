@@ -45,6 +45,13 @@ Namespace Controllers
                     pedido = New Pedido
 
                     pedido = listaPedido(i)
+
+                    If (pedido.total) = 0 Then
+                        pedido.total = pedido.valortotal
+                    End If
+                    If (pedido.rota = "" Or pedido.rota = vbNull) Then
+                        pedido.rota = CInt(pedido.codvendedor)
+                    End If
                     insert = RetornaInsert(fieldList, pedido, "Pedido")
                     insert = insert.Replace("codcliente", "[Cód cliente]")
                     insert = insert.Replace("codvendedor", "[Cód Vendedor]")
@@ -56,6 +63,7 @@ Namespace Controllers
                     insert = insert.Replace("codhistorico", "[Cód Histórico]")
                     insert = insert.Replace("codproduto", "[Cod Produto]")
                     insert = insert.Replace("codinstituicao", "[Cód Instituição]")
+                    insert = insert.Replace("codmecanico", "[Cód Mecanico]")
 
                     comando = New OleDbCommand(insert, dados)
                     ds = New DataSet

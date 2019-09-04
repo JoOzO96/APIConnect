@@ -700,25 +700,25 @@ Module NFe
 
         For i = 1 To dsIcms.Tables(0).Rows.Count
 
-            Prod_cProd = dsIcms.Tables(0).Rows(0)("Cód Produto")        ' código do produto
-            If IsDBNull(dsIcms.Tables(0).Rows(0)("EAN")) Then
+            Prod_cProd = dsIcms.Tables(0).Rows(i - 1)("Cód Produto")        ' código do produto
+            If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("EAN")) Then
                 Prod_cEAN = "SEM GTIN"
             Else
-                If Left(dsIcms.Tables(0).Rows(0)("EAN"), 2) <> "10" Then
-                    Prod_cEAN = dsIcms.Tables(0).Rows(0)("EAN")        ' código EAN (0, 8,12, 13 ou 14 caracteres), o conteúdo pode ser omitido se não tiver EAN
+                If Left(dsIcms.Tables(0).Rows(i - 1)("EAN"), 2) <> "10" Then
+                    Prod_cEAN = dsIcms.Tables(0).Rows(i - 1)("EAN")        ' código EAN (0, 8,12, 13 ou 14 caracteres), o conteúdo pode ser omitido se não tiver EAN
                 Else
                     Prod_cEAN = "SEM GTIN"
                 End If
             End If
-            Prod_xProd = Left(dsIcms.Tables(0).Rows(0)("Descricao"), 110)       ' código do produto, espaços em branco consecutivos ou no início ou fim do campo podem gerar erro de Schema XML, além de caracteres reservados do XML <>&"'
+            Prod_xProd = Left(dsIcms.Tables(0).Rows(i - 1)("Descricao"), 110)       ' código do produto, espaços em branco consecutivos ou no início ou fim do campo podem gerar erro de Schema XML, além de caracteres reservados do XML <>&"'
 
-            If IsDBNull(dsIcms.Tables(0).Rows(0)("NCM")) Or dsIcms.Tables(0).Rows(0)("NCM") = "00000000" Then
+            If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("NCM")) Or dsIcms.Tables(0).Rows(i - 1)("NCM") = "00000000" Then
                 Prod_NCM = "00000000"
             Else
-                Prod_NCM = dsIcms.Tables(0).Rows(0)("NCM")        ' código NCM, pode ser omitido se não sujeito ao IPI
+                Prod_NCM = dsIcms.Tables(0).Rows(i - 1)("NCM")        ' código NCM, pode ser omitido se não sujeito ao IPI
             End If
-            If Not IsDBNull(dsIcms.Tables(0).Rows(0)("CodCEST")) Then
-                CodCEST = dsIcms.Tables(0).Rows(0)("CodCEST")
+            If Not IsDBNull(dsIcms.Tables(0).Rows(i - 1)("CodCEST")) Then
+                CodCEST = dsIcms.Tables(0).Rows(i - 1)("CodCEST")
             End If
 
 
@@ -735,75 +735,75 @@ Module NFe
                     End If
                 Next
             End If
-            'If dsIcms.Tables(0).Rows(0)("OcultaCEST") = -1 Then
+            'If dsIcms.Tables(0).Rows(i - 1)("OcultaCEST") = -1 Then
             '    CodCEST = ""
             'End If
-            If IsDBNull(dsIcms.Tables(0).Rows(0)("gene")) Then
+            If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("gene")) Then
                 Prod_genero = "00"
             Else
-                Prod_genero = dsIcms.Tables(0).Rows(0)("gene")       ' informar as duas primeiras posições do NCM
+                Prod_genero = dsIcms.Tables(0).Rows(i - 1)("gene")       ' informar as duas primeiras posições do NCM
             End If
 
             Prod_ExTIPI = ""        ' ExTipi, especialização do código NCM, informar apenas se existir
-            Prod_CFOP = dsIcms.Tables(0).Rows(0)("CFOP")        ' CFOP do operação, causa erro de XML se informado um código inexistente
-            If IsDBNull(dsIcms.Tables(0).Rows(0)("Unid")) Then
+            Prod_CFOP = dsIcms.Tables(0).Rows(i - 1)("CFOP")        ' CFOP do operação, causa erro de XML se informado um código inexistente
+            If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("Unid")) Then
                 Prod_uCOM = "UN"
             Else
-                Prod_uCOM = dsIcms.Tables(0).Rows(0)("Unid")       ' unidade de comercialização
+                Prod_uCOM = dsIcms.Tables(0).Rows(i - 1)("Unid")       ' unidade de comercialização
             End If
-            Prod_qCom = Format(dsIcms.Tables(0).Rows(0)("Quantidade"), "0.000")
-            Prod_vUnCom = Format(dsIcms.Tables(0).Rows(0)("Valor Unitário"), "0.0000")
+            Prod_qCom = Format(dsIcms.Tables(0).Rows(i - 1)("Quantidade"), "0.000")
+            Prod_vUnCom = Format(dsIcms.Tables(0).Rows(i - 1)("Valor Unitário"), "0.0000")
 
             If ide_finNFe = 2 Then
-                Prod_vProd = Format(dsIcms.Tables(0).Rows(0)("Valor Total"), "0.0000")
+                Prod_vProd = Format(dsIcms.Tables(0).Rows(i - 1)("Valor Total"), "0.0000")
             Else
                 Prod_vProd = Format((Prod_qCom * Prod_vUnCom), "0.00")        ' valor do total do item
             End If
 
-            If IsDBNull(dsIcms.Tables(0).Rows(0)("EAN")) Then
+            If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("EAN")) Then
                 Prod_cEANTrib = "SEM GTIN"
             Else
-                If dsIcms.Tables(0).Rows(0)("EAN") = "" Or Left(dsIcms.Tables(0).Rows(0)("EAN"), 2) = "10" Then
+                If dsIcms.Tables(0).Rows(i - 1)("EAN") = "" Or Left(dsIcms.Tables(0).Rows(i - 1)("EAN"), 2) = "10" Then
                     Prod_cEANTrib = "SEM GTIN"
                 Else
-                    Prod_cEANTrib = dsIcms.Tables(0).Rows(0)("EAN")        ' código EAN (0, 8,12, 13 ou 14 caracteres), o conteúdo pode ser omitido se não tiver EAN, em geral é o mesmo código do EAN de comercialização
+                    Prod_cEANTrib = dsIcms.Tables(0).Rows(i - 1)("EAN")        ' código EAN (0, 8,12, 13 ou 14 caracteres), o conteúdo pode ser omitido se não tiver EAN, em geral é o mesmo código do EAN de comercialização
                 End If
             End If
-            If IsDBNull(dsIcms.Tables(0).Rows(0)("UniTributacao")) Then
-                If IsDBNull(dsIcms.Tables(0).Rows(0)("Unid")) Or dsIcms.Tables(0).Rows(0)("Unid") = "" Then
+            If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("UniTributacao")) Then
+                If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("Unid")) Or dsIcms.Tables(0).Rows(i - 1)("Unid") = "" Then
                     Prod_uTrib = "UN"
                 Else
-                    Prod_uTrib = dsIcms.Tables(0).Rows(0)("Unid")
+                    Prod_uTrib = dsIcms.Tables(0).Rows(i - 1)("Unid")
                 End If
             Else
-                Prod_uTrib = dsIcms.Tables(0).Rows(0)("UniTributacao")       ' unidade de tributação, na maioria dos casos é idêntico  ao vUnCom, pode diferente nos casos de produtos sujeitos a ST em que a unidade de pauta é diferente da unidade de comercialização
+                Prod_uTrib = dsIcms.Tables(0).Rows(i - 1)("UniTributacao")       ' unidade de tributação, na maioria dos casos é idêntico  ao vUnCom, pode diferente nos casos de produtos sujeitos a ST em que a unidade de pauta é diferente da unidade de comercialização
             End If        ' Ex. unidade de comercialização = 1 pack de lata de cerveja => unidade de tributação = 1 lata (preço de pauta)
 
 
-            Prod_qTrib = Format(dsIcms.Tables(0).Rows(0)("Quantidade"), "0.000")
-            Prod_vUnTrib = Format(dsIcms.Tables(0).Rows(0)("Valor Unitário"), "0.0000")
+            Prod_qTrib = Format(dsIcms.Tables(0).Rows(i - 1)("Quantidade"), "0.000")
+            Prod_vUnTrib = Format(dsIcms.Tables(0).Rows(i - 1)("Valor Unitário"), "0.0000")
 
-            If IsDBNull(dsIcms.Tables(0).Rows(0)("Vfrete")) Then
+            If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("Vfrete")) Then
                 Prod_vFrete = 0
             Else
-                Prod_vFrete = Format(dsIcms.Tables(0).Rows(0)("Vfrete"), "0.0000")        ' valor do frete, se cobrado do cliente deve ser rateado entre os itens de produto
+                Prod_vFrete = Format(dsIcms.Tables(0).Rows(i - 1)("Vfrete"), "0.0000")        ' valor do frete, se cobrado do cliente deve ser rateado entre os itens de produto
             End If
-            Prod_vSeguro = Format(dsIcms.Tables(0).Rows(0)("VSeguro"), "0.0000")        ' valor do seguro, se cobrado do cliente deve ser rateado entre os itens de produto
-            Prod_vDesc = Format(dsIcms.Tables(0).Rows(0)("DescoPro"), "0.00")        ' valor do desconto concedido
+            Prod_vSeguro = Format(dsIcms.Tables(0).Rows(i - 1)("VSeguro"), "0.0000")        ' valor do seguro, se cobrado do cliente deve ser rateado entre os itens de produto
+            Prod_vDesc = Format(dsIcms.Tables(0).Rows(i - 1)("DescoPro"), "0.00")        ' valor do desconto concedido
             Prod_DI = ""        ' dados da importação, informar apenas no caso de NF de entrada (importação)
 
-            If IsDBNull(dsIcms.Tables(0).Rows(0)("desp1")) Then
+            If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("desp1")) Then
                 Prod_DetEspecifico = ""
             Else
-                Prod_DetEspecifico = dsIcms.Tables(0).Rows(0)("desp1")        ' dados específicos, informar para medicamento, veículos novos, armamentos e combustíveis.
+                Prod_DetEspecifico = dsIcms.Tables(0).Rows(i - 1)("desp1")        ' dados específicos, informar para medicamento, veículos novos, armamentos e combustíveis.
             End If
-            If IsDBNull(dsIcms.Tables(0).Rows(0)("infade1")) Then
+            If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("infade1")) Then
                 Prod_infAdProd = ""
             Else
-                Prod_infAdProd = dsIcms.Tables(0).Rows(0)("infade1")        ' informações adicionais do produto
+                Prod_infAdProd = dsIcms.Tables(0).Rows(i - 1)("infade1")        ' informações adicionais do produto
             End If
 
-            Prod_vOutro = Format(dsIcms.Tables(0).Rows(0)("Voutros"), "0.0000")        ' valor de outras despesas
+            Prod_vOutro = Format(dsIcms.Tables(0).Rows(i - 1)("Voutros"), "0.0000")        ' valor de outras despesas
             Prod_indTot = 1        ' indicador se o valor do item será totalizado no valor total dos produtos
             Prod_xPed = ""        ' número do pedido, uso exclusivo do usuário
             Prod_nItemPed = 0        ' número do item do pedido, uso exclusivo do usuário
@@ -836,77 +836,77 @@ Module NFe
             '
 
             If emi_CRT = 1 Then
-                ICMS_orig = dsIcms.Tables(0).Rows(0)("Origem")
-                If Not IsDBNull(dsIcms.Tables(0).Rows(0)("GlP")) Then
-                    If dsIcms.Tables(0).Rows(0)("GlP") = 0 Then
-                        ICMS_CST = dsIcms.Tables(0).Rows(0)("SST")
+                ICMS_orig = dsIcms.Tables(0).Rows(i - 1)("Origem")
+                If Not IsDBNull(dsIcms.Tables(0).Rows(i - 1)("GlP")) Then
+                    If dsIcms.Tables(0).Rows(i - 1)("GlP") = 0 Then
+                        ICMS_CST = dsIcms.Tables(0).Rows(i - 1)("SST")
                     Else
                         ICMS_CST = "S60"
                     End If
                 Else
-                    ICMS_CST = dsIcms.Tables(0).Rows(0)("SST")
+                    ICMS_CST = dsIcms.Tables(0).Rows(i - 1)("SST")
                 End If
                 ICMS_pCredSN = dsEmitente.Tables(0).Rows(0)("PerApro")
                 ICMS_vCredICMSSN = Prod_vProd * ICMS_pCredSN / 100
             Else
-                ICMS_orig = dsIcms.Tables(0).Rows(0)("Origem")        ' Tabela A - origem da mercadoria 0=nacional
-                If IsDBNull(dsIcms.Tables(0).Rows(0)("SST")) Then
+                ICMS_orig = dsIcms.Tables(0).Rows(i - 1)("Origem")        ' Tabela A - origem da mercadoria 0=nacional
+                If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("SST")) Then
                     ICMS_CST = "60"
                 Else
-                    If IsDBNull(dsIcms.Tables(0).Rows(0)("GlP")) Then
-                        ICMS_CST = Right(dsIcms.Tables(0).Rows(0)("SST"), 2)
+                    If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("GlP")) Then
+                        ICMS_CST = Right(dsIcms.Tables(0).Rows(i - 1)("SST"), 2)
                     Else
-                        If dsIcms.Tables(0).Rows(0)("GlP") > 0 Then
+                        If dsIcms.Tables(0).Rows(i - 1)("GlP") > 0 Then
                             ICMS_CST = "S60"
                         Else
-                            ICMS_CST = Right(dsIcms.Tables(0).Rows(0)("SST"), 2)        ' Tabela B - CST=00-tributação normal
+                            ICMS_CST = Right(dsIcms.Tables(0).Rows(i - 1)("SST"), 2)        ' Tabela B - CST=00-tributação normal
                         End If
                     End If
                 End If
             End If
 
             ICMS_modBC = 3        ' modalidade de determinação da BC = 3-valor da operação
-            ICMS_pRedBC = dsIcms.Tables(0).Rows(0)("redu")        ' percentual de redução da BC
-            If dsIcms.Tables(0).Rows(0)("SST") <> "101" And dsIcms.Tables(0).Rows(0)("SST") <> "201" Then
+            ICMS_pRedBC = dsIcms.Tables(0).Rows(i - 1)("redu")        ' percentual de redução da BC
+            If dsIcms.Tables(0).Rows(i - 1)("SST") <> "101" And dsIcms.Tables(0).Rows(i - 1)("SST") <> "201" Then
                 ICMS_pCredSN = 0
                 ICMS_vCredICMSSN = 0
             End If
-            If dsIcms.Tables(0).Rows(0)("BICMS") > 0 And ICMS_pCredSN = 0 Then
-                ICMS_vBC = Format(dsIcms.Tables(0).Rows(0)("BICMS"), "0.00")        ' valor da BC do ICMS = vProd + vFrete + vSeguro
+            If dsIcms.Tables(0).Rows(i - 1)("BICMS") > 0 And ICMS_pCredSN = 0 Then
+                ICMS_vBC = Format(dsIcms.Tables(0).Rows(i - 1)("BICMS"), "0.00")        ' valor da BC do ICMS = vProd + vFrete + vSeguro
             Else
                 ICMS_vBC = 0
             End If
 
-            If dsIcms.Tables(0).Rows(0)("ICMS") > 0 Then
-                ICMS_pICMS = dsIcms.Tables(0).Rows(0)("Aliq ICMS")        ' alíquota do ICMS
-                ICMS_vICMS = Format(dsIcms.Tables(0).Rows(0)("ICMS"), "0.00")        'Format(ICMS_vBC * ICMS_pICMS / 100, "0.00") 'Pro![ICMS]                    ' valor do ICMS
+            If dsIcms.Tables(0).Rows(i - 1)("ICMS") > 0 Then
+                ICMS_pICMS = dsIcms.Tables(0).Rows(i - 1)("Aliq ICMS")        ' alíquota do ICMS
+                ICMS_vICMS = Format(dsIcms.Tables(0).Rows(i - 1)("ICMS"), "0.00")        'Format(ICMS_vBC * ICMS_pICMS / 100, "0.00") 'Pro![ICMS]                    ' valor do ICMS
             Else
                 ICMS_pICMS = 0        ' alíquota do ICMS
                 ICMS_vICMS = 0        ' valor do ICMS
             End If
             If emi_CRT > 1 Then
-                ICMS_pICMS = dsIcms.Tables(0).Rows(0)("Aliq ICMS")        ' alíquota do ICMS
-                ICMS_vICMS = Format(dsIcms.Tables(0).Rows(0)("ICMS"), "0.00")        'Format(ICMS_vBC * ICMS_pICMS / 100, "0.00") 'dsIcms.Tables(0).Rows(0)("ICMS]                    ' valor do ICMS
+                ICMS_pICMS = dsIcms.Tables(0).Rows(i - 1)("Aliq ICMS")        ' alíquota do ICMS
+                ICMS_vICMS = Format(dsIcms.Tables(0).Rows(i - 1)("ICMS"), "0.00")        'Format(ICMS_vBC * ICMS_pICMS / 100, "0.00") 'dsIcms.Tables(0).Rows(i - 1)("ICMS]                    ' valor do ICMS
             End If
-            If dsIcms.Tables(0).Rows(0)("BICMS") = 0 And dsIcms.Tables(0).Rows(0)("ICMS") > 0 Then
-                ICMS_vICMS = Format(dsIcms.Tables(0).Rows(0)("ICMS"), "0.00")
+            If dsIcms.Tables(0).Rows(i - 1)("BICMS") = 0 And dsIcms.Tables(0).Rows(i - 1)("ICMS") > 0 Then
+                ICMS_vICMS = Format(dsIcms.Tables(0).Rows(i - 1)("ICMS"), "0.00")
             End If
             ICMS_modBCST = 4        ' modalidade de determinação da BC ICMS ST
-            If dsIcms.Tables(0).Rows(0)("MvaP") > 0 Then
-                ICMS_pMVAST = dsIcms.Tables(0).Rows(0)("MvaP")        ' percentual de valor de margem e valor adicionado
+            If dsIcms.Tables(0).Rows(i - 1)("MvaP") > 0 Then
+                ICMS_pMVAST = dsIcms.Tables(0).Rows(i - 1)("MvaP")        ' percentual de valor de margem e valor adicionado
             Else
                 ICMS_pMVAST = 0
             End If
             ICMS_pRedBCST = 0        ' percentual de redução da BC do ICMS ST
-            If dsIcms.Tables(0).Rows(0)("MvaP") > 0 Then
-                icms_vbcst = Format(dsIcms.Tables(0).Rows(0)("VBCST"), "0.00")        ' BC do ICMS ST
+            If dsIcms.Tables(0).Rows(i - 1)("MvaP") > 0 Then
+                icms_vbcst = Format(dsIcms.Tables(0).Rows(i - 1)("VBCST"), "0.00")        ' BC do ICMS ST
             Else
                 icms_vbcst = 0
             End If
 
             ICMS_pICMSST = 0        ' percentual do ICMSST
-            If dsIcms.Tables(0).Rows(0)("MvaP") > 0 Then
-                ICMS_vICMSST = Format(dsIcms.Tables(0).Rows(0)("VSST"), "0.00")        ' valor do ICMS ST devido
+            If dsIcms.Tables(0).Rows(i - 1)("MvaP") > 0 Then
+                ICMS_vICMSST = Format(dsIcms.Tables(0).Rows(i - 1)("VSST"), "0.00")        ' valor do ICMS ST devido
             Else
                 ICMS_vICMSST = 0
             End If
@@ -925,7 +925,7 @@ Module NFe
             If ds.Tables(0).Rows(0)("OcultarTributos") = -1 Then
                 icms_vTotTrib = 0
             Else
-                icms_vTotTrib = Format(dsIcms.Tables(0).Rows(0)("vimpo"), "0.00")
+                icms_vTotTrib = Format(dsIcms.Tables(0).Rows(i - 1)("vimpo"), "0.00")
             End If
             totICMS_vTotTrib = totICMS_vTotTrib + icms_vTotTrib
 
@@ -943,10 +943,10 @@ Module NFe
             ICMS_vFCPSTRet = 0
             ICMS_pST = 0
 
-            If dsIcms.Tables(0).Rows(0)("Cod Icms") = "06" Then
-                issqn_vBC = Format(dsIcms.Tables(0).Rows(0)("Valor Total"), "0.00")
-                issqn_vAliq = Format(dsIcms.Tables(0).Rows(0)("Percen"), "0.00")
-                issqn_vISSQN = Format((dsIcms.Tables(0).Rows(0)("Valor Total") * dsIcms.Tables(0).Rows(0)("Percen") / 100), "0.00")
+            If dsIcms.Tables(0).Rows(i - 1)("Cod Icms") = "06" Then
+                issqn_vBC = Format(dsIcms.Tables(0).Rows(i - 1)("Valor Total"), "0.00")
+                issqn_vAliq = Format(dsIcms.Tables(0).Rows(i - 1)("Percen"), "0.00")
+                issqn_vISSQN = Format((dsIcms.Tables(0).Rows(i - 1)("Valor Total") * dsIcms.Tables(0).Rows(i - 1)("Percen") / 100), "0.00")
                 issqn_cMunFG = emi_cMun
                 issqn_cListServ = "14.04"
                 issqn_cSitTrib = "N"
@@ -959,10 +959,10 @@ Module NFe
                     efet_orig = ICMS_orig
                     efet_cst = ICMS_CST
                     If indFinal = 0 Then
-                        If IsDBNull(dsIcms.Tables(0).Rows(0)("vBCSTRet")) Then
+                        If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("vBCSTRet")) Then
                             efet_vBCSTRet = 0
                         Else
-                            efet_vBCSTRet = dsIcms.Tables(0).Rows(0)("vBCSTRet") * Prod_qTrib
+                            efet_vBCSTRet = dsIcms.Tables(0).Rows(i - 1)("vBCSTRet") * Prod_qTrib
                         End If
                         efet_pST = 18
                         efet_vICMSSbustituto = (efet_vBCSTRet * efet_pST) / 100   'ver isso
@@ -984,8 +984,8 @@ Module NFe
                         efet_vBCFCPSTRet = 0
                         efet_pFCPSTRet = 0
                         efet_vFCPSTRet = 0
-                        efet_pRedBCEfet = dsIcms.Tables(0).Rows(0)("pRedBCEfet")
-                        efet_vBCEfet = dsIcms.Tables(0).Rows(0)("vBCEfet") * Prod_qTrib
+                        efet_pRedBCEfet = dsIcms.Tables(0).Rows(i - 1)("pRedBCEfet")
+                        efet_vBCEfet = dsIcms.Tables(0).Rows(i - 1)("vBCEfet") * Prod_qTrib
                         efet_pICMSEfet = 18
                         efet_vICMSEfet = efet_vBCEfet * efet_pICMSEfet / 100
                         efet_vBCSTDest = 0
@@ -1005,8 +1005,8 @@ Module NFe
             '=========dados do PIS (grupo Q do Manual de Integração - páginas 110) =============
             '
             pis = ""
-            If Not IsDBNull(dsIcms.Tables(0).Rows(0)("CódPIS")) Then
-                pis_CST = dsIcms.Tables(0).Rows(0)("CódPIS")
+            If Not IsDBNull(dsIcms.Tables(0).Rows(i - 1)("CódPIS")) Then
+                pis_CST = dsIcms.Tables(0).Rows(i - 1)("CódPIS")
 
                 pisst_vBC = 0
                 pisst_pPIS = 0
@@ -1014,20 +1014,20 @@ Module NFe
                 pisst_vAliqProd = 0
                 pisst_vPIS = 0
                 pisst = ""
-                If dsIcms.Tables(0).Rows(0)("VPIS") = 0 Then
-                    pis_vBC = (dsIcms.Tables(0).Rows(0)("Valor Total") - dsIcms.Tables(0).Rows(0)("DescoPro"))
-                    pis_pPIS = dsIcms.Tables(0).Rows(0)("porpis")
+                If dsIcms.Tables(0).Rows(i - 1)("VPIS") = 0 Then
+                    pis_vBC = (dsIcms.Tables(0).Rows(i - 1)("Valor Total") - dsIcms.Tables(0).Rows(i - 1)("DescoPro"))
+                    pis_pPIS = dsIcms.Tables(0).Rows(i - 1)("porpis")
                     pis_vPIS = Format((pis_vBC * pis_pPIS) / 100, "0.00")
                 Else
                     pis_qBCProd = Prod_qTrib
-                    pis_vAliqProd = dsIcms.Tables(0).Rows(0)("VPIS")
+                    pis_vAliqProd = dsIcms.Tables(0).Rows(i - 1)("VPIS")
                     pis_vPIS = Format(pis_vAliqProd * pis_qBCProd, "0.00")
                 End If
                 If pis_CST = "05" Then
                     pisst_vBC = Prod_qTrib
-                    pisst_pPIS = dsIcms.Tables(0).Rows(0)("VPIS")
+                    pisst_pPIS = dsIcms.Tables(0).Rows(i - 1)("VPIS")
                     pisst_qBCProd = 0
-                    pisst_vAliqProd = dsIcms.Tables(0).Rows(0)("VPIS")
+                    pisst_vAliqProd = dsIcms.Tables(0).Rows(i - 1)("VPIS")
                     pisst_vPIS = Format(pis_vAliqProd * pis_qBCProd, "0.00")
                     '
                     ' chamada da DLL para criar o grupo PIS ST
@@ -1057,8 +1057,8 @@ Module NFe
             '=========dados do IPI (grupo Q do Manual de Integração - páginas 110) =============
             '
             ipi = ""
-            If dsIcms.Tables(0).Rows(0)("VIPI") > 0 Then
-                If IsDBNull(dsIcms.Tables(0).Rows(0)("CódIPI")) Then
+            If dsIcms.Tables(0).Rows(i - 1)("VIPI") > 0 Then
+                If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("CódIPI")) Then
 
                     Exit Function
                 End If
@@ -1067,20 +1067,20 @@ Module NFe
                 ipi_cSelo = ""
                 ipi_qSelo = 0
                 ipi_cEnq = "999"
-                ipi_CST = dsIcms.Tables(0).Rows(0)("CódIPI")
-                ipi_vBC = dsIcms.Tables(0).Rows(0)("Valor Total")
-                ipi_pIPI = dsIcms.Tables(0).Rows(0)("AIPI")
+                ipi_CST = dsIcms.Tables(0).Rows(i - 1)("CódIPI")
+                ipi_vBC = dsIcms.Tables(0).Rows(i - 1)("Valor Total")
+                ipi_pIPI = dsIcms.Tables(0).Rows(i - 1)("AIPI")
                 ipi_qUnid = 0
                 ipi_vUnid = 0
-                ipi_vIPI = dsIcms.Tables(0).Rows(0)("VIPI")
+                ipi_vIPI = dsIcms.Tables(0).Rows(i - 1)("VIPI")
                 '
                 ' chamada da DLL para criar o grupo IPI
                 '
                 ipi = nfe.IPI400(ipi_CNPJProd, ipi_cSelo, ipi_qSelo, ipi_cEnq, ipi_CST, ipi_vBC, ipi_pIPI, ipi_vIPI, ipi_qUnid, ipi_vUnid)
             Else
                 If emi_CRT = 3 Then
-                    If Not IsDBNull(dsIcms.Tables(0).Rows(0)("CódIPI")) Then
-                        If IsDBNull(dsIcms.Tables(0).Rows(0)("CódIPI")) Then
+                    If Not IsDBNull(dsIcms.Tables(0).Rows(i - 1)("CódIPI")) Then
+                        If IsDBNull(dsIcms.Tables(0).Rows(i - 1)("CódIPI")) Then
 
                             Exit Function
                         End If
@@ -1089,7 +1089,7 @@ Module NFe
                         ipi_cSelo = ""
                         ipi_qSelo = 0
                         ipi_cEnq = "999"
-                        ipi_CST = dsIcms.Tables(0).Rows(0)("CódIPI")
+                        ipi_CST = dsIcms.Tables(0).Rows(i - 1)("CódIPI")
                         ipi_vBC = 0
                         ipi_pIPI = 0
                         ipi_qUnid = 0
@@ -1107,8 +1107,8 @@ Module NFe
             '========dados do COFINS (grupo s do Manual de Integração - páginas 113) ============
             '
             cofins = ""
-            If Not IsDBNull(dsIcms.Tables(0).Rows(0)("CódCOFINS")) Then
-                cofins_CST = dsIcms.Tables(0).Rows(0)("CódCOFINS")
+            If Not IsDBNull(dsIcms.Tables(0).Rows(i - 1)("CódCOFINS")) Then
+                cofins_CST = dsIcms.Tables(0).Rows(i - 1)("CódCOFINS")
 
                 cofinsst_vBC = 0
                 cofinsst_pPIS = 0
@@ -1118,22 +1118,22 @@ Module NFe
                 cofinsst = ""
                 If cofins_CST = "05" Then
                     cofinsst_vBC = Prod_qTrib
-                    cofinsst_pPIS = dsIcms.Tables(0).Rows(0)("VPIS")
+                    cofinsst_pPIS = dsIcms.Tables(0).Rows(i - 1)("VPIS")
                     cofinsst_qBCProd = 0
-                    cofinsst_vAliqProd = dsIcms.Tables(0).Rows(0)("VCOFINS")
+                    cofinsst_vAliqProd = dsIcms.Tables(0).Rows(i - 1)("VCOFINS")
                     cofinsst_vPIS = Format(cofins_vAliqProd * cofins_qBCProd, "0.00")
                     '
                     ' chamada da DLL para criar o grupo PIS ST
                     '
                     cofinsst = nfe.COFINSST(cofinsst_vBC, cofinsst_pCOFINS, cofinsst_vCOFINS, cofinsst_qBCProd, cofinsst_vAliqProd)
                 End If
-                If dsIcms.Tables(0).Rows(0)("VCOFINS") = 0 Then
-                    cofins_vBC = (dsIcms.Tables(0).Rows(0)("Valor Total") - dsIcms.Tables(0).Rows(0)("DescoPro"))
-                    cofins_pCOFINS = dsIcms.Tables(0).Rows(0)("porcofins")
+                If dsIcms.Tables(0).Rows(i - 1)("VCOFINS") = 0 Then
+                    cofins_vBC = (dsIcms.Tables(0).Rows(i - 1)("Valor Total") - dsIcms.Tables(0).Rows(i - 1)("DescoPro"))
+                    cofins_pCOFINS = dsIcms.Tables(0).Rows(i - 1)("porcofins")
                     cofins_vCOFINS = Format((cofins_vBC * cofins_pCOFINS) / 100, "0.00")
                 Else
                     cofins_qBCProd = Prod_qTrib
-                    cofins_vAliqProd = dsIcms.Tables(0).Rows(0)("VCOFINS")
+                    cofins_vAliqProd = dsIcms.Tables(0).Rows(i - 1)("VCOFINS")
                     cofins_vCOFINS = Format(cofins_vAliqProd * cofins_qBCProd, "0.00")
                 End If
 
@@ -1173,7 +1173,7 @@ Module NFe
             vICMSUFRemet = 0
             vBCFCPUFDest = 0
 
-            If dsIcms.Tables(0).Rows(0)("Cod Icms") <> "06" Then
+            If dsIcms.Tables(0).Rows(i - 1)("Cod Icms") <> "06" Then
                 If Prod_CFOP <> 5933 Then
                     If Prod_CFOP <> 6949 Then
                         If Prod_CFOP <> 6933 Then
@@ -1189,7 +1189,7 @@ Module NFe
                                             da.Fill(dsTabelaIcms, "TabelaICMS")
 
 
-                                            Porice = (dsTabelaIcms.Tables(0).Rows(0)("ICMSDestino") - dsIcms.Tables(0).Rows(0)("Aliq ICMS"))
+                                            Porice = (dsTabelaIcms.Tables(0).Rows(0)("ICMSDestino") - dsIcms.Tables(0).Rows(i - 1)("Aliq ICMS"))
 
                                             If ICMS_pRedBC > 0 Then
                                                 ValorDesti = (((Prod_vProd) * ICMS_pRedBC / 100) * Porice / 100) * dsTabelaIcms.Tables(0).Rows(0)("PorDestino") / 100
@@ -1254,11 +1254,11 @@ Module NFe
         Next
 
 
-        'totICMS_vIPI = dsIcms.Tables(0).Rows(0)("VIPI")
-        'totICMS_vSeg = dsIcms.Tables(0).Rows(0)("vseg")
+        'totICMS_vIPI = dsIcms.Tables(0).Rows(i - 1)("VIPI")
+        'totICMS_vSeg = dsIcms.Tables(0).Rows(i - 1)("vseg")
         'totICMS_vDesc = totICMS_vDesc
-        'totICMS_vOutro = dsIcms.Tables(0).Rows(0)("Vdesp")
-        'totICMS_vFrete = dsIcms.Tables(0).Rows(0)("Vfrete")
+        'totICMS_vOutro = dsIcms.Tables(0).Rows(i - 1)("Vdesp")
+        'totICMS_vFrete = dsIcms.Tables(0).Rows(i - 1)("Vfrete")
         'totICMS_vProd = totICMS_vProd - totICMS_vISSQNBC
 
         totICMS_vNF = totICMS_vProd + totICMS_vISSQNBC + totICMS_vFrete + totICMS_vST + totICMS_vIPI + totICMS_vSeg + totICMS_vOutro - totICMS_vDesc        '- Desti![Valorfun]

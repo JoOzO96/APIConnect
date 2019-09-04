@@ -61,11 +61,12 @@ Namespace Controllers
                 listaNota = JsonConvert.DeserializeObject(Of List(Of NotaFiscal))(json)
                 For i = 0 To listaNota.Count - 1
                     nota = listaNota(i)
-                    'da = Nothing
-                    'ds = Nothing
-                    'comando = New OleDbCommand("SELECT * from [Nota Fiscal] where [Cód Nota] = '" & nota.Codnota & "' and Codemitente = " & nota.Codemitente & " order by [Cód Nota] desc", dados)
-                    'da = New OleDbDataAdapter(comando)
-                    'da.Fill(ds, "Nota Fiscal")
+                    da = Nothing
+                    ds = Nothing
+                    comando = New OleDbCommand("SELECT * from [Nota Fiscal] where [Cód Nota] = '" & nota.codnota & "' and Codemitente = " & nota.codemitente & " order by [Cód Nota] desc", dados)
+                    da = New OleDbDataAdapter(comando)
+                    ds = New DataSet
+                    da.Fill(ds, "Nota Fiscal")
                     Dim dtv As DataView = ds.Tables(0).DefaultView
                     dtv.RowFilter = " [Cód Nota] = '" + nota.Codnota + "' and Codemitente = " & nota.Codemitente
                     If (dtv.Count > 0) Then

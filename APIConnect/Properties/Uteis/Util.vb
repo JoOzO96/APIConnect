@@ -173,7 +173,7 @@ Module Util
             If field(i).PropertyType.FullName.ToUpper.Equals("SYSTEM.DATETIME") Then
 
                 dadosTabela = dadosTabela & "#"
-                dadosTabela = dadosTabela & dado
+                dadosTabela = dadosTabela & Format(dado, "MM/dd/yyyy")
                 dadosTabela = dadosTabela & "#"
             Else
 
