@@ -56,6 +56,8 @@ Namespace Controllers
                         pedido.pgto = pedido.formadepagamento
                         pedido.formadepagamento = ""
                     End If
+                    pedido.codstatus = 2
+                    pedido.dataentrega = Today
                     pedido.baixa = True
                     insert = RetornaInsert(fieldList, pedido, "Pedido")
                     insert = insert.Replace("codcliente", "[Cód cliente]")

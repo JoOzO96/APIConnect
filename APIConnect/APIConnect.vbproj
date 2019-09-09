@@ -197,6 +197,7 @@
     <Compile Include="Controllers\ClienteSefazController.vb" />
     <Compile Include="Controllers\EmiteConfiguraController.vb" />
     <Compile Include="Controllers\EmitenteController.vb" />
+    <Compile Include="Controllers\EnviaEmailController.vb" />
     <Compile Include="Controllers\EnviaNfeController.vb" />
     <Compile Include="Controllers\FormaPagamentoController.vb" />
     <Compile Include="Controllers\Icms.vb" />
@@ -217,6 +218,7 @@
     <Compile Include="Models\Cidade.vb" />
     <Compile Include="Models\Cliente.vb" />
     <Compile Include="Models\ControleCodigo.vb" />
+    <Compile Include="Models\DadosEnvio.vb" />
     <Compile Include="Models\EmiteConfigura.vb" />
     <Compile Include="Models\Emitente.vb" />
     <Compile Include="Models\FormaPagamento.vb" />

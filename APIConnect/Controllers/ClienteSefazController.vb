@@ -15,6 +15,7 @@ Namespace Controllers
         Public Function GetValue(ByVal id As String) As List(Of InfCadastro)
             Dim xml As New XmlDocument
             Dim infCad As XmlNodeList
+            Dim infEnder As XmlNodeList
             Dim objeto As XmlNode
             Dim infCadastro As InfCadastro
             Dim listainfCadastro As New List(Of InfCadastro)
@@ -30,34 +31,33 @@ Namespace Controllers
 
                 infCad = xml.SelectNodes("//infCad")
 
-                    For Each objeto In infCad
+                For Each objeto In infCad
 
-                        infCadastro = New InfCadastro
-                        infCadastro.Ie = RetornaValorNodoXML(objeto.InnerXml, "IE", "")
-                        infCadastro.Cnpj = RetornaValorNodoXML(objeto.InnerXml, "CNPJ", "")
-                        infCadastro.Uf = RetornaValorNodoXML(objeto.InnerXml, "UF", "")
-                        infCadastro.Csit = RetornaValorNodoXML(objeto.InnerXml, "cSit", "")
-                        infCadastro.Indcrednfe = RetornaValorNodoXML(objeto.InnerXml, "indCredNFe", "")
-                        infCadastro.Indcredcte = RetornaValorNodoXML(objeto.InnerXml, "indCredCTe", "")
-                        infCadastro.Xnome = RetornaValorNodoXML(objeto.InnerXml, "xNome", "")
-                        infCadastro.Xfant = RetornaValorNodoXML(objeto.InnerXml, "xFant", "")
-                        infCadastro.Xregapur = RetornaValorNodoXML(objeto.InnerXml, "xRegApur", "")
-                        infCadastro.Cnae = RetornaValorNodoXML(objeto.InnerXml, "CNAE", "")
-                        infCadastro.Diniativ = RetornaValorNodoXML(objeto.InnerXml, "dIniAtiv", "")
-                        infCadastro.Xlgr = RetornaValorNodoXML(objeto.InnerXml, "Xlgr", "ender")
-                        infCadastro.Nro = RetornaValorNodoXML(objeto.InnerXml, "Nro", "ender")
-                        infCadastro.Xbairro = RetornaValorNodoXML(objeto.InnerXml, "Xbairro", "ender")
-                        infCadastro.Xcpl = RetornaValorNodoXML(objeto.InnerXml, "Xcpl", "ender")
-                        infCadastro.Cmun = RetornaValorNodoXML(objeto.InnerXml, "Cmun", "ender")
-                        infCadastro.Xmun = RetornaValorNodoXML(objeto.InnerXml, "Xmun", "ender")
-                        infCadastro.Cep = RetornaValorNodoXML(objeto.InnerXml, "Cep", "ender")
+                    infCadastro = New InfCadastro
+                    infCadastro.ie = RetornaValorNodoXML(objeto.InnerXml, "IE", "")
+                    infCadastro.cnpj = RetornaValorNodoXML(objeto.InnerXml, "CNPJ", "")
+                    infCadastro.uf = RetornaValorNodoXML(objeto.InnerXml, "UF", "")
+                    infCadastro.csit = RetornaValorNodoXML(objeto.InnerXml, "cSit", "")
+                    infCadastro.indcrednfe = RetornaValorNodoXML(objeto.InnerXml, "indCredNFe", "")
+                    infCadastro.indcredcte = RetornaValorNodoXML(objeto.InnerXml, "indCredCTe", "")
+                    infCadastro.xnome = RetornaValorNodoXML(objeto.InnerXml, "xNome", "")
+                    infCadastro.xfant = RetornaValorNodoXML(objeto.InnerXml, "xFant", "")
+                    infCadastro.xregapur = RetornaValorNodoXML(objeto.InnerXml, "xRegApur", "")
+                    infCadastro.cnae = RetornaValorNodoXML(objeto.InnerXml, "CNAE", "")
+                    infCadastro.diniativ = RetornaValorNodoXML(objeto.InnerXml, "dIniAtiv", "")
+                    infEnder = xml.SelectNodes("//ender")
+                    infCadastro.xlgr = RetornaValorNodoXML(infEnder.Item(0).InnerXml, "xLgr", "")
+                    infCadastro.nro = RetornaValorNodoXML(infEnder.Item(0).InnerXml, "nro", "")
+                    infCadastro.xbairro = RetornaValorNodoXML(infEnder.Item(0).InnerXml, "xBairro", "")
+                    infCadastro.xcpl = RetornaValorNodoXML(infEnder.Item(0).InnerXml, "xCpl", "")
+                    infCadastro.cmun = RetornaValorNodoXML(infEnder.Item(0).InnerXml, "cMun", "")
+                    infCadastro.xmun = RetornaValorNodoXML(infEnder.Item(0).InnerXml, "xMun", "")
+                    infCadastro.cep = RetornaValorNodoXML(infEnder.Item(0).InnerXml, "CEP", "")
+                    listainfCadastro.Add(infCadastro)
+                Next
 
 
-                        listainfCadastro.Add(infCadastro)
-                    Next
-
-
-                    Return listainfCadastro
+                Return listainfCadastro
                 Else
                     infCadastro = New InfCadastro
                     infCadastro.erro = retorno

@@ -33,10 +33,14 @@ Namespace Controllers
                 For j = 0 To fieldList.Length - 1
                     nomeCampo = fieldList(j).Name.ToLower
 
+                    Try
+                        If Not IsDBNull(ds.Tables(0).Rows(i)(nomeCampo)) Then
+                            emiteConfigura = colocaDadosObjeto(emiteConfigura, fieldList(j), ds.Tables(0).Rows(i)(nomeCampo))
+                        End If
+                    Catch ex As Exception
 
-                    If Not IsDBNull(ds.Tables(0).Rows(i)(nomeCampo)) Then
-                        emiteConfigura = colocaDadosObjeto(emiteConfigura, fieldList(j), ds.Tables(0).Rows(i)(nomeCampo))
-                    End If
+                    End Try
+
                 Next
             Next
 

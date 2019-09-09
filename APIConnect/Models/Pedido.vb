@@ -75,7 +75,7 @@
     Private _nfcee As Boolean
     Private _juridica As Boolean
     Private _ajuste As String
-    Private _dataentrega As Long
+    Private _dataentrega As Date
     Private _nnotaservico As String
     Private _codbandeira As Long
     Private _orcamentofinalizado As Boolean
@@ -772,11 +772,11 @@
         End Set
     End Property
 
-    Public Property dataentrega As Long
+    Public Property dataentrega As Date
         Get
             Return _dataentrega
         End Get
-        Set(value As Long)
+        Set(value As Date)
             _dataentrega = value
         End Set
     End Property
