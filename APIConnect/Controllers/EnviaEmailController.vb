@@ -18,7 +18,7 @@ Namespace Controllers
         End Function
 
         ' POST: api/EnviaEmail
-        Public Sub PostValue(<FromBody()> ByVal value As Object)
+        Public Function PostValue(<FromBody()> ByVal value As Object) As String
             If value.ToString <> Nothing Then
 
                 Dim json = value.ToString
@@ -47,17 +47,17 @@ Namespace Controllers
                 dadosenvio = JsonConvert.DeserializeObject(Of DadosEnvio)(json)
                 emitente = RetornaEmitente(1)
                 cont = 0
-                eMailRemetente = emitente.emailemi
+                eMailRemetente = "cfs@xmax.com.br" 'emitente.emailemi
                 nomeRemetente = emitente.fantasia
                 eMailDestinatario = dadosenvio.emaildestinatario
                 assunto = dadosenvio.assunto
                 mensagem = dadosenvio.mensagem
                 arquivo = dadosenvio.arquivo
-                smtpCliente = emitente.server
-                smtpPorta = emitente.porta
-                smtpSSL = emitente.autenticacao
-                smtpUsuario = emitente.usuario
-                smtpSenha = emitente.senha
+                smtpCliente = "mail.xmax.com.br" 'emitente.server
+                smtpPorta = "587" 'emitente.porta
+                smtpSSL = "1" 'emitente.autenticacao
+                smtpUsuario = "cfs@xmax.com.br" 'emitente.usuario
+                smtpSenha = "cfs60479282" 'emitente.senha
                 html = "0"
                 confirmacao = "1"
                 msgResultado = ""
@@ -76,11 +76,10 @@ Namespace Controllers
                     objTemp = objAssembly.CreateInstance("NFe_Util_2G.Util", True)
                     objTemp.geraPdfDANFE(xml.InnerXml, "", "S", "S", "N", "", "L", "[ARQUIVO=" + pdf + "]", msgResultado)
                     cResultado = objTemp.EnvEmail(eMailRemetente, nomeRemetente, eMailDestinatario, "", assunto, mensagem, arquivo, smtpCliente, smtpPorta, smtpSSL, smtpUsuario, smtpSenha, html, confirmacao, msgResultado)
-
-
+                    Return cResultado & "-" & msgResultado
                 End If
             End If
-        End Sub
+        End Function
 
         ' PUT: api/EnviaEmail/5
         Public Sub PutValue(ByVal id As Integer, <FromBody()> ByVal value As String)

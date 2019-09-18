@@ -87,6 +87,7 @@
     Private _enviadoemailnfse As Boolean
     Private _rota As String
     Private _geradoautomatico As Boolean
+    Private _geradoexterno As Boolean
 
     Public Property pedido As Long
         Get
@@ -877,6 +878,15 @@
         End Get
         Set(value As Boolean)
             _geradoautomatico = value
+        End Set
+    End Property
+
+    Public Property geradoexterno As Boolean
+        Get
+            Return _geradoexterno
+        End Get
+        Set(value As Boolean)
+            _geradoexterno = value
         End Set
     End Property
 End Class

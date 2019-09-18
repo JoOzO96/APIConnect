@@ -38,6 +38,7 @@ Namespace Controllers
             comando.ExecuteNonQuery()
             dados.Close()
             Try
+                json = json.Replace(Chr(34) & "dataentrega" & Chr(34) & ": 0,", Chr(34) & "dataentrega" & Chr(34) & ": " & Chr(34) & Format(Today, "yyyy-MM-dd") & "T00:00:00" & Chr(34) & ",")
                 listaPedido = JsonConvert.DeserializeObject(Of List(Of Pedido))(json)
                 For i = 0 To listaPedido.Count - 1
                     dados.Open()
@@ -45,7 +46,7 @@ Namespace Controllers
                     pedido = New Pedido
 
                     pedido = listaPedido(i)
-
+                    pedido.geradoexterno = True
                     If (pedido.total) = 0 Then
                         pedido.total = pedido.valortotal
                     End If
@@ -57,7 +58,8 @@ Namespace Controllers
                         pedido.formadepagamento = ""
                     End If
                     pedido.codstatus = 2
-                    pedido.dataentrega = Today
+                    pedido.orpedi = "2"
+                    'pedido.dataentrega = Format(Now, "dd/MM/yyyy")
                     pedido.baixa = True
                     insert = RetornaInsert(fieldList, pedido, "Pedido")
                     insert = insert.Replace("codcliente", "[Cód cliente]")
@@ -80,7 +82,7 @@ Namespace Controllers
                     da.Fill(ds, "PedidoAndroid")
 
                     comando.Dispose()
-                    controleCodigo.CodigoAndroid = pedido.Pedido
+                    controleCodigo.CodigoAndroid = pedido.pedido
                     controleCodigo.CodigoBanco = ds.Tables(0).Rows(0)("Pedido")
 
                     ds.Dispose()
