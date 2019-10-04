@@ -193,6 +193,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.vb" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.vb" />
     <Compile Include="Controllers\CidadeController.vb" />
+    <Compile Include="Controllers\ClienteAnimaisController.vb" />
     <Compile Include="Controllers\ClienteController.vb" />
     <Compile Include="Controllers\ClienteSefazController.vb" />
     <Compile Include="Controllers\EmiteConfiguraController.vb" />
@@ -217,6 +218,7 @@
     </Compile>
     <Compile Include="Models\Cidade.vb" />
     <Compile Include="Models\Cliente.vb" />
+    <Compile Include="Models\ClienteAnimais.vb" />
     <Compile Include="Models\ControleCodigo.vb" />
     <Compile Include="Models\DadosEnvio.vb" />
     <Compile Include="Models\EmiteConfigura.vb" />

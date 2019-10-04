@@ -84,6 +84,13 @@
     Private _enviadadossped As Boolean
     Private _codnaturezaremessa As String
     Private _codnaturezavendadireta As String
+    Private _usarconversaocst As Boolean
+    Private _exportarapenasquantidade As Boolean
+    Private _permitirdowloadnfecte As Boolean
+    Private _porcentagempadraoctefrete As Double
+    Private _alterarcodigoentrada As Boolean
+    Private _empresapet As Boolean
+
 
     Public Property codemitente As Long
         Get
@@ -838,6 +845,60 @@
         End Get
         Set(value As String)
             _codnaturezavendadireta = value
+        End Set
+    End Property
+
+    Public Property usarconversaocst As Boolean
+        Get
+            Return _usarconversaocst
+        End Get
+        Set(value As Boolean)
+            _usarconversaocst = value
+        End Set
+    End Property
+
+    Public Property exportarapenasquantidade As Boolean
+        Get
+            Return _exportarapenasquantidade
+        End Get
+        Set(value As Boolean)
+            _exportarapenasquantidade = value
+        End Set
+    End Property
+
+    Public Property permitirdowloadnfecte As Boolean
+        Get
+            Return _permitirdowloadnfecte
+        End Get
+        Set(value As Boolean)
+            _permitirdowloadnfecte = value
+        End Set
+    End Property
+
+    Public Property porcentagempadraoctefrete As Double
+        Get
+            Return _porcentagempadraoctefrete
+        End Get
+        Set(value As Double)
+            _porcentagempadraoctefrete = value
+        End Set
+    End Property
+
+    Public Property alterarcodigoentrada As Boolean
+        Get
+            Return _alterarcodigoentrada
+        End Get
+        Set(value As Boolean)
+            _alterarcodigoentrada = value
+        End Set
+    End Property
+
+    Public Property empresapet As Boolean
+        Get
+            Return _empresapet
+        End Get
+        Set(value As Boolean)
+            _empresapet = value
         End Set
     End Property
 End Class

@@ -136,7 +136,28 @@ Module Util
             Next
 
         End If
+        If tabela = "ClienteAnimais" Then
 
+            For i = 0 To field.Count - 1
+                If field(i).Name = "idclienteanimal" Then
+                    field.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+            For i = 0 To field.Count - 1
+                If field(i).Name = "cadastroandroid" Then
+                    field.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+            For i = 0 To field.Count - 1
+                If field(i).Name = "alteradoandroid" Then
+                    field.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+
+        End If
         If tabela = "[Pedido Produto]" Then
             For i = 0 To field.Count - 1
                 If field(i).Name = "Conta" Then
@@ -238,6 +259,29 @@ Module Util
             Next
             For i = 0 To field.Count - 1
                 If field(i).Name = "alteradoAndroid" Then
+                    field.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+
+        End If
+
+        If tabela = "ClienteAnimais" Then
+
+            For i = 0 To field.Count - 1
+                If field(i).Name = "idclienteanimal" Then
+                    field.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+            For i = 0 To field.Count - 1
+                If field(i).Name = "cadastroandroid" Then
+                    field.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+            For i = 0 To field.Count - 1
+                If field(i).Name = "alteradoandroid" Then
                     field.RemoveAt(i)
                     Exit For
                 End If
