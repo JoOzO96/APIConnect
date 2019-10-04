@@ -77,7 +77,15 @@ Namespace Controllers
                 Dim controleCodigo = New ControleCodigo
                 controleCodigo.CodigoAndroid = 0
                 controleCodigo.CodigoBanco = 0
-                controleCodigo.Mensagem = ex.Message & "-" & insert
+                If (ex.Message.Contains("unknown field name")) Then
+                    controleCodigo.Mensagem = RetornaCampoQueFalta(ex.Message, pedidoproduto, "[Pedido Produto]")
+                    comando = New OleDbCommand(controleCodigo.Mensagem, dados)
+                    comando.ExecuteNonQuery()
+                    System.Diagnostics.Debug.WriteLine("Banco.execute " & Chr(34) & controleCodigo.Mensagem & Chr(34))
+                Else
+                    controleCodigo.Mensagem = ex.Message & " - " & ex.StackTrace & " - " & insert
+                End If
+                dados.Close()
                 listcontrolecodigo.Add(controleCodigo)
                 Return listcontrolecodigo
                 Console.WriteLine(ex.Message)

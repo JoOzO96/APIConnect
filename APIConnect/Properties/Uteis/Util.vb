@@ -375,5 +375,42 @@ Module Util
         Return update
     End Function
 
+    Public Function RetornaCampoQueFalta(mensagem As String, classe As Object, tabela As String) As String
+        Dim fieldList = classe.GetType().GetProperties().ToList
+        Dim nomecampo As String
+        Dim retorno As String
+        nomecampo = Split(mensagem, ":")(1).Replace("'", "")
+        nomecampo = Split(nomecampo, ".")(0).Trim
+        For i = 0 To fieldList.Count - 1
+
+            If fieldList(i).Name.ToLower.Equals(nomecampo) Then
+
+                If fieldList(i).PropertyType.FullName.ToUpper.Equals("SYSTEM.DATETIME") Then
+
+                    retorno = "ALTER TABLE " & tabela & " ADD " & fieldList(i).Name.ToLower & " date"
+
+                Else
+
+                    If (fieldList(i).PropertyType.FullName.ToUpper.Equals("SYSTEM.STRING")) Then
+                        retorno = "ALTER TABLE " & tabela & " ADD " & fieldList(i).Name.ToLower & " text(255)"
+                    End If
+                    If (fieldList(i).PropertyType.FullName.ToUpper.Equals("SYSTEM.DOUBLE")) Then
+                        retorno = "ALTER TABLE " & tabela & " ADD " & fieldList(i).Name.ToLower & " double"
+                    End If
+                    If (fieldList(i).PropertyType.FullName.ToUpper.Equals("SYSTEM.SINGLE")) Then
+                        retorno = "ALTER TABLE " & tabela & " ADD " & fieldList(i).Name.ToLower & " single"
+                    End If
+                    If (fieldList(i).PropertyType.FullName.ToUpper.Equals("SYSTEM.DECIMAL")) Then
+                        retorno = "ALTER TABLE " & tabela & " ADD " & fieldList(i).Name.ToLower & " decimal"
+                    End If
+                    If (fieldList(i).PropertyType.FullName.ToUpper.Equals("SYSTEM.BOOLEAN")) Then
+                        retorno = "ALTER TABLE " & tabela & " ADD " & fieldList(i).Name.ToLower & " yesno"
+                    End If
+                End If
+            End If
+        Next
+
+        Return retorno
+    End Function
 
 End Module

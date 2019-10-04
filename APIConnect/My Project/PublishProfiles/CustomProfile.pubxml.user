@@ -79,13 +79,13 @@ ao editar este arquivo MSBuild. Para saber mais sobre isso, visite https://go.mi
       <publishTime>08/26/2019 23:54:42</publishTime>
     </File>
     <File Include="bin/APIConnect.dll">
-      <publishTime>09/16/2019 15:06:58</publishTime>
+      <publishTime>10/04/2019 09:20:35</publishTime>
     </File>
     <File Include="bin/APIConnect.pdb">
-      <publishTime>09/16/2019 15:06:58</publishTime>
+      <publishTime>10/04/2019 09:20:35</publishTime>
     </File>
     <File Include="bin/APIConnect.xml">
-      <publishTime>09/16/2019 15:06:58</publishTime>
+      <publishTime>10/04/2019 09:20:35</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.TelemetryCorrelation.dll">
       <publishTime>08/26/2019 23:54:42</publishTime>

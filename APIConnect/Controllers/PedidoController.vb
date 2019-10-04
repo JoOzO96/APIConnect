@@ -93,9 +93,16 @@ Namespace Controllers
                     listcontrolecodigo.Add(controleCodigo)
                 Next
             Catch ex As Exception
-                dados.Close()
                 controleCodigo = New ControleCodigo
-                controleCodigo.Mensagem = ex.Message & " - " & ex.StackTrace & " - " & insert
+                If (ex.Message.Contains("unknown field name")) Then
+                    controleCodigo.Mensagem = RetornaCampoQueFalta(ex.Message, pedido, "Pedido")
+                    comando = New OleDbCommand(controleCodigo.Mensagem, dados)
+                    comando.ExecuteNonQuery()
+                    System.Diagnostics.Debug.WriteLine("Banco.execute " & Chr(34) & controleCodigo.Mensagem & Chr(34))
+                Else
+                    controleCodigo.Mensagem = ex.Message & " - " & ex.StackTrace & " - " & insert
+                End If
+                dados.Close()
                 listcontrolecodigo.Add(controleCodigo)
                 Return listcontrolecodigo
             End Try
