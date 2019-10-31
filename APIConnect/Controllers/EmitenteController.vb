@@ -28,30 +28,45 @@ Namespace Controllers
             Dim fieldList() = emitente.GetType().GetProperties
             Dim nomeCampo As String
 
+            Try
 
-            For i = 0 To ds.Tables(0).Rows.Count - 1
-                emitente = New Emitente
-                For j = 0 To fieldList.Length - 1
-                    nomeCampo = fieldList(j).Name.ToLower
-                    If (nomeCampo.Equals("emailemi")) Then
-                        nomeCampo = "E-mailEmi"
-                    End If
-                    If (nomeCampo.Equals("modulo")) Then
-                        nomeCampo = "Módulo"
-                    End If
-                    If (nomeCampo.Equals("codhistorico")) Then
-                        nomeCampo = "Cód Histórico"
-                    End If
 
-                    If Not IsDBNull(ds.Tables(0).Rows(i)(nomeCampo)) Then
-                        emitente = colocaDadosObjeto(emitente, fieldList(j), ds.Tables(0).Rows(i)(nomeCampo))
-                    End If
+                For i = 0 To ds.Tables(0).Rows.Count - 1
+                    emitente = New Emitente
+                    For j = 0 To fieldList.Length - 1
+                        nomeCampo = fieldList(j).Name.ToLower
+                        If (nomeCampo.Equals("emailemi")) Then
+                            nomeCampo = "E-mailEmi"
+                        End If
+                        If (nomeCampo.Equals("modulo")) Then
+                            nomeCampo = "Módulo"
+                        End If
+                        If (nomeCampo.Equals("codhistorico")) Then
+                            nomeCampo = "Cód Histórico"
+                        End If
+
+                        If Not IsDBNull(ds.Tables(0).Rows(i)(nomeCampo)) Then
+                            emitente = colocaDadosObjeto(emitente, fieldList(j), ds.Tables(0).Rows(i)(nomeCampo))
+                        End If
+                    Next
                 Next
-            Next
+                dados.Close()
+            Catch ex As Exception
+                If (ex.Message.Contains("unknown field name")) Then
+                    comando = New OleDbCommand(RetornaCampoQueFalta(ex.Message, emitente, "Emitente"), dados)
+                    comando.ExecuteNonQuery()
+                    System.Diagnostics.Debug.WriteLine("Banco.execute " & Chr(34) & RetornaCampoQueFalta(ex.Message, emitente, "Emitente") & Chr(34))
+                    GetValue(id)
+                Else
+                    System.Diagnostics.Debug.WriteLine(ex.Message)
+
+                End If
+            End Try
 
             dados.Close()
 
             Return emitente
+
         End Function
 
         ' POST: api/Emitente

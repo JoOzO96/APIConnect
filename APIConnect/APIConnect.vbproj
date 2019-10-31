@@ -216,6 +216,8 @@
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AtividadePrincipal.vb" />
+    <Compile Include="Models\AtividadesSecundaria.vb" />
     <Compile Include="Models\Cidade.vb" />
     <Compile Include="Models\Cliente.vb" />
     <Compile Include="Models\ClienteAnimais.vb" />
@@ -233,6 +235,8 @@
     <Compile Include="Models\Pedido.vb" />
     <Compile Include="Models\PedidoProduto.vb" />
     <Compile Include="Models\Produto.vb" />
+    <Compile Include="Models\Qsa.vb" />
+    <Compile Include="Models\ReceitaFederal.vb" />
     <Compile Include="Models\Vendedor.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

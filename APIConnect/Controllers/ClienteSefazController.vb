@@ -1,6 +1,8 @@
-﻿Imports System.Net
+﻿Imports System.Data.OleDb
+Imports System.Net
 Imports System.Web.Http
 Imports System.Xml
+Imports Newtonsoft.Json
 
 Namespace Controllers
     Public Class ClienteSefazController
@@ -13,6 +15,11 @@ Namespace Controllers
 
         ' GET: api/ClienteSefaz/5
         Public Function GetValue(ByVal id As String) As List(Of InfCadastro)
+            Dim dados As New OleDbConnection
+            Dim comando As New OleDbCommand
+            Dim ds As New DataSet
+            dados.ConnectionString = RetornaConexao()
+            dados.Open()
             Dim xml As New XmlDocument
             Dim infCad As XmlNodeList
             Dim infEnder As XmlNodeList
@@ -58,12 +65,40 @@ Namespace Controllers
 
 
                 Return listainfCadastro
+            Else
+                If (Left(retorno, 3) = "259") Then
+
+                    infCadastro = New InfCadastro
+                    Dim client = New WebClient()
+                    Dim response = client.DownloadString(New Uri("https://receitaws.com.br/v1/cnpj/" & id))
+                    Dim receitafederal As ReceitaFederal = JsonConvert.DeserializeObject(Of ReceitaFederal)(response)
+                    infCadastro.ie = "ISENTO"
+                    infCadastro.cnpj = id
+                    infCadastro.uf = receitafederal.uf
+                    infCadastro.xnome = receitafederal.nome
+                    infCadastro.xfant = receitafederal.fantasia
+                    infCadastro.xregapur = receitafederal.porte
+                    infCadastro.diniativ = receitafederal.abertura
+                    infCadastro.xlgr = receitafederal.logradouro
+                    infCadastro.nro = receitafederal.numero
+                    infCadastro.xbairro = receitafederal.bairro
+                    infCadastro.xcpl = receitafederal.complemento
+                    comando = New OleDbCommand("SELECT * from Cidade WHERE [Nome cidade] = '" & receitafederal.municipio & "' and UF = '" & receitafederal.uf & "'", dados)
+                    Dim da As New OleDbDataAdapter(comando)
+                    da.Fill(ds, "Cidade")
+                    infCadastro.cmun = ds.Tables(0).Rows(0)("CodNacionalCidade")
+                    infCadastro.xmun = receitafederal.municipio
+                    infCadastro.cep = Replace(receitafederal.cep, ".", "")
+                    listainfCadastro.Add(infCadastro)
+                    Return listainfCadastro
                 Else
                     infCadastro = New InfCadastro
                     infCadastro.erro = retorno
                     listainfCadastro.Add(infCadastro)
                     Return listainfCadastro
                 End If
+            End If
+
         End Function
 
         ' POST: api/ClienteSefaz

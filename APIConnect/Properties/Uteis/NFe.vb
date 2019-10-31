@@ -35,12 +35,12 @@ Module NFe
 
         conexao.ConnectionString = RetornaConexao()
         conexao.Open()
-        comando = New OleDbCommand("SELECT * FROM EmiteConfigura", conexao)
+        comando = New OleDbCommand("SELECT * FROM Emitente", conexao)
         Dim da As New OleDbDataAdapter(comando)
-        da.Fill(ds, "EmiteConfigura")
+        da.Fill(ds, "Emitente")
 
 
-        nomeCertificado = ds.Tables(0).Rows(0)("CertificadoAndroid")
+        nomeCertificado = ds.Tables(0).Rows(0)("CertiEmi")
         siglaUF = "RS"
         tipoAmbiente = 1
         versao = "4.00"
