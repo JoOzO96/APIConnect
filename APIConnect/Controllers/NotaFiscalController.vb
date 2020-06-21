@@ -102,7 +102,6 @@ Namespace Controllers
                             insert = insert.Replace("pesobruto", "[Peso Bruto]")
                             insert = insert.Replace("pesoliquido", "[Peso Líquido]")
                             insert = insert.Replace("especie", "[Espécie]")
-                            insert = insert.Replace("numero", "[Número]")
                             insert = insert.Replace("codvendedor", "[Cód Vendedor]")
                             insert = insert.Replace("simnao", "[Sim/Não]")
 
